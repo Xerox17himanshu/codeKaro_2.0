@@ -64,7 +64,7 @@ function bindEvents() {
   $('#resourcesDialog').addEventListener('click', event => {
     if (event.target === $('#resourcesDialog')) closeResources();
   });
-  $('#continueButton').addEventListener('click', () => openChallenge(firstIncompleteUnlocked()));
+  $('#continueButton').addEventListener('click', () => openChallenge(state.unlocked));
   $('#openToday').addEventListener('click', () => openChallenge(firstIncompleteUnlocked()));
   $('#closeDialog').addEventListener('click', () => $('#challengeDialog').close());
   $('#challengeDialog').addEventListener('click', e => { if (e.target === $('#challengeDialog')) $('#challengeDialog').close(); });
@@ -145,6 +145,9 @@ async function loadTrack(trackName) {
 function firstIncompleteUnlocked() {
   return state.challenges.find(item => item.day <= state.unlocked && !state.completed.has(item.day))?.day || state.unlocked;
 }
+function unlockedChallenges() {
+  return state.challenges.filter(item => item.day <= state.unlocked);
+}
 function render() {
   renderToday(); renderStats(); renderGrid(); renderUnlockMessage();
 }
@@ -157,22 +160,27 @@ function renderToday() {
 }
 function currentStreak() {
   let streak = 0;
-  for (let day = state.unlocked; day >= 1; day--) {
+  const available = unlockedChallenges();
+  for (let index = available.length - 1; index >= 0; index--) {
+    const day = available[index].day;
     if (state.completed.has(day)) streak++;
-    else if (day !== state.unlocked || streak > 0) break;
+    else if (streak > 0) break;
   }
   return streak;
 }
 function renderStats() {
   const total = state.challenges.length;
-  const count = [...state.completed].filter(day => day <= total).length;
+  const available = unlockedChallenges();
+  const availableCount = available.length;
+  const validDays = new Set(state.challenges.map(item => item.day));
+  const count = [...state.completed].filter(day => validDays.has(day)).length;
   const level = Math.floor(count / 5) + 1;
   const levelStart = (level - 1) * 5;
   const levelProgress = ((count - levelStart) / 5) * 100;
   const xpToNext = level * 500 - count * 100;
   $('#completedStat').textContent = count;
   $('#streakStat').textContent = currentStreak();
-  $('#unlockedStat').textContent = state.unlocked;
+  $('#unlockedStat').textContent = availableCount;
   $('#levelNumber').textContent = String(level).padStart(2, '0');
   $('#levelTitle').textContent = level === 1 ? 'Rookie solver' : level < 5 ? 'Pattern hunter' : level < 10 ? 'Logic builder' : 'code4you legend';
   $('#xpValue').textContent = `${count * 100} XP`;
@@ -184,7 +192,7 @@ function renderStats() {
   const percent = total ? Math.round((count / total) * 100) : 0;
   $('#progressText').textContent = `${percent}%`;
   $('#progressBar').style.width = `${percent}%`;
-  $('#journeySummary').textContent = `${state.unlocked} unlocked · ${count} completed · ${total - count} still ahead.`;
+  $('#journeySummary').textContent = `${availableCount} unlocked · ${count} completed · ${total - count} still ahead.`;
 }
 function renderUnlockMessage() {
   clearInterval(state.unlockTimer);
@@ -200,7 +208,7 @@ function renderUnlockMessage() {
   update(); state.unlockTimer = setInterval(update, 60_000);
 }
 function renderGrid() {
-  const visible = state.challenges.filter(item => item.day < state.unlocked);
+  const visible = unlockedChallenges().filter(item => item.day < state.unlocked);
   $('#challengeGrid').innerHTML = visible.map(item => {
     const done = state.completed.has(item.day);
     const status = done ? '✓' : '→';
