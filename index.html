@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A focused 100-day coding challenge with one new problem every day." />
+  <meta name="theme-color" content="#123c3a" />
+  <title>codeKaro — Grow through one focused challenge at a time</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="nav shell">
+    <a class="brand" href="#top" aria-label="codeKaro home">
+      <span class="brand-mark">K</span><span data-platform-name>codeKaro</span>
+    </a>
+    <div class="nav-actions">
+      <button class="icon-button" id="themeToggle" aria-label="Toggle color theme">
+        <span class="sun">☼</span><span class="moon">☾</span>
+      </button>
+      <a class="button button-small" href="#challenges">View challenges <span>↘</span></a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="eyebrow"><span class="pulse"></span> One calm step, every day</div>
+      <h1>Grow through practice.<br><em>One day at a time.</em></h1>
+      <p class="hero-copy">codeKaro turns 100 coding challenges into a clear daily ritual. Focus on one idea, learn by doing, and let small wins compound.</p>
+      <div class="hero-actions">
+        <button class="button button-primary" id="continueButton">Continue challenge <span>→</span></button>
+        <span class="next-unlock" id="nextUnlock">Your journey begins today</span>
+      </div>
+      <section class="track-switcher" aria-label="Choose your learning track">
+        <div>
+          <p class="status-label">Choose your path</p>
+          <strong id="trackHeading">Advanced track</strong>
+        </div>
+        <div class="track-options" role="group" aria-label="Learning tracks">
+          <button class="track-option" data-track="beginner" type="button">
+            <span>Beginner</span><small>Build the basics</small>
+          </button>
+          <button class="track-option active" data-track="advanced" type="button">
+            <span>Advanced</span><small>Level up your problem solving</small>
+          </button>
+        </div>
+      </section>
+      <section class="player-status" aria-label="Player progress">
+        <div class="level-badge"><span class="level-ring" id="levelNumber">01</span><div><span class="status-label">Current rank</span><strong id="levelTitle">Rookie solver</strong></div></div>
+        <div class="xp-progress"><div class="status-row"><span><b id="xpValue">0 XP</b> earned</span><span id="xpNext">500 XP to Level 2</span></div><div class="xp-track"><span id="xpBar"></span></div></div>
+        <div class="badge-list" aria-label="Milestones"><span class="mini-badge" id="badgeFirst">01<span>First solve</span></span><span class="mini-badge" id="badgeStreak">07<span>On a roll</span></span><span class="mini-badge" id="badgeHalf">50<span>Halfway</span></span></div>
+      </section>
+      <div class="hero-grid">
+        <article class="today-card" id="todayCard">
+          <div class="card-kicker"><span>Today’s focus</span><span class="day-pill" id="todayDay">Day 01</span></div>
+          <div class="today-content">
+            <div>
+              <p class="unit-label" id="todayUnit">Loading challenge…</p>
+              <h2 id="todayTitle">Preparing your first problem</h2>
+              <div class="topic-row" id="todayTopics"></div>
+            </div>
+            <button class="round-arrow" id="openToday" aria-label="Open today's challenge">↗</button>
+          </div>
+        </article>
+        <aside class="stats-card">
+          <div class="stat"><strong id="completedStat">0</strong><span>Solved</span></div>
+          <div class="stat"><strong id="streakStat">0</strong><span>Current streak <i>✦</i></span></div>
+          <div class="stat"><strong id="unlockedStat">1</strong><span>Available</span></div>
+          <div class="progress-block">
+            <div><span>Overall progress</span><b id="progressText">0%</b></div>
+            <div class="progress-track"><span id="progressBar"></span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="manifesto">
+      <div class="shell manifesto-grid">
+        <p class="section-index">01 — The codeKaro way</p>
+        <div>
+          <h2>Small steps.<br>Lasting growth.</h2>
+          <div class="method-grid">
+            <article><span>01</span><h3>Choose focus</h3><p>A single daily challenge keeps learning clear, achievable, and sustainable.</p></article>
+            <article><span>02</span><h3>Practice gently</h3><p>Try the problem first, then use the guided resources when you need a nudge.</p></article>
+            <article><span>03</span><h3>Notice progress</h3><p>Mark each small win and watch your consistency become confidence.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="challenges shell" id="challenges">
+      <div class="section-head">
+        <div><p class="section-index">02 — Your progress</p><h2>Previous challenges</h2></div>
+        <p id="journeySummary">Questions appear here after their day is over. Keep moving one step at a time.</p>
+      </div>
+      <div class="challenge-grid" id="challengeGrid" aria-live="polite"></div>
+      <p class="empty-state" id="emptyState" hidden>No challenges match this view.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <div><a class="brand" href="#top"><span class="brand-mark">K</span><span data-platform-name>codeKaro</span></a><p>Focus. Practice. Grow.</p></div>
+      <p>100 days · 100 challenges · a stronger you</p>
+    </div>
+  </footer>
+
+  <dialog id="challengeDialog">
+    <div class="dialog-shell">
+      <button class="dialog-close" id="closeDialog" aria-label="Close challenge">×</button>
+      <div class="dialog-topline"><span id="dialogDay">Day 01</span><span id="dialogDifficulty">Easy</span></div>
+      <p class="unit-label" id="dialogUnit"></p>
+      <h2 id="dialogTitle"></h2>
+      <div class="topic-row" id="dialogTopics"></div>
+      <div class="dialog-actions">
+        <a class="button button-primary" id="problemLink" target="_blank" rel="noopener noreferrer">Open problem <span>↗</span></a>
+        <button class="button button-ghost" id="completeButton">Mark complete</button>
+      </div>
+      <div class="solution-panel" id="solutionPanel">
+        <button class="solution-toggle" id="solutionToggle"><span>Need a hand? View solution resources</span><span>＋</span></button>
+        <div class="solution-content" id="solutionContent"></div>
+      </div>
+      <div class="dialog-nav"><button id="prevChallenge">← Previous</button><button id="nextChallenge">Next →</button></div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

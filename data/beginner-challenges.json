@@ -1,0 +1,1743 @@
+[
+  {
+    "day": 1,
+    "unit": "Programming Basics",
+    "question2": {
+      "name": "Fizz Buzz",
+      "link": "https://leetcode.com/problems/fizz-buzz/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Programming Basics",
+      "Loops and conditions"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Check divisibility in the most specific order. Multiples of both 3 and 5 must be handled before checking either divisor alone.",
+          "code": "class Solution {\npublic:\n    vector<string> fizzBuzz(int n) {\n        vector<string> answer;\n        for (int i = 1; i <= n; ++i) {\n            if (i % 15 == 0) answer.push_back(\"FizzBuzz\");\n            else if (i % 3 == 0) answer.push_back(\"Fizz\");\n            else if (i % 5 == 0) answer.push_back(\"Buzz\");\n            else answer.push_back(to_string(i));\n        }\n        return answer;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)",
+          "type": "tutorial",
+          "hint": "Print based on divisibility by 3 and 5.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 2,
+    "unit": "Programming Basics",
+    "question2": {
+      "name": "Number of Steps to Reduce a Number to Zero",
+      "link": "https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Programming Basics",
+      "Loops and conditions"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Repeat the required operation until the number reaches zero. Even values are halved; odd values are decreased by one.",
+          "code": "class Solution {\npublic:\n    int numberOfSteps(int num) {\n        int steps = 0;\n        while (num) {\n            num = (num % 2 == 0) ? num / 2 : num - 1;\n            ++steps;\n        }\n        return steps;\n    }\n};",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Even: divide by 2. Odd: subtract 1.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 3,
+    "unit": "Programming Basics",
+    "question2": {
+      "name": "Subtract the Product and Sum of Digits",
+      "link": "https://leetcode.com/problems/subtract-the-product-and-sum-of-digits-of-an-integer/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Programming Basics",
+      "Digit extraction"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Extract every decimal digit with modulo 10. Add it to the sum, multiply it into the product, and remove it with integer division.",
+          "code": "class Solution {\npublic:\n    int subtractProductAndSum(int n) {\n        int product = 1, sum = 0;\n        while (n) {\n            int digit = n % 10;\n            product *= digit;\n            sum += digit;\n            n /= 10;\n        }\n        return product - sum;\n    }\n};",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Use % 10 and / 10.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 4,
+    "unit": "Programming Basics",
+    "question2": {
+      "name": "Palindrome Number",
+      "link": "https://leetcode.com/problems/palindrome-number/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Programming Basics",
+      "Digit extraction"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Reverse the digits using a wider integer type, then compare the reversed value with the original number. Negative numbers cannot be palindromes.",
+          "code": "class Solution {\npublic:\n    bool isPalindrome(int x) {\n        if (x < 0) return false;\n        long long reversed = 0, value = x;\n        while (value) {\n            reversed = reversed * 10 + value % 10;\n            value /= 10;\n        }\n        return reversed == x;\n    }\n};",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Reverse the digits or compare from both ends.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 5,
+    "unit": "Programming Basics",
+    "question2": {
+      "name": "Power of Two",
+      "link": "https://leetcode.com/problems/power-of-two/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Programming Basics",
+      "Repeated division"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "A positive power of two has exactly one set bit. Clearing the lowest set bit therefore produces zero.",
+          "code": "class Solution {\npublic:\n    bool isPowerOfTwo(int n) {\n        return n > 0 && (n & (n - 1)) == 0;\n    }\n};",
+          "timeComplexity": "O(1)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Keep dividing by 2 while the number is even.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 6,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Build Array from Permutation",
+      "link": "https://leetcode.com/problems/build-array-from-permutation/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "Array traversal"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "The permutation values are valid indices. Build each output value directly as nums[nums[i]].",
+          "code": "class Solution {\npublic:\n    vector<int> buildArray(vector<int>& nums) {\n        vector<int> answer(nums.size());\n        for (int i = 0; i < nums.size(); ++i) answer[i] = nums[nums[i]];\n        return answer;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)",
+          "type": "tutorial",
+          "hint": "For each i, answer[i] = nums[nums[i]].",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 7,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Running Sum of 1d Array",
+      "link": "https://leetcode.com/problems/running-sum-of-1d-array/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "Prefix sum"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Turn the input into prefix sums. Each position accumulates the total stored immediately before it.",
+          "code": "class Solution {\npublic:\n    vector<int> runningSum(vector<int>& nums) {\n        for (int i = 1; i < nums.size(); ++i) nums[i] += nums[i - 1];\n        return nums;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Add the previous running total.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 8,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Find Numbers with Even Number of Digits",
+      "link": "https://leetcode.com/problems/find-numbers-with-even-number-of-digits/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "Counting"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Count the decimal digits in each number and increment the answer when that count is even.",
+          "code": "class Solution {\npublic:\n    int findNumbers(vector<int>& nums) {\n        int answer = 0;\n        for (int value : nums) {\n            int digits = 0;\n            do { ++digits; value /= 10; } while (value);\n            answer += digits % 2 == 0;\n        }\n        return answer;\n    }\n};",
+          "timeComplexity": "O(n log m)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Count digits for every value.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 9,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Richest Customer Wealth",
+      "link": "https://leetcode.com/problems/richest-customer-wealth/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "2D arrays"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Calculate the sum of every customer row and keep the largest row total.",
+          "code": "class Solution {\npublic:\n    int maximumWealth(vector<vector<int>>& accounts) {\n        int best = 0;\n        for (const auto& customer : accounts)\n            best = max(best, accumulate(customer.begin(), customer.end(), 0));\n        return best;\n    }\n};",
+          "timeComplexity": "O(rows × columns)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Sum each row and keep the maximum.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 10,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Max Consecutive Ones",
+      "link": "https://leetcode.com/problems/max-consecutive-ones/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "Linear scan"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Maintain the current run of ones and the best run seen. Reset the current run whenever a zero appears.",
+          "code": "class Solution {\npublic:\n    int findMaxConsecutiveOnes(vector<int>& nums) {\n        int current = 0, best = 0;\n        for (int value : nums) {\n            current = value == 1 ? current + 1 : 0;\n            best = max(best, current);\n        }\n        return best;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Reset the current count when you see 0.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 11,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Find the Highest Altitude",
+      "link": "https://leetcode.com/problems/find-the-highest-altitude/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "Prefix sum"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "The gain array describes changes rather than absolute heights. Accumulate those changes from altitude zero and track the maximum prefix sum.",
+          "code": "class Solution {\npublic:\n    int largestAltitude(vector<int>& gain) {\n        int altitude = 0, highest = 0;\n        for (int change : gain) {\n            altitude += change;\n            highest = max(highest, altitude);\n        }\n        return highest;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Track current altitude and maximum altitude.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 12,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Remove Element",
+      "link": "https://leetcode.com/problems/remove-element/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "In-place array"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Use a write pointer. Copy only values different from val into the front of the same array; the write pointer becomes the new length.",
+          "code": "class Solution {\npublic:\n    int removeElement(vector<int>& nums, int val) {\n        int write = 0;\n        for (int value : nums) if (value != val) nums[write++] = value;\n        return write;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Write only values that are not equal to val.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 13,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Remove Duplicates from Sorted Array",
+      "link": "https://leetcode.com/problems/remove-duplicates-from-sorted-array/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "Two pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Because the array is sorted, duplicates are adjacent. A write pointer advances only when the read value differs from the last unique value.",
+          "code": "class Solution {\npublic:\n    int removeDuplicates(vector<int>& nums) {\n        if (nums.empty()) return 0;\n        int write = 1;\n        for (int read = 1; read < nums.size(); ++read)\n            if (nums[read] != nums[write - 1]) nums[write++] = nums[read];\n        return write;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "One pointer reads; one writes unique values.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 14,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Move Zeroes",
+      "link": "https://leetcode.com/problems/move-zeroes/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "Two pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Move every non-zero value to the next write position, then fill the remaining suffix with zeroes. Relative order is preserved.",
+          "code": "class Solution {\npublic:\n    void moveZeroes(vector<int>& nums) {\n        int write = 0;\n        for (int value : nums) if (value != 0) nums[write++] = value;\n        while (write < nums.size()) nums[write++] = 0;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Move non-zero values forward, then fill zeroes.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 15,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Merge Sorted Array",
+      "link": "https://leetcode.com/problems/merge-sorted-array/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "Two pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Merge from the back so unprocessed values in nums1 are never overwritten. Place the larger current value into the last free position.",
+          "code": "class Solution {\npublic:\n    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {\n        int i = m - 1, j = n - 1, write = m + n - 1;\n        while (j >= 0) {\n            if (i >= 0 && nums1[i] > nums2[j]) nums1[write--] = nums1[i--];\n            else nums1[write--] = nums2[j--];\n        }\n    }\n};",
+          "timeComplexity": "O(m + n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Fill nums1 from the end.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 16,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Missing Number",
+      "link": "https://leetcode.com/problems/missing-number/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "Math / XOR"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "XOR every valid index and every array value. Equal values cancel, leaving only the missing number.",
+          "code": "class Solution {\npublic:\n    int missingNumber(vector<int>& nums) {\n        int answer = nums.size();\n        for (int i = 0; i < nums.size(); ++i) answer ^= i ^ nums[i];\n        return answer;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Compare expected and actual sums, or use XOR.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 17,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Single Number",
+      "link": "https://leetcode.com/problems/single-number/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "XOR"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "XOR cancels paired values because x XOR x is zero. The only unpaired number remains.",
+          "code": "class Solution {\npublic:\n    int singleNumber(vector<int>& nums) {\n        int answer = 0;\n        for (int value : nums) answer ^= value;\n        return answer;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "x XOR x is 0.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 18,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Best Time to Buy and Sell Stock",
+      "link": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "Linear scan"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Scan once while tracking the lowest price seen before today. The best profit is the largest difference between today’s price and that minimum.",
+          "code": "class Solution {\npublic:\n    int maxProfit(vector<int>& prices) {\n        int minimum = INT_MAX, profit = 0;\n        for (int price : prices) {\n            minimum = min(minimum, price);\n            profit = max(profit, price - minimum);\n        }\n        return profit;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Keep the lowest price seen so far.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 19,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Rotate Array",
+      "link": "https://leetcode.com/problems/rotate-array/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "Array reversal"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Normalize k, reverse the full array, then reverse the first k values and the remaining values. This places the rotated suffix and prefix correctly.",
+          "code": "class Solution {\npublic:\n    void rotate(vector<int>& nums, int k) {\n        k %= nums.size();\n        reverse(nums.begin(), nums.end());\n        reverse(nums.begin(), nums.begin() + k);\n        reverse(nums.begin() + k, nums.end());\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Reverse all, then reverse the two parts.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 20,
+    "unit": "Arrays",
+    "question2": {
+      "name": "Product of Array Except Self",
+      "link": "https://leetcode.com/problems/product-of-array-except-self/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Arrays",
+      "Prefix and suffix"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "First store the product of all elements to the left. Then walk backward, multiplying each result by the product of elements to the right.",
+          "code": "class Solution {\npublic:\n    vector<int> productExceptSelf(vector<int>& nums) {\n        vector<int> answer(nums.size(), 1);\n        int prefix = 1, suffix = 1;\n        for (int i = 0; i < nums.size(); ++i) {\n            answer[i] = prefix;\n            prefix *= nums[i];\n        }\n        for (int i = nums.size() - 1; i >= 0; --i) {\n            answer[i] *= suffix;\n            suffix *= nums[i];\n        }\n        return answer;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1) excluding output",
+          "type": "tutorial",
+          "hint": "Multiply prefix and suffix products without division.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 21,
+    "unit": "Strings",
+    "question2": {
+      "name": "Reverse String",
+      "link": "https://leetcode.com/problems/reverse-string/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Strings",
+      "Two pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Use pointers at both ends and swap their characters while moving toward the center.",
+          "code": "class Solution {\npublic:\n    void reverseString(vector<char>& s) {\n        int left = 0, right = s.size() - 1;\n        while (left < right) swap(s[left++], s[right--]);\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Swap characters from both ends.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 22,
+    "unit": "Strings",
+    "question2": {
+      "name": "Valid Palindrome",
+      "link": "https://leetcode.com/problems/valid-palindrome/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Strings",
+      "Two pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Move two pointers inward. Skip non-alphanumeric characters and compare lowercase forms of the remaining characters.",
+          "code": "class Solution {\npublic:\n    bool isPalindrome(string s) {\n        int left = 0, right = s.size() - 1;\n        while (left < right) {\n            while (left < right && !isalnum((unsigned char)s[left])) ++left;\n            while (left < right && !isalnum((unsigned char)s[right])) --right;\n            if (tolower((unsigned char)s[left]) != tolower((unsigned char)s[right])) return false;\n            ++left; --right;\n        }\n        return true;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Skip non-alphanumeric characters.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 23,
+    "unit": "Strings",
+    "question2": {
+      "name": "First Unique Character in a String",
+      "link": "https://leetcode.com/problems/first-unique-character-in-a-string/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Strings",
+      "Frequency count"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Count each lowercase letter, then scan the string again. The first character with frequency one is the answer.",
+          "code": "class Solution {\npublic:\n    int firstUniqChar(string s) {\n        array<int, 26> count{};\n        for (char c : s) ++count[c - 'a'];\n        for (int i = 0; i < s.size(); ++i) if (count[s[i] - 'a'] == 1) return i;\n        return -1;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Count first, then scan for frequency 1.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 24,
+    "unit": "Strings",
+    "question2": {
+      "name": "Longest Common Prefix",
+      "link": "https://leetcode.com/problems/longest-common-prefix/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Strings",
+      "String comparison"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Start with the first word as the candidate prefix. Shorten it until every other word begins with it.",
+          "code": "class Solution {\npublic:\n    string longestCommonPrefix(vector<string>& strs) {\n        string prefix = strs[0];\n        for (int i = 1; i < strs.size(); ++i)\n            while (strs[i].find(prefix) != 0) prefix.pop_back();\n        return prefix;\n    }\n};",
+          "timeComplexity": "O(total characters)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Shrink the candidate prefix until every word matches.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 25,
+    "unit": "Strings",
+    "question2": {
+      "name": "Valid Anagram",
+      "link": "https://leetcode.com/problems/valid-anagram/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Strings",
+      "Frequency count"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Anagrams contain identical character frequencies. Increment counts for the first string and decrement them for the second.",
+          "code": "class Solution {\npublic:\n    bool isAnagram(string s, string t) {\n        if (s.size() != t.size()) return false;\n        array<int, 26> count{};\n        for (char c : s) ++count[c - 'a'];\n        for (char c : t) --count[c - 'a'];\n        return all_of(count.begin(), count.end(), [](int x) { return x == 0; });\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Compare character frequencies.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 26,
+    "unit": "Hashing",
+    "question2": {
+      "name": "Contains Duplicate",
+      "link": "https://leetcode.com/problems/contains-duplicate/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Hashing",
+      "Hash set"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Insert values into a hash set. If insertion fails, that value was already present.",
+          "code": "class Solution {\npublic:\n    bool containsDuplicate(vector<int>& nums) {\n        unordered_set<int> seen;\n        for (int value : nums) if (!seen.insert(value).second) return true;\n        return false;\n    }\n};",
+          "timeComplexity": "O(n) average",
+          "spaceComplexity": "O(n)",
+          "type": "tutorial",
+          "hint": "A repeated insertion reveals a duplicate.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 27,
+    "unit": "Hashing",
+    "question2": {
+      "name": "Contains Duplicate II",
+      "link": "https://leetcode.com/problems/contains-duplicate-ii/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Hashing",
+      "Hash map"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Store the latest index of every value. A duplicate is valid when the distance from its stored index is at most k.",
+          "code": "class Solution {\npublic:\n    bool containsNearbyDuplicate(vector<int>& nums, int k) {\n        unordered_map<int, int> last;\n        for (int i = 0; i < nums.size(); ++i) {\n            if (last.count(nums[i]) && i - last[nums[i]] <= k) return true;\n            last[nums[i]] = i;\n        }\n        return false;\n    }\n};",
+          "timeComplexity": "O(n) average",
+          "spaceComplexity": "O(n)",
+          "type": "tutorial",
+          "hint": "Store each value’s most recent index.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 28,
+    "unit": "Hashing",
+    "question2": {
+      "name": "Two Sum",
+      "link": "https://leetcode.com/problems/two-sum/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Hashing",
+      "Hash map"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "For each value, check whether its complement was seen earlier. Store the current value only after the check so one index is never reused.",
+          "code": "class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        unordered_map<int, int> index;\n        for (int i = 0; i < nums.size(); ++i) {\n            int need = target - nums[i];\n            if (index.count(need)) return {index[need], i};\n            index[nums[i]] = i;\n        }\n        return {};\n    }\n};",
+          "timeComplexity": "O(n) average",
+          "spaceComplexity": "O(n)",
+          "type": "tutorial",
+          "hint": "Look for target - current before storing current.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 29,
+    "unit": "Hashing",
+    "question2": {
+      "name": "Majority Element",
+      "link": "https://leetcode.com/problems/majority-element/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Hashing",
+      "Counting"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Boyer-Moore voting cancels different values in pairs. Since the majority appears more than half the time, it remains as the final candidate.",
+          "code": "class Solution {\npublic:\n    int majorityElement(vector<int>& nums) {\n        int candidate = 0, votes = 0;\n        for (int value : nums) {\n            if (votes == 0) candidate = value;\n            votes += value == candidate ? 1 : -1;\n        }\n        return candidate;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Start with a map; later learn Boyer-Moore.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 30,
+    "unit": "Hashing",
+    "question2": {
+      "name": "Intersection of Two Arrays",
+      "link": "https://leetcode.com/problems/intersection-of-two-arrays/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Hashing",
+      "Hash set"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Store the first array in a set and insert matching values from the second array into a result set to remove duplicates.",
+          "code": "class Solution {\npublic:\n    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {\n        unordered_set<int> first(nums1.begin(), nums1.end()), common;\n        for (int value : nums2) if (first.count(value)) common.insert(value);\n        return vector<int>(common.begin(), common.end());\n    }\n};",
+          "timeComplexity": "O(n + m) average",
+          "spaceComplexity": "O(n + m)",
+          "type": "tutorial",
+          "hint": "Store one array in a set and test the other.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 31,
+    "unit": "Hashing",
+    "question2": {
+      "name": "Happy Number",
+      "link": "https://leetcode.com/problems/happy-number/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Hashing",
+      "Cycle detection"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Repeatedly replace the number with the sum of its squared digits. A set detects a cycle; reaching one means the number is happy.",
+          "code": "class Solution {\n    int next(int n) {\n        int sum = 0;\n        while (n) { int d = n % 10; sum += d * d; n /= 10; }\n        return sum;\n    }\npublic:\n    bool isHappy(int n) {\n        unordered_set<int> seen;\n        while (n != 1 && seen.insert(n).second) n = next(n);\n        return n == 1;\n    }\n};",
+          "timeComplexity": "O(log n) per transformation",
+          "spaceComplexity": "O(log n)",
+          "type": "tutorial",
+          "hint": "Use a set to detect a repeated sum.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 32,
+    "unit": "Hashing",
+    "question2": {
+      "name": "Group Anagrams",
+      "link": "https://leetcode.com/problems/group-anagrams/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Hashing",
+      "Hash map"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Sorted letters form the same key for every anagram. Group original strings in a hash map under that canonical key.",
+          "code": "class Solution {\npublic:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        unordered_map<string, vector<string>> groups;\n        for (const string& word : strs) {\n            string key = word;\n            sort(key.begin(), key.end());\n            groups[key].push_back(word);\n        }\n        vector<vector<string>> answer;\n        for (auto& [key, group] : groups) answer.push_back(move(group));\n        return answer;\n    }\n};",
+          "timeComplexity": "O(n × k log k)",
+          "spaceComplexity": "O(n × k)",
+          "type": "tutorial",
+          "hint": "Use a sorted word or frequency vector as the key.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 33,
+    "unit": "Two Pointers",
+    "question2": {
+      "name": "Squares of a Sorted Array",
+      "link": "https://leetcode.com/problems/squares-of-a-sorted-array/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Two Pointers",
+      "Two pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "The largest square comes from the value with the largest absolute magnitude at either end. Fill the result backward while moving that pointer.",
+          "code": "class Solution {\npublic:\n    vector<int> sortedSquares(vector<int>& nums) {\n        vector<int> answer(nums.size());\n        int left = 0, right = nums.size() - 1;\n        for (int write = nums.size() - 1; write >= 0; --write) {\n            if (abs(nums[left]) > abs(nums[right])) answer[write] = nums[left] * nums[left++];\n            else answer[write] = nums[right] * nums[right--];\n        }\n        return answer;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)",
+          "type": "tutorial",
+          "hint": "Compare absolute values at both ends.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 34,
+    "unit": "Two Pointers",
+    "question2": {
+      "name": "Two Sum II - Input Array Is Sorted",
+      "link": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Two Pointers",
+      "Two pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Because the array is sorted, compare the end values. Move left rightward when the sum is too small and right leftward when it is too large.",
+          "code": "class Solution {\npublic:\n    vector<int> twoSum(vector<int>& numbers, int target) {\n        int left = 0, right = numbers.size() - 1;\n        while (left < right) {\n            int sum = numbers[left] + numbers[right];\n            if (sum == target) return {left + 1, right + 1};\n            if (sum < target) ++left; else --right;\n        }\n        return {};\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Move left or right based on the sum.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 35,
+    "unit": "Two Pointers",
+    "question2": {
+      "name": "Container With Most Water",
+      "link": "https://leetcode.com/problems/container-with-most-water/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Two Pointers",
+      "Two pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Area is limited by the shorter line. After evaluating a pair, move the shorter side because keeping it cannot produce a better area.",
+          "code": "class Solution {\npublic:\n    int maxArea(vector<int>& height) {\n        int left = 0, right = height.size() - 1, best = 0;\n        while (left < right) {\n            best = max(best, min(height[left], height[right]) * (right - left));\n            if (height[left] < height[right]) ++left; else --right;\n        }\n        return best;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Move the pointer at the shorter line.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 36,
+    "unit": "Two Pointers",
+    "question2": {
+      "name": "3Sum",
+      "link": "https://leetcode.com/problems/3sum/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Two Pointers",
+      "Sort + two pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Sort the array, fix one value, and solve a two-pointer two-sum on the remaining suffix. Skip repeated values to avoid duplicate triplets.",
+          "code": "class Solution {\npublic:\n    vector<vector<int>> threeSum(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        vector<vector<int>> answer;\n        for (int i = 0; i + 2 < nums.size(); ++i) {\n            if (i && nums[i] == nums[i - 1]) continue;\n            int left = i + 1, right = nums.size() - 1;\n            while (left < right) {\n                int sum = nums[i] + nums[left] + nums[right];\n                if (sum < 0) ++left;\n                else if (sum > 0) --right;\n                else {\n                    answer.push_back({nums[i], nums[left], nums[right]});\n                    int a = nums[left], b = nums[right];\n                    while (left < right && nums[left] == a) ++left;\n                    while (left < right && nums[right] == b) --right;\n                }\n            }\n        }\n        return answer;\n    }\n};",
+          "timeComplexity": "O(n²)",
+          "spaceComplexity": "O(1) excluding output",
+          "type": "tutorial",
+          "hint": "Sort, fix one number, then solve two-sum.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 37,
+    "unit": "Stack",
+    "question2": {
+      "name": "Valid Parentheses",
+      "link": "https://leetcode.com/problems/valid-parentheses/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Stack"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Push opening brackets. For each closing bracket, the stack top must contain its matching opening bracket.",
+          "code": "class Solution {\npublic:\n    bool isValid(string s) {\n        stack<char> openings;\n        unordered_map<char, char> match{{')','('},{']','['},{'}','{'}};\n        for (char c : s) {\n            if (!match.count(c)) openings.push(c);\n            else {\n                if (openings.empty() || openings.top() != match[c]) return false;\n                openings.pop();\n            }\n        }\n        return openings.empty();\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)",
+          "type": "tutorial",
+          "hint": "Push opening brackets; match every closing bracket.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 38,
+    "unit": "Stack",
+    "question2": {
+      "name": "Baseball Game",
+      "link": "https://leetcode.com/problems/baseball-game/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Stack",
+      "Stack simulation"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Keep valid round scores on a stack-like vector. Each operation reads or changes only the most recent scores.",
+          "code": "class Solution {\npublic:\n    int calPoints(vector<string>& operations) {\n        vector<int> scores;\n        for (const string& op : operations) {\n            if (op == \"+\") scores.push_back(scores.back() + scores[scores.size() - 2]);\n            else if (op == \"D\") scores.push_back(2 * scores.back());\n            else if (op == \"C\") scores.pop_back();\n            else scores.push_back(stoi(op));\n        }\n        return accumulate(scores.begin(), scores.end(), 0);\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)",
+          "type": "tutorial",
+          "hint": "Keep valid scores on a stack.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 39,
+    "unit": "Stack",
+    "question2": {
+      "name": "Next Greater Element I",
+      "link": "https://leetcode.com/problems/next-greater-element-i/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Stack",
+      "Monotonic stack"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Process nums2 with a decreasing monotonic stack. When a larger value appears, it becomes the next greater value for every smaller stack top.",
+          "code": "class Solution {\npublic:\n    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {\n        unordered_map<int, int> greater;\n        stack<int> pending;\n        for (int value : nums2) {\n            while (!pending.empty() && pending.top() < value) {\n                greater[pending.top()] = value;\n                pending.pop();\n            }\n            pending.push(value);\n        }\n        vector<int> answer;\n        for (int value : nums1) answer.push_back(greater.count(value) ? greater[value] : -1);\n        return answer;\n    }\n};",
+          "timeComplexity": "O(n + m)",
+          "spaceComplexity": "O(n)",
+          "type": "tutorial",
+          "hint": "Pop smaller values when a greater value appears.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 40,
+    "unit": "Stack",
+    "question2": {
+      "name": "Min Stack",
+      "link": "https://leetcode.com/problems/min-stack/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Stack",
+      "Stack design"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Store each value together with the minimum at the moment it is pushed. The top pair then answers both top and getMin in constant time.",
+          "code": "class MinStack {\n    stack<pair<int, int>> values;\npublic:\n    MinStack() {}\n    void push(int val) {\n        int minimum = values.empty() ? val : min(val, values.top().second);\n        values.push({val, minimum});\n    }\n    void pop() { values.pop(); }\n    int top() { return values.top().first; }\n    int getMin() { return values.top().second; }\n};",
+          "timeComplexity": "O(1) per operation",
+          "spaceComplexity": "O(n)",
+          "type": "tutorial",
+          "hint": "Store the minimum with each pushed value.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 41,
+    "unit": "Stack",
+    "question2": {
+      "name": "Online Stock Span",
+      "link": "https://leetcode.com/problems/online-stock-span/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Stack",
+      "Monotonic stack"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Maintain a decreasing stack of price-span pairs. Pop all prices no greater than today’s price and add their accumulated spans.",
+          "code": "class StockSpanner {\n    stack<pair<int, int>> prices;\npublic:\n    StockSpanner() {}\n    int next(int price) {\n        int span = 1;\n        while (!prices.empty() && prices.top().first <= price) {\n            span += prices.top().second;\n            prices.pop();\n        }\n        prices.push({price, span});\n        return span;\n    }\n};",
+          "timeComplexity": "O(1) amortized per call",
+          "spaceComplexity": "O(n)",
+          "type": "tutorial",
+          "hint": "Store price with its accumulated span.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 42,
+    "unit": "Sliding Window",
+    "question2": {
+      "name": "Maximum Average Subarray I",
+      "link": "https://leetcode.com/problems/maximum-average-subarray-i/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Sliding Window",
+      "Fixed window"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Compute the first window sum, then slide by adding the entering value and subtracting the leaving value. Track the best sum.",
+          "code": "class Solution {\npublic:\n    double findMaxAverage(vector<int>& nums, int k) {\n        long long window = accumulate(nums.begin(), nums.begin() + k, 0LL), best = window;\n        for (int right = k; right < nums.size(); ++right) {\n            window += nums[right] - nums[right - k];\n            best = max(best, window);\n        }\n        return static_cast<double>(best) / k;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Update the window sum in O(1).",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 43,
+    "unit": "Sliding Window",
+    "question2": {
+      "name": "Maximum Number of Vowels in a Substring",
+      "link": "https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Sliding Window",
+      "Fixed window"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Count vowels in the first fixed-length window. Slide it by adding the entering character and removing the leaving character.",
+          "code": "class Solution {\npublic:\n    int maxVowels(string s, int k) {\n        auto vowel = [](char c) { return string(\"aeiou\").find(c) != string::npos; };\n        int count = 0;\n        for (int i = 0; i < k; ++i) count += vowel(s[i]);\n        int best = count;\n        for (int right = k; right < s.size(); ++right) {\n            count += vowel(s[right]) - vowel(s[right - k]);\n            best = max(best, count);\n        }\n        return best;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Add the entering character and remove the leaving one.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 44,
+    "unit": "Sliding Window",
+    "question2": {
+      "name": "Longest Substring Without Repeating Characters",
+      "link": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Sliding Window",
+      "Variable window"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Track each character’s most recent index. If it lies inside the current window, move the left boundary just past that occurrence.",
+          "code": "class Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        array<int, 256> last; last.fill(-1);\n        int left = 0, best = 0;\n        for (int right = 0; right < s.size(); ++right) {\n            left = max(left, last[(unsigned char)s[right]] + 1);\n            last[(unsigned char)s[right]] = right;\n            best = max(best, right - left + 1);\n        }\n        return best;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Move left past the previous duplicate.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 45,
+    "unit": "Sliding Window",
+    "question2": {
+      "name": "Minimum Size Subarray Sum",
+      "link": "https://leetcode.com/problems/minimum-size-subarray-sum/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Sliding Window",
+      "Variable window"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Expand the window until its sum reaches the target, then repeatedly shrink from the left while recording the shortest valid length.",
+          "code": "class Solution {\npublic:\n    int minSubArrayLen(int target, vector<int>& nums) {\n        int left = 0, sum = 0, best = INT_MAX;\n        for (int right = 0; right < nums.size(); ++right) {\n            sum += nums[right];\n            while (sum >= target) {\n                best = min(best, right - left + 1);\n                sum -= nums[left++];\n            }\n        }\n        return best == INT_MAX ? 0 : best;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Shrink while the sum is large enough.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 46,
+    "unit": "Binary Search",
+    "question2": {
+      "name": "Binary Search",
+      "link": "https://leetcode.com/problems/binary-search/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Binary Search",
+      "Classic binary search"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Maintain an inclusive search interval. Compare the middle value with the target and discard the half that cannot contain it.",
+          "code": "class Solution {\npublic:\n    int search(vector<int>& nums, int target) {\n        int low = 0, high = nums.size() - 1;\n        while (low <= high) {\n            int mid = low + (high - low) / 2;\n            if (nums[mid] == target) return mid;\n            if (nums[mid] < target) low = mid + 1; else high = mid - 1;\n        }\n        return -1;\n    }\n};",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Maintain inclusive low and high boundaries.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 47,
+    "unit": "Binary Search",
+    "question2": {
+      "name": "Search Insert Position",
+      "link": "https://leetcode.com/problems/search-insert-position/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Binary Search",
+      "Lower bound"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Find the first index whose value is not less than the target. Use a half-open interval so low is the insertion position when the loop ends.",
+          "code": "class Solution {\npublic:\n    int searchInsert(vector<int>& nums, int target) {\n        int low = 0, high = nums.size();\n        while (low < high) {\n            int mid = low + (high - low) / 2;\n            if (nums[mid] < target) low = mid + 1; else high = mid;\n        }\n        return low;\n    }\n};",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Return the first position where target can go.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 48,
+    "unit": "Binary Search",
+    "question2": {
+      "name": "First Bad Version",
+      "link": "https://leetcode.com/problems/first-bad-version/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Binary Search",
+      "Boundary search"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Binary-search for the first version where isBadVersion is true. Keeping high at mid preserves a possible first bad version.",
+          "code": "class Solution {\npublic:\n    int firstBadVersion(int n) {\n        int low = 1, high = n;\n        while (low < high) {\n            int mid = low + (high - low) / 2;\n            if (isBadVersion(mid)) high = mid; else low = mid + 1;\n        }\n        return low;\n    }\n};",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Find the first true value.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 49,
+    "unit": "Binary Search",
+    "question2": {
+      "name": "Sqrt(x)",
+      "link": "https://leetcode.com/problems/sqrtx/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Binary Search",
+      "Binary search on answer"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Binary-search for the largest integer whose square does not exceed x. Divide x by mid to avoid multiplication overflow.",
+          "code": "class Solution {\npublic:\n    int mySqrt(int x) {\n        if (x < 2) return x;\n        int low = 1, high = x / 2, answer = 1;\n        while (low <= high) {\n            int mid = low + (high - low) / 2;\n            if (mid <= x / mid) { answer = mid; low = mid + 1; }\n            else high = mid - 1;\n        }\n        return answer;\n    }\n};",
+          "timeComplexity": "O(log x)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Search for the greatest square not exceeding x.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 50,
+    "unit": "Binary Search",
+    "question2": {
+      "name": "Find First and Last Position of Element in Sorted Array",
+      "link": "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Binary Search",
+      "Boundary search"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Run lower-bound searches twice: once for target and once for target + 1. Their positions give the first index and one past the last index.",
+          "code": "class Solution {\n    int lower(vector<int>& nums, long long target) {\n        int low = 0, high = nums.size();\n        while (low < high) {\n            int mid = low + (high - low) / 2;\n            if (nums[mid] < target) low = mid + 1; else high = mid;\n        }\n        return low;\n    }\npublic:\n    vector<int> searchRange(vector<int>& nums, int target) {\n        int first = lower(nums, target);\n        if (first == nums.size() || nums[first] != target) return {-1, -1};\n        return {first, lower(nums, (long long)target + 1) - 1};\n    }\n};",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Run separate searches for left and right boundaries.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 51,
+    "unit": "Binary Search",
+    "question2": {
+      "name": "Find Minimum in Rotated Sorted Array",
+      "link": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Binary Search",
+      "Modified binary search"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Compare the middle value with the right endpoint. If it is greater, the minimum lies to the right; otherwise the middle may be the minimum.",
+          "code": "class Solution {\npublic:\n    int findMin(vector<int>& nums) {\n        int low = 0, high = nums.size() - 1;\n        while (low < high) {\n            int mid = low + (high - low) / 2;\n            if (nums[mid] > nums[high]) low = mid + 1; else high = mid;\n        }\n        return nums[low];\n    }\n};",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Compare mid with the right endpoint.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 52,
+    "unit": "Binary Search",
+    "question2": {
+      "name": "Search in Rotated Sorted Array",
+      "link": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Binary Search",
+      "Modified binary search"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "At least one half is sorted. Determine which half is sorted and whether the target lies inside it, then discard the other half.",
+          "code": "class Solution {\npublic:\n    int search(vector<int>& nums, int target) {\n        int low = 0, high = nums.size() - 1;\n        while (low <= high) {\n            int mid = low + (high - low) / 2;\n            if (nums[mid] == target) return mid;\n            if (nums[low] <= nums[mid]) {\n                if (nums[low] <= target && target < nums[mid]) high = mid - 1;\n                else low = mid + 1;\n            } else {\n                if (nums[mid] < target && target <= nums[high]) low = mid + 1;\n                else high = mid - 1;\n            }\n        }\n        return -1;\n    }\n};",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Identify the sorted half each step.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 53,
+    "unit": "Binary Search",
+    "question2": {
+      "name": "Koko Eating Bananas",
+      "link": "https://leetcode.com/problems/koko-eating-bananas/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Binary Search",
+      "Binary search on answer"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Binary-search the eating speed. A speed is feasible when the sum of ceiling divisions for all piles is no greater than h.",
+          "code": "class Solution {\npublic:\n    int minEatingSpeed(vector<int>& piles, int h) {\n        int low = 1, high = *max_element(piles.begin(), piles.end());\n        while (low < high) {\n            int speed = low + (high - low) / 2;\n            long long hours = 0;\n            for (int pile : piles) hours += (pile + speed - 1LL) / speed;\n            if (hours <= h) high = speed; else low = speed + 1;\n        }\n        return low;\n    }\n};",
+          "timeComplexity": "O(n log m)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Search the minimum feasible eating speed.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 54,
+    "unit": "Recursion",
+    "question2": {
+      "name": "Fibonacci Number",
+      "link": "https://leetcode.com/problems/fibonacci-number/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Recursion",
+      "Recursion basics"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Iteratively keep the previous two Fibonacci values. Each step shifts the pair forward, avoiding exponential recursive repetition.",
+          "code": "class Solution {\npublic:\n    int fib(int n) {\n        int previous = 0, current = 1;\n        for (int i = 0; i < n; ++i) {\n            int next = previous + current;\n            previous = current;\n            current = next;\n        }\n        return previous;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Write the base cases first; then optimize.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 55,
+    "unit": "Recursion",
+    "question2": {
+      "name": "Power of Three",
+      "link": "https://leetcode.com/problems/power-of-three/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Recursion",
+      "Recursive division"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Repeatedly divide by three while the division is exact. The original number is a power of three precisely when the final value is one.",
+          "code": "class Solution {\npublic:\n    bool isPowerOfThree(int n) {\n        if (n <= 0) return false;\n        while (n % 3 == 0) n /= 3;\n        return n == 1;\n    }\n};",
+          "timeComplexity": "O(log₃ n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Stop at 1 or when division is not exact.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 56,
+    "unit": "Recursion",
+    "question2": {
+      "name": "Pow(x, n)",
+      "link": "https://leetcode.com/problems/powx-n/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Recursion",
+      "Divide and conquer"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Use exponentiation by squaring. Recursively calculate the half power once, square it, and multiply by x only for an odd exponent.",
+          "code": "class Solution {\n    double power(double x, long long n) {\n        if (n == 0) return 1.0;\n        double half = power(x, n / 2);\n        return half * half * (n % 2 ? x : 1.0);\n    }\npublic:\n    double myPow(double x, int n) {\n        long long exponent = n;\n        return exponent < 0 ? 1.0 / power(x, -exponent) : power(x, exponent);\n    }\n};",
+          "timeComplexity": "O(log |n|)",
+          "spaceComplexity": "O(log |n|)",
+          "type": "tutorial",
+          "hint": "Square the half-power; handle odd n once.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 57,
+    "unit": "Linked List",
+    "question2": {
+      "name": "Middle of the Linked List",
+      "link": "https://leetcode.com/problems/middle-of-the-linked-list/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Linked List",
+      "Fast and slow pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Move slow by one node and fast by two nodes. When fast reaches the end, slow has reached the middle.",
+          "code": "class Solution {\npublic:\n    ListNode* middleNode(ListNode* head) {\n        ListNode *slow = head, *fast = head;\n        while (fast && fast->next) {\n            slow = slow->next;\n            fast = fast->next->next;\n        }\n        return slow;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Fast moves twice for every slow step.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 58,
+    "unit": "Linked List",
+    "question2": {
+      "name": "Reverse Linked List",
+      "link": "https://leetcode.com/problems/reverse-linked-list/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Linked List",
+      "Pointer manipulation"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Walk through the list while redirecting each next pointer to the previous node. Save the original next node before changing the link.",
+          "code": "class Solution {\npublic:\n    ListNode* reverseList(ListNode* head) {\n        ListNode* previous = nullptr;\n        while (head) {\n            ListNode* next = head->next;\n            head->next = previous;\n            previous = head;\n            head = next;\n        }\n        return previous;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Track previous, current, and next.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 59,
+    "unit": "Linked List",
+    "question2": {
+      "name": "Merge Two Sorted Lists",
+      "link": "https://leetcode.com/problems/merge-two-sorted-lists/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Linked List",
+      "Pointer manipulation"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Use a dummy head and repeatedly append the smaller current node. Attach the remaining non-empty list after one side ends.",
+          "code": "class Solution {\npublic:\n    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {\n        ListNode dummy, *tail = &dummy;\n        while (list1 && list2) {\n            if (list1->val <= list2->val) { tail->next = list1; list1 = list1->next; }\n            else { tail->next = list2; list2 = list2->next; }\n            tail = tail->next;\n        }\n        tail->next = list1 ? list1 : list2;\n        return dummy.next;\n    }\n};",
+          "timeComplexity": "O(n + m)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Use a dummy head and append the smaller node.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 60,
+    "unit": "Linked List",
+    "question2": {
+      "name": "Linked List Cycle",
+      "link": "https://leetcode.com/problems/linked-list-cycle/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Linked List",
+      "Fast and slow pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Move one pointer by one step and another by two. They must eventually meet inside a cycle; without a cycle the fast pointer reaches null.",
+          "code": "class Solution {\npublic:\n    bool hasCycle(ListNode* head) {\n        ListNode *slow = head, *fast = head;\n        while (fast && fast->next) {\n            slow = slow->next;\n            fast = fast->next->next;\n            if (slow == fast) return true;\n        }\n        return false;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "A cycle makes the pointers meet.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 61,
+    "unit": "Linked List",
+    "question2": {
+      "name": "Remove Nth Node From End of List",
+      "link": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Linked List",
+      "Two pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Start both pointers at a dummy node. Advance fast n + 1 steps, then move both until fast reaches null; slow is just before the node to remove.",
+          "code": "class Solution {\npublic:\n    ListNode* removeNthFromEnd(ListNode* head, int n) {\n        ListNode dummy(0, head), *slow = &dummy, *fast = &dummy;\n        for (int i = 0; i <= n; ++i) fast = fast->next;\n        while (fast) { slow = slow->next; fast = fast->next; }\n        slow->next = slow->next->next;\n        return dummy.next;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial",
+          "hint": "Keep a gap of n nodes.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 62,
+    "unit": "Trees",
+    "question2": {
+      "name": "Maximum Depth of Binary Tree",
+      "link": "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Trees",
+      "DFS recursion"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "The depth of an empty tree is zero. Otherwise it is one plus the greater depth of the left and right subtrees.",
+          "code": "class Solution {\npublic:\n    int maxDepth(TreeNode* root) {\n        if (!root) return 0;\n        return 1 + max(maxDepth(root->left), maxDepth(root->right));\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(h)",
+          "type": "tutorial",
+          "hint": "Depth is 1 + max(left, right).",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 63,
+    "unit": "Trees",
+    "question2": {
+      "name": "Same Tree",
+      "link": "https://leetcode.com/problems/same-tree/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Trees",
+      "DFS recursion"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Two trees are equal when their current values match and both corresponding left and right subtrees are also equal.",
+          "code": "class Solution {\npublic:\n    bool isSameTree(TreeNode* p, TreeNode* q) {\n        if (!p || !q) return p == q;\n        return p->val == q->val && isSameTree(p->left, q->left) && isSameTree(p->right, q->right);\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(h)",
+          "type": "tutorial",
+          "hint": "Compare values and both subtrees.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 64,
+    "unit": "Trees",
+    "question2": {
+      "name": "Invert Binary Tree",
+      "link": "https://leetcode.com/problems/invert-binary-tree/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Trees",
+      "DFS recursion"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "At every node, recursively invert both subtrees and swap their returned roots.",
+          "code": "class Solution {\npublic:\n    TreeNode* invertTree(TreeNode* root) {\n        if (!root) return nullptr;\n        TreeNode* left = invertTree(root->left);\n        root->left = invertTree(root->right);\n        root->right = left;\n        return root;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(h)",
+          "type": "tutorial",
+          "hint": "Swap left and right at every node.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 65,
+    "unit": "Trees",
+    "question2": {
+      "name": "Binary Tree Inorder Traversal",
+      "link": "https://leetcode.com/problems/binary-tree-inorder-traversal/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Trees",
+      "Tree traversal"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Simulate recursive inorder traversal with a stack: descend left, visit the node, then continue into its right subtree.",
+          "code": "class Solution {\npublic:\n    vector<int> inorderTraversal(TreeNode* root) {\n        vector<int> answer;\n        stack<TreeNode*> pending;\n        while (root || !pending.empty()) {\n            while (root) { pending.push(root); root = root->left; }\n            root = pending.top(); pending.pop();\n            answer.push_back(root->val);\n            root = root->right;\n        }\n        return answer;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(h)",
+          "type": "tutorial",
+          "hint": "Visit left, node, then right.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 66,
+    "unit": "Trees",
+    "question2": {
+      "name": "Binary Tree Level Order Traversal",
+      "link": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Trees",
+      "BFS queue"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Use breadth-first search. Record the queue size before processing each level so exactly that level’s nodes are grouped together.",
+          "code": "class Solution {\npublic:\n    vector<vector<int>> levelOrder(TreeNode* root) {\n        if (!root) return {};\n        vector<vector<int>> answer;\n        queue<TreeNode*> pending; pending.push(root);\n        while (!pending.empty()) {\n            int count = pending.size();\n            answer.push_back({});\n            while (count--) {\n                TreeNode* node = pending.front(); pending.pop();\n                answer.back().push_back(node->val);\n                if (node->left) pending.push(node->left);\n                if (node->right) pending.push(node->right);\n            }\n        }\n        return answer;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(w)",
+          "type": "tutorial",
+          "hint": "Process one queue level at a time.",
+          "language": "C++17"
+        }
+      ]
+    }
+  },
+  {
+    "day": 67,
+    "unit": "Trees",
+    "question2": {
+      "name": "Validate Binary Search Tree",
+      "link": "https://leetcode.com/problems/validate-binary-search-tree/",
+      "difficulty": "Practice"
+    },
+    "topics": [
+      "Trees",
+      "DFS bounds"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "explanation": "Carry an exclusive lower and upper bound down the tree. Every node must lie strictly inside its bounds, which become tighter for its children.",
+          "code": "class Solution {\n    bool valid(TreeNode* node, long long low, long long high) {\n        if (!node) return true;\n        if (node->val <= low || node->val >= high) return false;\n        return valid(node->left, low, node->val) && valid(node->right, node->val, high);\n    }\npublic:\n    bool isValidBST(TreeNode* root) {\n        return valid(root, LLONG_MIN, LLONG_MAX);\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(h)",
+          "type": "tutorial",
+          "hint": "Carry valid lower and upper limits.",
+          "language": "C++17"
+        }
+      ]
+    }
+  }
+]

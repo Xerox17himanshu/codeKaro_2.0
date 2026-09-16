@@ -1,0 +1,2905 @@
+[
+  {
+    "day": 1,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Two Sum",
+      "link": "https://leetcode.com/problems/two-sum/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Array Basics",
+      "Hash Tables"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "NeetCode Explanation",
+          "link": "https://www.youtube.com/watch?v=KLlXCFG5TnA"
+        },
+        {
+          "explanation": "Find two numbers that add up to target using a brute-force approach.\n\nApproach:\n1. Use two nested loops to check all possible pairs\n2. Fix the first number using the outer loop\n3. For each fixed number, check the remaining numbers using the inner loop\n4. If nums[i] + nums[j] equals target, return their indices\n\nWhy it works:\n- All possible pairs are checked\n- No extra data structure is used\n- Guaranteed to find the correct pair if it exists",
+          "code": "int* twoSum(int* nums, int numsSize, int target, int* returnSize) {\n    static int result[2];\n    \n    for (int i = 0; i < numsSize; i++) {\n        for (int j = i + 1; j < numsSize; j++) {\n            if (nums[i] + nums[j] == target) {\n                result[0] = i;\n                result[1] = j;\n                *returnSize = 2;\n                return result;\n            }\n        }\n    }\n    \n    *returnSize = 0;\n    return NULL;\n}",
+          "timeComplexity": "O(n^2)",
+          "spaceComplexity": "O(1)",
+          "type": "tutorial"
+        }
+      ]
+    }
+  },
+  {
+    "day": 2,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Best Time to Buy and Sell Stock",
+      "link": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Array Operations",
+      "Math"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Video Tutorial",
+          "link": "https://www.youtube.com/watch?v=1pkOgXD63yU"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Find maximum profit from buying and selling stock once.\n\nAlgorithm:\n1. Track minimum price seen so far\n2. For each price, calculate profit if selling today\n3. Update maximum profit\n\nKey Insight:\n- Buy at lowest price before current day\n- Sell at current price for maximum profit\n- One pass solution",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;limits.h&gt;\n\nint maxProfit(int* prices, int pricesSize) {\n    int minPrice = INT_MAX;\n    int maxProfit = 0;\n\n    for (int i = 0; i < pricesSize; i++) {\n        if (prices[i] < minPrice)\n            minPrice = prices[i];\n        if (prices[i] - minPrice > maxProfit)\n            maxProfit = prices[i] - minPrice;\n    }\n\n    return maxProfit;\n}\n\nint main() {\n    int prices[] = {7, 1, 5, 3, 6, 4};\n    int n = sizeof(prices) / sizeof(prices[0]);\n\n    int profit = maxProfit(prices, n);\n    printf(\"Maximum Profit: %d\\n\", profit);\n\n    return 0;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        },
+        {
+          "type": "editorial",
+          "label": "LeetCode Editorial",
+          "link": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/editorial/"
+        }
+      ]
+    }
+  },
+  {
+    "day": 3,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Missing number in array",
+      "link": "https://practice.geeksforgeeks.org/problems/missing-number-in-array/0",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Array Searching"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "GFG Video Solution",
+          "link": "https://www.youtube.com/watch?v=WnPLSRLSANE"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Find missing number using sum formula or XOR.\n\nApproach 1 - Sum Formula:\n1. Calculate expected sum: n*(n+1)/2\n2. Calculate actual sum\n3. Difference is missing number\n\nApproach 2 - XOR:\n1. XOR all indices with all array values\n2. Pairs cancel out, leaving missing number",
+          "code": "#include &lt;stdio.h&gt;\n\nint missingNumber(int* nums, int numsSize) {\n    int n = numsSize;\n    int expectedSum = n * (n + 1) / 2;\n    int actualSum = 0;\n    for (int i = 0; i &lt; n; i++) {\n        actualSum += nums[i];\n    }\n    return expectedSum - actualSum;\n}\n\nint main() {\n    int nums[] = {3, 0, 1};\n    int size = sizeof(nums)/sizeof(nums[0]);\n    printf(\"Missing number: %d\\n\", missingNumber(nums, size));\n    return 0;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        },
+        {
+          "type": "editorial",
+          "label": "GeeksforGeeks Article",
+          "link": "https://www.geeksforgeeks.org/find-the-missing-number/"
+        }
+      ]
+    }
+  },
+  {
+    "day": 4,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Remove Element",
+      "link": "https://leetcode.com/problems/remove-element/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Array Reversal",
+      "Two Pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Video Explanation",
+          "link": "https://www.youtube.com/watch?v=Pcd1ii9P9ZI"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Remove all instances of val in-place using two pointers.\n\nApproach:\n1. Use slow pointer to track position to write\n2. Fast pointer scans through array\n3. Copy non-val elements to slow pointer position\n4. Return new length\n\nKey Points:\n- In-place modification\n- Order of elements can change\n- Return new array length",
+          "code": "#include &lt;stdio.h&gt;\n\nint removeElement(int* nums, int numsSize, int val) {\n    int slow = 0;\n    for (int fast = 0; fast &lt; numsSize; fast++) {\n        if (nums[fast] != val) {\n            nums[slow] = nums[fast];\n            slow++;\n        }\n    }\n    return slow;\n}\n\nint main() {\n    int nums[] = {3, 2, 2, 3, 4};\n    int size = sizeof(nums)/sizeof(nums[0]);\n    int val = 3;\n    int newLength = removeElement(nums, size, val);\n    printf(\"New array: \");\n    for (int i = 0; i &lt; newLength; i++) {\n        printf(\"%d \", nums[i]);\n    }\n    printf(\"\\nNew length: %d\\n\", newLength);\n    return 0;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        },
+        {
+          "type": "editorial",
+          "label": "LeetCode Editorial",
+          "link": "https://leetcode.com/problems/remove-element/editorial/"
+        }
+      ]
+    }
+  },
+  {
+    "day": 5,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Merge Sorted Array",
+      "link": "https://leetcode.com/problems/merge-sorted-array/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Array Merge",
+      "Two Pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "LeetCode Video",
+          "link": "https://www.youtube.com/watch?v=P1Ic85RarKY"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Merge nums2 into nums1 (which has enough space) in-place.\n\nApproach:\n1. Start from the end of both arrays\n2. Compare elements and place larger one at end of nums1\n3. Move pointers backward\n4. Copy remaining elements from nums2 if any\n\nKey Points:\n- Work backwards to avoid overwriting\n- nums1 has space for both arrays\n- In-place solution",
+          "code": "#include &lt;stdio.h&gt;\n\nvoid merge(int* nums1, int m, int* nums2, int n) {\n    int i = m - 1;\n    int j = n - 1;\n    int k = m + n - 1;\n\n    while (i >= 0 && j >= 0) {\n        if (nums1[i] &gt; nums2[j]) {\n            nums1[k--] = nums1[i--];\n        } else {\n            nums1[k--] = nums2[j--];\n        }\n    }\n\n    while (j >= 0) {\n        nums1[k--] = nums2[j--];\n    }\n}\n\nint main() {\n    int nums1[9] = {1, 3, 5, 0, 0, 0};\n    int nums2[3] = {2, 4, 6};\n    int m = 3, n = 3;\n\n    merge(nums1, m, nums2, n);\n\n    printf(\"Merged array: \");\n    for (int i = 0; i &lt; m + n; i++) {\n        printf(\"%d \", nums1[i]);\n    }\n    printf(\"\\n\");\n    return 0;\n}",
+          "timeComplexity": "O(n + m)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 6,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Move Zeroes",
+      "link": "https://leetcode.com/problems/move-zeroes/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Array Cleanup"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Move Zeroes - Video Solution",
+          "link": "https://www.youtube.com/watch?v=aayNRwUN3Do"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Move all zeroes to end while maintaining relative order of non-zero elements.\n\nApproach:\n1. Use slow pointer for non-zero position\n2. Fast pointer scans array\n3. Swap non-zero elements to front\n4. Zeroes automatically move to end\n\nKey Points:\n- In-place modification\n- Maintain relative order\n- Two-pointer technique",
+          "code": "#include &lt;stdio.h&gt;\n\nvoid moveZeroes(int* nums, int size) {\n    int slow = 0;\n\n    for (int fast = 0; fast &lt; size; fast++) {\n        if (nums[fast] != 0) {\n            int temp = nums[slow];\n            nums[slow] = nums[fast];\n            nums[fast] = temp;\n            slow++;\n        }\n    }\n}\n\nint main() {\n    int nums[] = {0, 1, 0, 3, 12};\n    int size = sizeof(nums) / sizeof(nums[0]);\n\n    moveZeroes(nums, size);\n\n    printf(\"Array after moving zeros: \");\n    for (int i = 0; i &lt; size; i++) {\n        printf(\"%d \", nums[i]);\n    }\n    printf(\"\\n\");\n\n    return 0;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 7,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Fibonacci Number",
+      "link": "https://leetcode.com/problems/fibonacci-number/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Recursion"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Fibonacci Number - Video Solution",
+          "link": "https://www.youtube.com/watch?v=3lpNp5Ojvrw"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Calculate Fibonacci number efficiently.\n\nApproach 1 - Iterative (Optimal):\n1. Use two variables to track previous two numbers\n2. Iterate from 2 to n\n3. Update variables in each iteration\n\nApproach 2 - Recursive with Memoization:\n1. Cache computed values\n2. Avoid redundant calculations\n\nKey Points:\n- Iterative is O(n) time, O(1) space\n- Recursive is simpler but less efficient",
+          "code": "class Solution {\npublic:\n    int fib(int n) {\n        if (n <= 1) return n;\n        \n        int prev2 = 0, prev1 = 1;\n        \n        for (int i = 2; i <= n; i++) {\n            int curr = prev1 + prev2;\n            prev2 = prev1;\n            prev1 = curr;\n        }\n        \n        return prev1;\n    }\n};",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 8,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Power of Two",
+      "link": "https://leetcode.com/problems/power-of-two/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Recursion",
+      "Math"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Power of Two - Video Solution",
+          "link": "https://www.youtube.com/watch?v=H2bjttEV4Vc"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Check if n is a power of 2.\n\nApproach 1 - Bit Manipulation:\n1. Power of 2 has exactly one bit set\n2. Use n & (n-1) == 0 trick\n3. Also check n > 0\n\nApproach 2 - Recursive Division:\n1. Keep dividing by 2\n2. Check if remainder is 0\n3. Final result should be 1\n\nKey Points:\n- Bit manipulation is O(1)\n- Powers of 2: 1, 2, 4, 8, 16, ...",
+          "code": "class Solution {\npublic:\n    bool isPowerOfTwo(int n) {\n        if (n <= 0) return false;\n        return (n & (n - 1)) == 0;\n    }\n};",
+          "timeComplexity": "O(1)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 9,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Reverse String",
+      "link": "https://leetcode.com/problems/reverse-string/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "String",
+      "Two Pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Reverse String - Video Solution",
+          "link": "https://www.youtube.com/watch?v=_d0T_2Lk2qA"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Reverse string in-place (array of characters).\n\nApproach:\n1. Use two pointers from both ends\n2. Swap characters\n3. Move pointers toward center\n4. Must modify input array directly\n\nKey Points:\n- In-place requirement (O(1) space)\n- Two-pointer technique\n- Return void, modify input",
+          "code": "#include &lt;stdio.h&gt;\n\nvoid reverseString(char* s, int size) {\n    int left = 0, right = size - 1;\n\n    while (left &lt; right) {\n        char temp = s[left];\n        s[left] = s[right];\n        s[right] = temp;\n        left++;\n        right--;\n    }\n}\n\nint main() {\n    char s[] = {'h','e','l','l','o'};\n    int size = sizeof(s) / sizeof(s[0]);\n\n    reverseString(s, size);\n\n    printf(\"Reversed string: \");\n    for (int i = 0; i &lt; size; i++) {\n        printf(\"%c\", s[i]);\n    }\n    printf(\"\\n\");\n\n    return 0;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 10,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Intersection of two arrays",
+      "link": "https://leetcode.com/problems/intersection-of-two-arrays-ii/description/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Palindrome Check",
+      "Array"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Intersection of Two Arrays II - Video",
+          "link": "https://www.youtube.com/watch?v=jo7E5K_pJ18"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Find intersection of two arrays (with duplicates).\n\nApproach 1 - Hash Map:\n1. Count frequency of elements in nums1\n2. Iterate through nums2\n3. If element exists in map and count > 0, add to result\n4. Decrement count\n\nApproach 2 - Sorting:\n1. Sort both arrays\n2. Use two pointers\n3. Add common elements\n\nKey Points:\n- Handle duplicates\n- Can appear multiple times in result",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\n#define MAX 10000\n\ntypedef struct {\n    int key;\n    int count;\n} HashNode;\n\nHashNode hash[MAX];\nint hashSize = 0;\n\nint findIndex(int key) {\n    for (int i = 0; i &lt; hashSize; i++) {\n        if (hash[i].key == key) return i;\n    }\n    return -1;\n}\n\nint main() {\n    int n1, n2;\n    scanf(\"%d\", &n1);\n    int nums1[n1];\n    for (int i = 0; i &lt; n1; i++) scanf(\"%d\", &nums1[i]);\n\n    scanf(\"%d\", &n2);\n    int nums2[n2];\n    for (int i = 0; i &lt; n2; i++) scanf(\"%d\", &nums2[i]);\n\n    // Count frequency of nums1\n    for (int i = 0; i &lt; n1; i++) {\n        int idx = findIndex(nums1[i]);\n        if (idx == -1) hash[hashSize++] = (HashNode){nums1[i], 1};\n        else hash[idx].count++;\n    }\n\n    // Find intersection with nums2\n    printf(\"Intersection: \");\n    for (int i = 0; i &lt; n2; i++) {\n        int idx = findIndex(nums2[i]);\n        if (idx != -1 &amp;&amp; hash[idx].count &gt; 0) {\n            printf(\"%d \", nums2[i]);\n            hash[idx].count--;\n        }\n    }\n    printf(\"\\n\");\n\n    return 0;\n}",
+          "timeComplexity": "O(n + m)",
+          "spaceComplexity": "O(min(n, m))"
+        }
+      ]
+    }
+  },
+  {
+    "day": 11,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Transpose Matrix",
+      "link": "https://leetcode.com/problems/transpose-matrix/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Matrix"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Transpose Matrix - Video Solution",
+          "link": "https://www.youtube.com/watch?v=hA_yvtCpjsg"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Approach:\n\n1. Find number of rows m and columns n\n2. Create a new matrix transpose of size n × m\n3. Traverse the original matrix using two nested loops:\n   - Outer loop for rows (i)\n   - Inner loop for columns (j)\n4. Assign:\n   transpose[j][i] = matrix[i][j]\n5. Return the transposed matrix\n\nKey Points:\n- Rows become columns and columns become rows\n- Works for rectangular matrices as well\n- Uses extra space for the transposed matrix",
+          "code": "int** transpose(int** matrix, int matrixSize, int* matrixColSize, int* returnSize, int** returnColumnSizes) {\n    int m = matrixSize;\n    int n = matrixColSize[0];\n\n    returnSize = n;\n    returnColumnSizes = (int)malloc(n * sizeof(int));\n    for (int i = 0; i < n; i++) {\n        (returnColumnSizes)[i] = m;\n    }\n\n    int result = (int*)malloc(n * sizeof(int));\n    for (int i = 0; i < n; i++) {\n        result[i] = (int*)malloc(m * sizeof(int));\n    }\n\n    for (int i = 0; i < m; i++) {\n        for (int j = 0; j < n; j++) {\n            result[j][i] = matrix[i][j];\n        }\n    }\n\n    return result;\n}",
+          "timeComplexity": "O(m × n)",
+          "spaceComplexity": "O(m × n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 12,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Toeplitz Matrix",
+      "link": "https://leetcode.com/problems/toeplitz-matrix/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Matrix Diagonal"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Toeplitz Matrix - Video Solution",
+          "link": "https://www.youtube.com/watch?v=r1Al6vVg2VQ"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Approach:\n\nA matrix is Toeplitz if:\n\nmatrix[i][j] = matrix[i - 1][j - 1]\n\nfor all valid i > 0 and j > 0.\n\nSteps:\n1. Start checking from cell (1, 1) since (0, 0) has no top-left neighbor\n2. Traverse the matrix using nested loops\n3. For every cell (i, j), compare it with (i - 1, j - 1)\n4. If any mismatch is found, return false\n5. If all diagonal comparisons pass, return true\n\nKey Points:\n- Each diagonal from top-left to bottom-right must have same elements\n- Works for rectangular matrices\n- No extra space required",
+          "code": "bool isToeplitzMatrix(int** matrix, int matrixSize, int* matrixColSize) {\n    \n    int m = matrixSize;\n    int n = matrixColSize[0];\n\n    for (int i = 1; i < m; i++) {\n        for (int j = 1; j < n; j++) {\n            if (matrix[i][j] != matrix[i - 1][j - 1]) {\n                return false;\n            }\n        }\n    }\n\n    return true;\n}",
+          "timeComplexity": "O(m × n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 13,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Spiral Matrix",
+      "link": "https://leetcode.com/problems/spiral-matrix/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Matrix Spiral"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Spiral Matrix - Video Solution",
+          "link": "https://www.youtube.com/watch?v=BJnMZNwUk1M"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Return all elements in spiral order.\n\nApproach:\n1. Use four boundary variables\n2. Traverse in order: right, down, left, up\n3. Shrink boundaries after each direction\n4. Continue until all elements visited\n\nKey Points:\n- Handle edge cases (empty, single row/column)\n- Check boundaries before each traversal\n- Use dynamic array to store result",
+          "code": "int* spiralOrder(int** matrix, int matrixSize, int* matrixColSize, int* returnSize) {\n    if (matrixSize == 0 || matrixColSize[0] == 0) {\n        returnSize = 0;\n        return NULL;\n    }\n\n    int m = matrixSize;\n    int n = matrixColSize[0];\n    int result = (int*)malloc(sizeof(int) * m * n);\n    int index = 0;\n\n    int top = 0, bottom = m - 1;\n    int left = 0, right = n - 1;\n\n    while (top <= bottom && left <= right) {\n        for (int i = left; i <= right; i++)\n            result[index++] = matrix[top][i];\n        top++;\n\n        for (int i = top; i <= bottom; i++)\n            result[index++] = matrix[i][right];\n        right--;\n\n        if (top <= bottom) {\n            for (int i = right; i >= left; i--)\n                result[index++] = matrix[bottom][i];\n            bottom--;\n        }\n\n        if (left <= right) {\n            for (int i = bottom; i >= top; i--)\n                result[index++] = matrix[i][left];\n            left++;\n        }\n    }\n\n    *returnSize = index;\n    return result;\n}",
+          "timeComplexity": "O(m × n)",
+          "spaceComplexity": "O(m × n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 14,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Rotate Image",
+      "link": "https://leetcode.com/problems/rotate-image/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Matrix Properties"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Rotate Image - Video Solution",
+          "link": "https://www.youtube.com/watch?v=fMSJSS7eO1w"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Rotate n×n matrix 90 degrees clockwise in-place.\n\nApproach:\n1. Transpose the matrix (swap mat[i][j] with mat[j][i])\n2. Reverse each row\n3. Result is 90-degree clockwise rotation\n\nAlternative: Rotate layer by layer\n\nKey Points:\n- In-place rotation required\n- Transpose + reverse = rotate 90°\n- Must handle square matrix only",
+          "code": "void rotate(int** matrix, int matrixSize, int* matrixColSize) {\n    int n = matrixSize;\n\n    // Transpose the matrix\n    for (int i = 0; i < n; i++) {\n        for (int j = i + 1; j < n; j++) {\n            int temp = matrix[i][j];\n            matrix[i][j] = matrix[j][i];\n            matrix[j][i] = temp;\n        }\n    }\n\n    // Reverse each row\n    for (int i = 0; i < n; i++) {\n        int left = 0, right = n - 1;\n        while (left < right) {\n            int temp = matrix[i][left];\n            matrix[i][left] = matrix[i][right];\n            matrix[i][right] = temp;\n            left++;\n            right--;\n        }\n    }\n}",
+          "timeComplexity": "O(n²)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 15,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Set Matrix Zeroes",
+      "link": "https://leetcode.com/problems/set-matrix-zeroes/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Matrix"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Set Matrix Zeroes - Video Solution",
+          "link": "https://www.youtube.com/watch?v=T41rL0L3Pnw"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Set entire row and column to 0 if element is 0.\n\nApproach (O(1) space):\n1. Use first row and column as markers\n2. Scan matrix, mark first row/column if 0 found\n3. Use markers to set zeros\n4. Handle first row/column separately\n\nKey Points:\n- Must modify in-place\n- O(1) space solution uses matrix itself\n- Process from bottom-right to preserve markers",
+          "code": "#include &lt;stdio.h&gt;\n\nvoid setZeroes(int matrix[200][200], int m, int n) {\n    int firstRowZero = 0;\n    int firstColZero = 0;\n\n    // Check first column\n    for (int i = 0; i < m; i++) {\n        if (matrix[i][0] == 0) {\n            firstColZero = 1;\n            break;\n        }\n    }\n\n    // Check first row\n    for (int j = 0; j < n; j++) {\n        if (matrix[0][j] == 0) {\n            firstRowZero = 1;\n            break;\n        }\n    }\n\n    // Mark rows and columns\n    for (int i = 1; i < m; i++) {\n        for (int j = 1; j < n; j++) {\n            if (matrix[i][j] == 0) {\n                matrix[i][0] = 0;\n                matrix[0][j] = 0;\n            }\n        }\n    }\n\n    // Zero rows\n    for (int i = 1; i < m; i++) {\n        if (matrix[i][0] == 0) {\n            for (int j = 1; j < n; j++) {\n                matrix[i][j] = 0;\n            }\n        }\n    }\n\n    // Zero columns\n    for (int j = 1; j < n; j++) {\n        if (matrix[0][j] == 0) {\n            for (int i = 1; i < m; i++) {\n                matrix[i][j] = 0;\n            }\n        }\n    }\n\n    // Zero first column\n    if (firstColZero) {\n        for (int i = 0; i < m; i++) {\n            matrix[i][0] = 0;\n        }\n    }\n\n    // Zero first row\n    if (firstRowZero) {\n        for (int j = 0; j < n; j++) {\n            matrix[0][j] = 0;\n        }\n    }\n}",
+          "timeComplexity": "O(m × n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 16,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Rotate Array",
+      "link": "https://leetcode.com/problems/rotate-array/description/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Array Count",
+      "HashMap Logic"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Rotate Array - Video Solution",
+          "link": "https://www.youtube.com/watch?v=BHr381Guz3Y"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Rotate array to right by k steps.\n\nApproach (Reverse Method):\n1. Reverse entire array\n2. Reverse first k elements\n3. Reverse remaining n-k elements\n\nAlternative: Use extra space to copy\n\nKey Points:\n- k can be > n, use k % n\n- In-place solution preferred\n- Three reverses achieve rotation",
+          "code": "void reverse(int* nums, int start, int end) {\n    while (start < end) {\n        int temp = nums[start];\n        nums[start] = nums[end];\n        nums[end] = temp;\n        start++;\n        end--;\n    }\n}\n\nvoid rotate(int* nums, int numsSize, int k) {\n    if (numsSize == 0) return;\n\n    k = k % numsSize;   // handle k > size\n    \n    reverse(nums, 0, numsSize - 1);      // reverse whole array\n    reverse(nums, 0, k - 1);             // reverse first k elements\n    reverse(nums, k, numsSize - 1);      // reverse remaining elements\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 17,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Maximum Subarray",
+      "link": "https://leetcode.com/problems/maximum-subarray/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Kadane",
+      "DP Intro"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Maximum Subarray - Video Solution",
+          "link": "https://www.youtube.com/watch?v=5WZl3MMT0Eg"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Find maximum sum contiguous subarray (Kadane's Algorithm).\n\nApproach:\n1. Keep track of current sum and max sum\n2. Add current element to current sum\n3. If current sum < 0, reset to current element\n4. Update max sum at each step\n\nKey Points:\n- Dynamic programming approach\n- Linear time solution\n- Handle all negative numbers case",
+          "code": "int maxSubArray(int* nums, int numsSize) {\n    int maxSum = nums[0];\n    int currSum = nums[0];\n\n    for (int i = 1; i < numsSize; i++) {\n        if (currSum < 0)\n            currSum = nums[i];\n        else\n            currSum += nums[i];\n\n        if (currSum > maxSum)\n            maxSum = currSum;\n    }\n\n    return maxSum;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 18,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Product of Array Except Self",
+      "link": "https://leetcode.com/problems/product-of-array-except-self/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Prefix Suffix",
+      "Array"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Product of Array Except Self - Video Solution",
+          "link": "https://www.youtube.com/watch?v=bNvIQI2wAjk"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Calculate product of all elements except self without division.\n\nApproach:\n1. Calculate prefix products (product of all elements before i)\n2. Calculate suffix products (product of all elements after i)\n3. result[i] = prefix[i] * suffix[i]\n\nOptimized: Use result array to store prefix, then multiply by suffix in reverse\n\nKey Points:\n- Cannot use division\n- O(n) time, O(1) extra space (output doesn't count)\n- Two passes through array",
+          "code": "int* productExceptSelf(int* nums, int numsSize, int* returnSize) {\n    int* answer = (int*)malloc(numsSize * sizeof(int));\n    \n    *returnSize = numsSize;\n\n    // Step 1: Prefix products\n    answer[0] = 1;\n    for (int i = 1; i < numsSize; i++) {\n        answer[i] = answer[i - 1] * nums[i - 1];\n    }\n\n    // Step 2: Suffix products\n    int suffix = 1;\n    for (int i = numsSize - 1; i >= 0; i--) {\n        answer[i] = answer[i] * suffix;\n        suffix *= nums[i];\n    }\n\n    return answer;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 19,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "Maximum Sum Circular Subarray",
+      "link": "https://leetcode.com/problems/maximum-sum-circular-subarray/description/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Two Pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Maximum Sum Circular Subarray - Video Solution",
+          "link": "https://www.youtube.com/watch?v=fxT9KjakYPM"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Maximum Sum Circular Subarray using Kadane’s Algorithm.\n\nApproach:\n1. Use Kadane’s algorithm to find maximum subarray sum (non-circular).\n2. Use modified Kadane’s to find minimum subarray sum.\n3. Calculate total array sum.\n4. Answer = max(maxSub, totalSum - minSub).\n5. If all elements are negative (totalSum == minSub), return maxSub.",
+          "code": "int maxSubarraySumCircular(int* nums, int numsSize) {\n    int totalSum = 0;\n    int maxSub = nums[0], currentMax = nums[0];\n    int minSub = nums[0], currentMin = nums[0];\n\n    for (int i = 0; i < numsSize; i++) {\n        totalSum += nums[i];\n        if (i > 0) {\n            currentMax = (nums[i] > currentMax + nums[i]) ? nums[i] : currentMax + nums[i];\n            maxSub = (maxSub > currentMax) ? maxSub : currentMax;\n\n            currentMin = (nums[i] < currentMin + nums[i]) ? nums[i] : currentMin + nums[i];\n            minSub = (minSub < currentMin) ? minSub : currentMin;\n        }\n    }\n\n    if (totalSum == minSub) return maxSub;\n\n    int circularMax = totalSum - minSub;\n    return (maxSub > circularMax) ? maxSub : circularMax;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 20,
+    "unit": "Unit I: Introduction",
+    "question2": {
+      "name": "3Sum",
+      "link": "https://leetcode.com/problems/3sum/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Sorting",
+      "Two Pointers"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "3Sum - Video Solution",
+          "link": "https://www.youtube.com/watch?v=jzZsG8n2R9A"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Find all unique triplets that sum to zero.\n\nApproach:\n1. Sort the array\n2. Fix first element, use two pointers for remaining\n3. Skip duplicates to avoid duplicate triplets\n4. Adjust pointers based on sum\n\nKey Points:\n- Sort first for two-pointer technique\n- Handle duplicates carefully\n- O(n²) time complexity",
+          "code": "#include &lt;stdlib.h&gt\n\n// Comparator for qsort\nint compare(const void* a, const void* b) {\n    return ((int)a - (int)b);\n}\n\nint** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes) {\n    // Sort the array\n    qsort(nums, numsSize, sizeof(int), compare);\n\n    // Allocate maximum possible space\n    int capacity = 10000;\n    int** result = (int*)malloc(capacity * sizeof(int));\n    returnColumnSizes = (int)malloc(capacity * sizeof(int));\n\n    returnSize = 0;\n\n    for (int i = 0; i < numsSize - 2; i++) {\n        // Skip duplicate first elements\n        if (i > 0 && nums[i] == nums[i - 1])\n            continue;\n\n        int left = i + 1;\n        int right = numsSize - 1;\n\n        while (left < right) {\n            int sum = nums[i] + nums[left] + nums[right];\n\n            if (sum == 0) {\n                // Store the triplet\n                result[*returnSize] = (int)malloc(3 * sizeof(int));\n                result[*returnSize][0] = nums[i];\n                result[*returnSize][1] = nums[left];\n                result[*returnSize][2] = nums[right];\n\n                (*returnColumnSizes)[*returnSize] = 3;\n                (*returnSize)++;\n\n                // Skip duplicates\n                while (left < right && nums[left] == nums[left + 1]) left++;\n                while (left < right && nums[right] == nums[right - 1]) right--;\n\n                left++;\n                right--;\n            }\n            else if (sum < 0) {\n                left++;\n            }\n            else {\n                right--;\n            }\n        }\n    }\n\n    return result;\n}",
+          "timeComplexity": "O(n²)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 21,
+    "unit": "Unit II: Linked List",
+    "question2": {
+      "name": "Middle of the Linked List",
+      "link": "https://leetcode.com/problems/middle-of-the-linked-list/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Linked List"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Middle of the Linked List Video",
+          "link": "https://www.youtube.com/watch?v=nzaHG0dme4g"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Find the middle of a singly linked list using the slow and fast pointer technique.\n\nApproach:\n1. Use two pointers: slow and fast.\n2. Move slow by one step and fast by two steps.\n3. When fast reaches the end, slow will be at the middle.",
+          "code": "struct ListNode {\n    int val;\n    struct ListNode* next;\n};\n\nstruct ListNode* middleNode(struct ListNode* head) {\n    struct ListNode* slow = head;\n    struct ListNode* fast = head;\n\n    while (fast != NULL && fast->next != NULL) {\n        slow = slow->next;\n        fast = fast->next->next;\n    }\n\n    return slow; // Middle node\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 22,
+    "unit": "Unit II: Linked List",
+    "question2": {
+      "name": "Reverse Linked List",
+      "link": "https://leetcode.com/problems/reverse-linked-list/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Linked List"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Reverse Linked List Video",
+          "link": "https://www.youtube.com/watch?v=G0_I-ZF0S38"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Reverse a singly linked list using an iterative approach.\n\nApproach:\n1. Use three pointers: prev, curr, and next.\n2. Reverse the link of the current node.\n3. Move pointers forward until the list is reversed.",
+          "code": "struct ListNode {\n    int val;\n    struct ListNode* next;\n};\n\nstruct ListNode* reverseList(struct ListNode* head) {\n    struct ListNode* prev = NULL;\n    struct ListNode* curr = head;\n    struct ListNode* next = NULL;\n\n    while (curr != NULL) {\n        next = curr->next;   // Store next node\n        curr->next = prev;   // Reverse link\n        prev = curr;         // Move prev forward\n        curr = next;         // Move curr forward\n    }\n\n    return prev; // New head of reversed list\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 23,
+    "unit": "Unit II: Linked List",
+    "question2": {
+      "name": "List Cycle Detection",
+      "link": "https://leetcode.com/problems/linked-list-cycle/description/s",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Linked List"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Linked List Cycle - Video Solution",
+          "link": "https://www.youtube.com/watch?v=gBTe7lFR3vc"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Detect cycle using Floyd's algorithm (slow-fast pointers):\n\n1. Use two pointers: slow moves 1 step, fast moves 2 steps\n2. If fast meets slow, cycle exists\n3. If fast reaches NULL, no cycle\n\nKey Points:\n- Also called tortoise and hare algorithm\n- O(n) time, O(1) space\n- Fast pointer will catch slow if cycle exists",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n#include <stdbool.h>\n\nstruct ListNode {\n    int val;\n    struct ListNode *next;\n};\n\nbool hasCycle(struct ListNode *head) {\n    if (head == NULL || head->next == NULL) {\n        return false;\n    }\n    \n    struct ListNode* slow = head;\n    struct ListNode* fast = head;\n    \n    while (fast != NULL && fast->next != NULL) {\n        slow = slow->next;\n        fast = fast->next->next;\n        \n        if (slow == fast) {\n            return true;\n        }\n    }\n    \n    return false;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 24,
+    "unit": "Unit II: Linked List",
+    "question2": {
+      "name": "Remove Linked List Elements",
+      "link": "https://leetcode.com/problems/remove-linked-list-elements/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Deletion",
+      "Linked List"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Remove Linked List Elements - Video Solution",
+          "link": "https://www.youtube.com/watch?v=JI71sxtHTng"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Remove all nodes with given value:\n\n1. Use dummy node to handle head deletion\n2. Traverse list with prev and current pointers\n3. If current->val == val, skip node\n4. Otherwise, move prev forward\n\nKey Points:\n- Remove ALL occurrences (not just first)\n- Dummy node simplifies code\n- Don't forget to free memory in C",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\nstruct ListNode {\n    int val;\n    struct ListNode *next;\n};\n\nstruct ListNode* removeElements(struct ListNode* head, int val) {\n    struct ListNode dummy;\n    dummy.next = head;\n    struct ListNode* prev = &dummy;\n    struct ListNode* current = head;\n    \n    while (current != NULL) {\n        if (current->val == val) {\n            prev->next = current->next;\n            struct ListNode* temp = current;\n            current = current->next;\n            free(temp);\n        } else {\n            prev = current;\n            current = current->next;\n        }\n    }\n    \n    return dummy.next;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 25,
+    "unit": "Unit II: Linked List",
+    "question2": {
+      "name": "Linked List Cycle II",
+      "link": "https://leetcode.com/problems/linked-list-cycle-ii/description/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Cycle Detection",
+      "Linked List"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Linked List Cycle II - Video Solution",
+          "link": "https://www.youtube.com/watch?v=gWv_D_iBQBk"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Detect the start of a cycle in a linked list using Floyd’s Cycle Detection Algorithm.\n\nApproach:\n1. Use two pointers: slow (1 step) and fast (2 steps).\n2. If slow and fast meet, a cycle exists.\n3. Move one pointer to head and advance both by one step.\n4. The node where they meet again is the start of the cycle.",
+          "code": "struct ListNode {\n    int val;\n    struct ListNode* next;\n};\n\nstruct ListNode* detectCycle(struct ListNode* head) {\n    struct ListNode* slow = head;\n    struct ListNode* fast = head;\n\n    // Step 1: Detect cycle\n    while (fast != NULL && fast->next != NULL) {\n        slow = slow->next;\n        fast = fast->next->next;\n        if (slow == fast) break;\n    }\n\n    // No cycle\n    if (fast == NULL || fast->next == NULL) return NULL;\n\n    // Step 2: Find cycle start\n    while (head != slow) {\n        head = head->next;\n        slow = slow->next;\n    }\n\n    return head; // Start of the cycle\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 26,
+    "unit": "Unit II: Linked List",
+    "question2": {
+      "name": "Design Linked List",
+      "link": "https://leetcode.com/problems/design-linked-list/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Doubly Linked List"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Design Linked List - Video Solution",
+          "link": "https://www.youtube.com/watch?v=Wf4QhpdVFQo"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Design your own linked list with operations:\n\n1. Implement get(index), addAtHead(val), addAtTail(val)\n2. Implement addAtIndex(index, val), deleteAtIndex(index)\n3. Use singly linked list or doubly linked list\n\nKey Points:\n- Choose between singly/doubly linked list\n- Handle edge cases (empty list, invalid index)\n- Maintain size variable for efficiency",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\ntypedef struct Node {\n    int val;\n    struct Node* next;\n} Node;\n\ntypedef struct {\n    Node* head;\n    int size;\n} MyLinkedList;\n\nMyLinkedList* myLinkedListCreate() {\n    MyLinkedList* obj = (MyLinkedList*)malloc(sizeof(MyLinkedList));\n    obj->head = NULL;\n    obj->size = 0;\n    return obj;\n}\n\nint myLinkedListGet(MyLinkedList* obj, int index) {\n    if (index < 0 || index >= obj->size) return -1;\n    \n    Node* curr = obj->head;\n    for (int i = 0; i < index; i++) {\n        curr = curr->next;\n    }\n    return curr->val;\n}\n\nvoid myLinkedListAddAtHead(MyLinkedList* obj, int val) {\n    Node* newNode = (Node*)malloc(sizeof(Node));\n    newNode->val = val;\n    newNode->next = obj->head;\n    obj->head = newNode;\n    obj->size++;\n}\n\nvoid myLinkedListAddAtTail(MyLinkedList* obj, int val) {\n    Node* newNode = (Node*)malloc(sizeof(Node));\n    newNode->val = val;\n    newNode->next = NULL;\n    \n    if (obj->head == NULL) {\n        obj->head = newNode;\n    } else {\n        Node* curr = obj->head;\n        while (curr->next != NULL) {\n            curr = curr->next;\n        }\n        curr->next = newNode;\n    }\n    obj->size++;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 27,
+    "unit": "Unit II: Linked List",
+    "question2": {
+      "name": "Remove Cycle in Linked List",
+      "link": "https://www.geeksforgeeks.org/problems/remove-loop-in-linked-list/1",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Linked List"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Remove Loop in Linked List - Video Solution",
+          "link": "https://www.youtube.com/watch?v=qsPoOVAHV_I"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Remove cycle from linked list:\n\n1. Detect cycle using Floyd's algorithm\n2. Find start of cycle\n3. Find node just before start\n4. Set its next to NULL\n\nKey Points:\n- First detect if cycle exists\n- Move one pointer to head after detection\n- Move both one step until they meet (cycle start)\n- Remove by setting next to NULL",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n#include <stdbool.h>\n\nstruct Node {\n    int data;\n    struct Node* next;\n};\n\nvoid removeLoop(struct Node* head) {\n    if (head == NULL || head->next == NULL) return;\n    \n    struct Node* slow = head;\n    struct Node* fast = head;\n    \n    // Detect cycle\n    while (fast != NULL && fast->next != NULL) {\n        slow = slow->next;\n        fast = fast->next->next;\n        if (slow == fast) break;\n    }\n    \n    if (slow != fast) return; // No cycle\n    \n    // Find start of cycle\n    slow = head;\n    while (slow->next != fast->next) {\n        slow = slow->next;\n        fast = fast->next;\n    }\n    \n    // Remove cycle\n    fast->next = NULL;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 28,
+    "unit": "Unit II: Linked List",
+    "question2": {
+      "name": "Palindrome Linked List",
+      "link": "https://leetcode.com/problems/palindrome-linked-list/description/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Linked List"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Palindrome Linked List - Video Solution",
+          "link": "https://www.youtube.com/watch?v=yOzXms1J6Nk"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Check if linked list is palindrome:\n\n1. Find middle using slow-fast pointers\n2. Reverse second half\n3. Compare first half with reversed second half\n4. Restore list (optional)\n\nKey Points:\n- O(n) time, O(1) space solution\n- Find middle, reverse second half\n- Compare values node by node",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n#include <stdbool.h>\n\nstruct ListNode {\n    int val;\n    struct ListNode *next;\n};\n\nstruct ListNode* reverseList(struct ListNode* head) {\n    struct ListNode* prev = NULL;\n    while (head != NULL) {\n        struct ListNode* next = head->next;\n        head->next = prev;\n        prev = head;\n        head = next;\n    }\n    return prev;\n}\n\nbool isPalindrome(struct ListNode* head) {\n    if (head == NULL || head->next == NULL) return true;\n    \n    // Find middle\n    struct ListNode *slow = head, *fast = head;\n    while (fast->next != NULL && fast->next->next != NULL) {\n        slow = slow->next;\n        fast = fast->next->next;\n    }\n    \n    // Reverse second half\n    struct ListNode* secondHalf = reverseList(slow->next);\n    \n    // Compare\n    struct ListNode* p1 = head;\n    struct ListNode* p2 = secondHalf;\n    bool result = true;\n    \n    while (p2 != NULL) {\n        if (p1->val != p2->val) {\n            result = false;\n            break;\n        }\n        p1 = p1->next;\n        p2 = p2->next;\n    }\n    \n    return result;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 29,
+    "unit": "Unit II: Linked List",
+    "question2": {
+      "name": "Add Two Numbers",
+      "link": "https://leetcode.com/problems/add-two-numbers/description/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Rotation",
+      "Linked List"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Add Two Numbers - Video Solution",
+          "link": "https://www.youtube.com/watch?v=wgFPrzTjm7s"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Add two numbers represented as linked lists:\n\n1. Numbers stored in reverse order\n2. Traverse both lists simultaneously\n3. Add values plus carry\n4. Create new node with sum % 10\n5. Update carry = sum / 10\n\nKey Points:\n- Handle different lengths\n- Don't forget final carry\n- Create new list for result",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\nstruct ListNode {\n    int val;\n    struct ListNode *next;\n};\n\nstruct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {\n    struct ListNode dummy;\n    struct ListNode* current = &dummy;\n    int carry = 0;\n    \n    while (l1 != NULL || l2 != NULL || carry != 0) {\n        int sum = carry;\n        \n        if (l1 != NULL) {\n            sum += l1->val;\n            l1 = l1->next;\n        }\n        \n        if (l2 != NULL) {\n            sum += l2->val;\n            l2 = l2->next;\n        }\n        \n        carry = sum / 10;\n        current->next = (struct ListNode*)malloc(sizeof(struct ListNode));\n        current->next->val = sum % 10;\n        current->next->next = NULL;\n        current = current->next;\n    }\n    \n    return dummy.next;\n}",
+          "timeComplexity": "O(max(m, n))",
+          "spaceComplexity": "O(max(m, n))"
+        }
+      ]
+    }
+  },
+  {
+    "day": 30,
+    "unit": "Unit II: Linked List",
+    "question2": {
+      "name": "Add Two Numbers II",
+      "link": "https://leetcode.com/problems/add-two-numbers-ii/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Polynomial LL",
+      "Representation"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Add Two Numbers II - Video Solution",
+          "link": "https://www.youtube.com/watch?v=Yc9buffV1G0"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Add two numbers in forward order:\n\n1. Reverse both lists or use stack\n2. Add from least significant digit\n3. Handle carry\n4. Reverse result or build in correct order\n\nKey Points:\n- Numbers in forward order (unlike Add Two Numbers I)\n- Can use stack or reverse lists\n- Don't modify input lists if possible",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\nstruct ListNode {\n    int val;\n    struct ListNode *next;\n};\n\nstruct ListNode* reverseList(struct ListNode* head) {\n    struct ListNode* prev = NULL;\n    while (head != NULL) {\n        struct ListNode* next = head->next;\n        head->next = prev;\n        prev = head;\n        head = next;\n    }\n    return prev;\n}\n\nstruct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {\n    // Reverse both lists\n    l1 = reverseList(l1);\n    l2 = reverseList(l2);\n    \n    struct ListNode dummy;\n    struct ListNode* current = &dummy;\n    int carry = 0;\n    \n    while (l1 != NULL || l2 != NULL || carry != 0) {\n        int sum = carry;\n        if (l1 != NULL) {\n            sum += l1->val;\n            l1 = l1->next;\n        }\n        if (l2 != NULL) {\n            sum += l2->val;\n            l2 = l2->next;\n        }\n        \n        carry = sum / 10;\n        current->next = (struct ListNode*)malloc(sizeof(struct ListNode));\n        current->next->val = sum % 10;\n        current->next->next = NULL;\n        current = current->next;\n    }\n    \n    // Reverse result\n    return reverseList(dummy.next);\n}",
+          "timeComplexity": "O(max(m, n))",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 31,
+    "unit": "Unit III: Stack and Queue",
+    "question2": {
+      "name": "Valid Parentheses",
+      "link": "https://leetcode.com/problems/valid-parentheses/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Stack"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Valid Parentheses - Video",
+          "link": "https://www.youtube.com/watch?v=WTzjTskDFMg"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Check if parentheses are balanced using stack:\n\n1. For opening bracket: push to stack\n2. For closing bracket: check if matches top of stack\n3. If matches, pop; otherwise invalid\n4. At end, stack should be empty\n\nKey Points:\n- Use stack to match pairs\n- Check for corresponding opening bracket\n- Stack must be empty at end",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n#include <string.h>\n#include <stdbool.h>\n\nbool isValid(char* s) {\n    int len = strlen(s);\n    char stack[len];\n    int top = -1;\n    \n    for (int i = 0; i < len; i++) {\n        char c = s[i];\n        \n        if (c == '(' || c == '[' || c == '{') {\n            stack[++top] = c;\n        } else {\n            if (top == -1) return false;\n            \n            char last = stack[top--];\n            if ((c == ')' && last != '(') ||\n                (c == ']' && last != '[') ||\n                (c == '}' && last != '{')) {\n                return false;\n            }\n        }\n    }\n    \n    return top == -1;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 32,
+    "unit": "Unit III: Stack and Queue",
+    "question2": {
+      "name": "Min Stack",
+      "link": "https://leetcode.com/problems/min-stack/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Stack Operations"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Min Stack - Video",
+          "link": "https://www.youtube.com/watch?v=qkLl7nAwDPo"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Design stack that supports getMin in O(1):\n\n1. Use two stacks: main stack and min stack\n2. Min stack keeps track of minimum at each level\n3. On push: update min stack\n4. On pop: pop from both stacks\n5. getMin: return top of min stack\n\nKey Points:\n- Parallel stacks approach\n- Min stack mirrors main stack\n- All operations in O(1)",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n#include <limits.h>\n\ntypedef struct {\n    int* stack;\n    int* minStack;\n    int top;\n    int capacity;\n} MinStack;\n\nMinStack* minStackCreate() {\n    MinStack* obj = (MinStack*)malloc(sizeof(MinStack));\n    obj->capacity = 10000;\n    obj->stack = (int*)malloc(obj->capacity * sizeof(int));\n    obj->minStack = (int*)malloc(obj->capacity * sizeof(int));\n    obj->top = -1;\n    return obj;\n}\n\nvoid minStackPush(MinStack* obj, int val) {\n    obj->stack[++obj->top] = val;\n    if (obj->top == 0) {\n        obj->minStack[obj->top] = val;\n    } else {\n        int currentMin = obj->minStack[obj->top - 1];\n        obj->minStack[obj->top] = val < currentMin ? val : currentMin;\n    }\n}\n\nvoid minStackPop(MinStack* obj) {\n    if (obj->top >= 0) {\n        obj->top--;\n    }\n}\n\nint minStackTop(MinStack* obj) {\n    return obj->stack[obj->top];\n}\n\nint minStackGetMin(MinStack* obj) {\n    return obj->minStack[obj->top];\n}",
+          "timeComplexity": "O(1) all operations",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 33,
+    "unit": "Unit III: Stack and Queue",
+    "question2": {
+      "name": "Evaluate Reverse Polish Notation",
+      "link": "https://leetcode.com/problems/evaluate-reverse-polish-notation/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Expression Conversion"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Evaluate RPN - Video",
+          "link": "https://www.youtube.com/watch?v=iu0082c4HDE"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Evaluate postfix expression:\n\n1. Scan tokens left to right\n2. If number: push to stack\n3. If operator: pop two operands, compute, push result\n4. Final result is top of stack\n\nKey Points:\n- Postfix has no parentheses\n- No precedence needed\n- Direct evaluation possible",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n#include <string.h>\n\nint evalRPN(char** tokens, int tokensSize) {\n    int stack[tokensSize];\n    int top = -1;\n    \n    for (int i = 0; i < tokensSize; i++) {\n        char* token = tokens[i];\n        \n        if (strcmp(token, \"+\") == 0) {\n            int b = stack[top--];\n            int a = stack[top--];\n            stack[++top] = a + b;\n        } else if (strcmp(token, \"-\") == 0) {\n            int b = stack[top--];\n            int a = stack[top--];\n            stack[++top] = a - b;\n        } else if (strcmp(token, \"*\") == 0) {\n            int b = stack[top--];\n            int a = stack[top--];\n            stack[++top] = a * b;\n        } else if (strcmp(token, \"/\") == 0) {\n            int b = stack[top--];\n            int a = stack[top--];\n            stack[++top] = a / b;\n        } else {\n            stack[++top] = atoi(token);\n        }\n    }\n    \n    return stack[top];\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 34,
+    "unit": "Unit III: Stack and Queue",
+    "question2": {
+      "name": "Basic Calculator II",
+      "link": "https://leetcode.com/problems/basic-calculator-ii/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Stack and Queue"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Basic Calculator II Video",
+          "link": "https://www.youtube.com/watch?v=sfM4DjMfhw4"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Evaluate a mathematical expression containing +, -, *, / using a stack.\n\nApproach:\n- Use a stack to handle operator precedence.\n- + : push number\n- - : push negative number\n- * and / : compute immediately using stack top\n- Final result is the sum of stack elements.",
+          "code": "#include &lt;ctype.h&gt\n\nint calculate(char* s) {\n    int stack[1000];\n    int top = -1;\n    char op = '+';\n    int i = 0;\n\n    while (s[i] != '\\0') {\n        if (s[i] == ' ') {\n            i++;\n        }\n        else if (s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/') {\n            op = s[i];\n            i++;\n        }\n        else {\n            int num = 0;\n            while (s[i] != '\\0' && isdigit(s[i])) {\n                num = num * 10 + (s[i] - '0');\n                i++;\n            }\n\n            if (op == '+') {\n                stack[++top] = num;\n            }\n            else if (op == '-') {\n                stack[++top] = -num;\n            }\n            else if (op == '*') {\n                stack[top] = stack[top] * num;\n            }\n            else if (op == '/') {\n                stack[top] = stack[top] / num; // truncates toward zero\n            }\n        }\n    }\n\n    int result = 0;\n    while (top >= 0) {\n        result += stack[top--];\n    }\n\n    return result;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 35,
+    "unit": "Unit III: Stack and Queue",
+    "question2": {
+      "name": "Implement Queue using Stacks",
+      "link": "https://leetcode.com/problems/implement-queue-using-stacks/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Stack and Queue"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Implement Queue using Stacks Video",
+          "link": "https://www.youtube.com/watch?v=eanwa3ht3YQ"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Implement a Queue using two stacks.\n\nApproach:\n- Use two stacks: stack1 (input) and stack2 (output).\n- Push operation inserts into stack1.\n- For pop/peek, move all elements from stack1 to stack2, access the front element, then move elements back.\n- This ensures FIFO behavior using LIFO stacks.",
+          "code": "#include &lt;stdio.h&gt;\n#define MAX 100\n\nint stack1[MAX], stack2[MAX];\nint top1 = -1, top2 = -1;\n\nint isEmptyStack1() {\n    return top1 == -1;\n}\n\nvoid push(int x) {\n    stack1[++top1] = x;\n}\n\nint pop() {\n    // Move all elements to stack2\n    while (top1 != -1) {\n        stack2[++top2] = stack1[top1--];\n    }\n\n    int removed = stack2[top2--];\n\n    // Move back to stack1\n    while (top2 != -1) {\n        stack1[++top1] = stack2[top2--];\n    }\n\n    return removed;\n}\n\nint peek() {\n    while (top1 != -1) {\n        stack2[++top2] = stack1[top1--];\n    }\n\n    int front = stack2[top2];\n\n    while (top2 != -1) {\n        stack1[++top1] = stack2[top2--];\n    }\n\n    return front;\n}\n\nint empty() {\n    return top1 == -1;\n}",
+          "timeComplexity": "Push: O(1), Pop: O(n), Peek: O(n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 36,
+    "unit": "Unit III: Stack and Queue",
+    "question2": {
+      "name": "Design Circular Deque",
+      "link": "https://leetcode.com/problems/design-circular-deque/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Stack and Queue"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Design Circular Queue Video",
+          "link": "https://www.youtube.com/watch?v=kP_nXjMD0w4"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Implement a Circular Deque using an array.\n\nApproach:\n- Use an array of size k+1 to distinguish full and empty states.\n- Maintain two pointers: front (f) and rear (r).\n- Perform insert/delete from both ends using modulo arithmetic.\n- All operations run in constant time.",
+          "code": "#include &lt;stdlib.h&gt;\n\ntypedef struct {\n    int* q;\n    int f;\n    int r;\n    int n;\n} MyCircularDeque;\n\nMyCircularDeque* myCircularDequeCreate(int k) {\n    MyCircularDeque* obj = (MyCircularDeque*)malloc(sizeof(MyCircularDeque));\n    obj->n = k + 1;\n    obj->q = (int*)malloc(sizeof(int) * obj->n);\n    obj->f = 0;\n    obj->r = 0;\n    return obj;\n}\n\nint myCircularDequeInsertFront(MyCircularDeque* obj, int value) {\n    if (myCircularDequeIsFull(obj)) return 0;\n    obj->f = (obj->f - 1 + obj->n) % obj->n;\n    obj->q[obj->f] = value;\n    return 1;\n}\n\nint myCircularDequeInsertLast(MyCircularDeque* obj, int value) {\n    if (myCircularDequeIsFull(obj)) return 0;\n    obj->q[obj->r] = value;\n    obj->r = (obj->r + 1) % obj->n;\n    return 1;\n}\n\nint myCircularDequeDeleteFront(MyCircularDeque* obj) {\n    if (myCircularDequeIsEmpty(obj)) return 0;\n    obj->f = (obj->f + 1) % obj->n;\n    return 1;\n}\n\nint myCircularDequeDeleteLast(MyCircularDeque* obj) {\n    if (myCircularDequeIsEmpty(obj)) return 0;\n    obj->r = (obj->r - 1 + obj->n) % obj->n;\n    return 1;\n}\n\nint myCircularDequeGetFront(MyCircularDeque* obj) {\n    if (myCircularDequeIsEmpty(obj)) return -1;\n    return obj->q[obj->f];\n}\n\nint myCircularDequeGetRear(MyCircularDeque* obj) {\n    if (myCircularDequeIsEmpty(obj)) return -1;\n    return obj->q[(obj->r - 1 + obj->n) % obj->n];\n}\n\nint myCircularDequeIsEmpty(MyCircularDeque* obj) {\n    return obj->f == obj->r;\n}\n\nint myCircularDequeIsFull(MyCircularDeque* obj) {\n    return (obj->r + 1) % obj->n == obj->f;\n}\n\nvoid myCircularDequeFree(MyCircularDeque* obj) {\n    free(obj->q);\n    free(obj);\n}",
+          "timeComplexity": "O(1) for all operations",
+          "spaceComplexity": "O(k)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 37,
+    "unit": "Unit III: Stack and Queue",
+    "question2": {
+      "name": "Kth Largest Element in a Stream",
+      "link": "https://leetcode.com/problems/kth-largest-element-in-a-stream/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Stack and Queue"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Kth Largest Element in Array Video",
+          "link": "https://www.youtube.com/watch?v=XEmy13g1Qxc"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "The KthLargest structure maintains the kth largest element in a stream of integers using a Min-Heap.\n\nIntuition:\n- To efficiently track the kth largest element, we only need the largest k elements seen so far.\n- A Min-Heap of size k is ideal because the smallest element in the heap represents the kth largest overall.\n\nApproach:\n- Use a Min-Heap implemented via an array.\n- While initializing, insert elements into the heap and if the size exceeds k, remove the minimum.\n- When adding a new element, insert it into the heap and again ensure the heap size does not exceed k.\n- The root of the heap always gives the kth largest element.\n\nHeap Operations:\n- Insert: O(log k)\n- Remove Min: O(log k)\n\nThis approach is efficient for continuous streams of data.",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\ntypedef struct {\n    int *heap;\n    int size;\n    int capacity;\n} MinHeap;\n\nvoid swap(int *a, int *b) {\n    int temp = *a;\n    *a = *b;\n    *b = temp;\n}\n\nMinHeap* createMinHeap(int capacity) {\n    MinHeap* h = (MinHeap*)malloc(sizeof(MinHeap));\n    h->heap = (int*)malloc(sizeof(int) * capacity);\n    h->size = 0;\n    h->capacity = capacity;\n    return h;\n}\n\nvoid heapifyUp(MinHeap* h, int index) {\n    while (index > 0 && h->heap[(index - 1) / 2] > h->heap[index]) {\n        swap(&h->heap[index], &h->heap[(index - 1) / 2]);\n        index = (index - 1) / 2;\n    }\n}\n\nvoid heapifyDown(MinHeap* h, int index) {\n    int smallest = index;\n    int left = 2 * index + 1;\n    int right = 2 * index + 2;\n\n    if (left < h->size && h->heap[left] < h->heap[smallest])\n        smallest = left;\n    if (right < h->size && h->heap[right] < h->heap[smallest])\n        smallest = right;\n\n    if (smallest != index) {\n        swap(&h->heap[index], &h->heap[smallest]);\n        heapifyDown(h, smallest);\n    }\n}\n\nvoid insertHeap(MinHeap* h, int val) {\n    if (h->size < h->capacity) {\n        h->heap[h->size++] = val;\n        heapifyUp(h, h->size - 1);\n    } else if (val > h->heap[0]) {\n        h->heap[0] = val;\n        heapifyDown(h, 0);\n    }\n}\n\nint getMin(MinHeap* h) {\n    return h->heap[0];\n}\n\ntypedef struct {\n    MinHeap* heap;\n} KthLargest;\n\nKthLargest* kthLargestCreate(int k, int* nums, int numsSize) {\n    KthLargest* obj = (KthLargest*)malloc(sizeof(KthLargest));\n    obj->heap = createMinHeap(k);\n\n    for (int i = 0; i < numsSize; i++) {\n        insertHeap(obj->heap, nums[i]);\n    }\n    return obj;\n}\n\nint kthLargestAdd(KthLargest* obj, int val) {\n    insertHeap(obj->heap, val);\n    return getMin(obj->heap);\n}\n\nvoid kthLargestFree(KthLargest* obj) {\n    free(obj->heap->heap);\n    free(obj->heap);\n    free(obj);\n}\n\nint main() {\n    int nums[] = {4, 5, 8, 2};\n    int k = 3;\n    int size = sizeof(nums) / sizeof(nums[0]);\n\n    KthLargest* obj = kthLargestCreate(k, nums, size);\n\n    printf(\"%d\\n\", kthLargestAdd(obj, 3));\n    printf(\"%d\\n\", kthLargestAdd(obj, 5));\n    printf(\"%d\\n\", kthLargestAdd(obj, 10));\n    printf(\"%d\\n\", kthLargestAdd(obj, 9));\n    printf(\"%d\\n\", kthLargestAdd(obj, 4));\n\n    kthLargestFree(obj);\n    return 0;\n}",
+          "timeComplexity": "O(log k) per insertion",
+          "spaceComplexity": "O(k)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 38,
+    "unit": "Unit III: Stack and Queue",
+    "question2": {
+      "name": "Sliding Window Maximum",
+      "link": "https://leetcode.com/problems/sliding-window-maximum/",
+      "difficulty": "Hard"
+    },
+    "topics": [
+      "Stack and Queue"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Sliding Window Maximum Video",
+          "link": "https://www.youtube.com/watch?v=DfljaUwZsOk"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Sliding Window Maximum using Monotonic Deque (C Implementation).\n\nApproach:\n- Use a deque that stores indices of elements.\n- The deque is maintained in decreasing order of values.\n- Front of deque always stores the index of the maximum element of the current window.\n\nSteps:\n1. Remove indices from the front that are out of the current window (i - k).\n2. Remove indices from the back whose corresponding values are smaller than the current element, as they cannot be maximum anymore.\n3. Insert the current index at the back.\n4. Once the first window is completed (i >= k - 1), store the value at the front index as the maximum.\n\nThis ensures each element is pushed and popped at most once.",
+          "code": "#include &lt;stdio.h&gt;\n\n#define MAX 10000\n\nint deque[MAX];\nint front = 0, rear = -1;\n\nint isEmpty() {\n    return front > rear;\n}\n\nvoid popFront() {\n    front++;\n}\n\nvoid popBack() {\n    rear--;\n}\n\nvoid pushBack(int x) {\n    deque[++rear] = x;\n}\n\nint getFront() {\n    return deque[front];\n}\n\nint main() {\n    int n, k;\n    scanf(\"%d\", &n);\n\n    int nums[n];\n    for (int i = 0; i < n; i++)\n        scanf(\"%d\", &nums[i]);\n\n    scanf(\"%d\", &k);\n\n    int result[n];\n    int resSize = 0;\n\n    for (int i = 0; i < n; i++) {\n        /* Remove indices out of current window */\n        if (!isEmpty() && getFront() <= i - k)\n            popFront();\n\n        /* Remove smaller elements */\n        while (!isEmpty() && nums[deque[rear]] < nums[i])\n            popBack();\n\n        pushBack(i);\n\n        /* Store result once first window is complete */\n        if (i >= k - 1)\n            result[resSize++] = nums[getFront()];\n    }\n\n    /* Print result */\n    for (int i = 0; i < resSize; i++)\n        printf(\"%d \", result[i]);\n\n    return 0;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(k)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 39,
+    "unit": "Unit III: Stack and Queue",
+    "question2": {
+      "name": "Top K Frequent Elements",
+      "link": "https://leetcode.com/problems/top-k-frequent-elements/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Heap",
+      "Priority Queue"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Top K Frequent Elements",
+          "link": "https://www.youtube.com/watch?v=YPTqKIgVk-k"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Find the k most frequent elements in an array.\n\nApproach:\n- Use a hash table to count frequency of each element in O(n).\n- Use a min-heap (priority queue) of size k to keep only top k frequent elements.\n- If heap size exceeds k, remove the element with smallest frequency.\n- Finally, heap contains k most frequent elements.",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\n#define MAX 10000\n\n/* Hash table node */\ntypedef struct {\n    int key;\n    int freq;\n} HashNode;\n\nHashNode hash[MAX];\nint hashSize = 0;\n\nint findIndex(int key) {\n    for (int i = 0; i < hashSize; i++) {\n        if (hash[i].key == key)\n            return i;\n    }\n    return -1;\n}\n\n/* Min Heap node */\ntypedef struct {\n    int freq;\n    int val;\n} HeapNode;\n\nHeapNode heap[MAX];\nint heapSize = 0;\n\nvoid swap(HeapNode *a, HeapNode *b) {\n    HeapNode t = *a;\n    *a = *b;\n    *b = t;\n}\n\nvoid heapifyUp(int i) {\n    while (i > 0) {\n        int p = (i - 1) / 2;\n        if (heap[p].freq > heap[i].freq) {\n            swap(&heap[p], &heap[i]);\n            i = p;\n        } else break;\n    }\n}\n\nvoid heapifyDown(int i) {\n    while (1) {\n        int smallest = i;\n        int l = 2*i + 1, r = 2*i + 2;\n        if (l < heapSize && heap[l].freq < heap[smallest].freq)\n            smallest = l;\n        if (r < heapSize && heap[r].freq < heap[smallest].freq)\n            smallest = r;\n        if (smallest != i) {\n            swap(&heap[i], &heap[smallest]);\n            i = smallest;\n        } else break;\n    }\n}\n\nvoid pushHeap(int freq, int val, int k) {\n    heap[heapSize++] = (HeapNode){freq, val};\n    heapifyUp(heapSize - 1);\n\n    if (heapSize > k) {\n        heap[0] = heap[heapSize - 1];\n        heapSize--;\n        heapifyDown(0);\n    }\n}\n\nint main() {\n    int n, k;\n    scanf(\"%d\", &n);\n\n    int nums[n];\n    for (int i = 0; i < n; i++)\n        scanf(\"%d\", &nums[i]);\n\n    scanf(\"%d\", &k);\n\n    /* Frequency counting */\n    for (int i = 0; i < n; i++) {\n        int idx = findIndex(nums[i]);\n        if (idx == -1)\n            hash[hashSize++] = (HashNode){nums[i], 1};\n        else\n            hash[idx].freq++;\n    }\n\n    /* Build min-heap of size k */\n    for (int i = 0; i < hashSize; i++) {\n        pushHeap(hash[i].freq, hash[i].key, k);\n    }\n\n    /* Output result */\n    for (int i = 0; i < heapSize; i++) {\n        printf(\"%d \", heap[i].val);\n    }\n\n    return 0;\n}",
+          "timeComplexity": "O(n + m log k)",
+          "spaceComplexity": "O(m + k)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 40,
+    "unit": "Unit III: Stack & Queue",
+    "question2": {
+      "name": "Daily Temperatures",
+      "link": "https://leetcode.com/problems/daily-temperatures/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Heap Sort",
+      "Max Heap",
+      "Sorting"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "tutorial",
+          "explanation": "This problem uses a monotonic decreasing stack. We traverse the temperature array from right to left and maintain indices of days with higher temperatures. For each day, we pop all indices with temperatures less than or equal to the current day and calculate the difference to find the next warmer day.",
+          "code": "#include &lt;stdlib.h&gt;\n\nint* dailyTemperatures(int* temperatures, int temperaturesSize, int* returnSize) {\n    int n = temperaturesSize;\n    int* ans = (int*)malloc(n * sizeof(int));\n    int* stack = (int*)malloc(n * sizeof(int));\n    int top = -1;\n\n    for (int i = n - 1; i &gt;= 0; i--) {\n        while (top != -1 && temperatures[i] &gt;= temperatures[stack[top]]) {\n            top--;\n        }\n        ans[i] = (top != -1) ? stack[top] - i : 0;\n        stack[++top] = i;\n    }\n\n    *returnSize = n;\n    free(stack);\n    return ans;\n}",
+          "timeComplexity": "O(N)",
+          "spaceComplexity": "O(N)"
+        },
+        {
+          "type": "video",
+          "label": "Daily Temperatures Explanation",
+          "link": "https://www.youtube.com/watch?v=cTBiBSnjO3c"
+        }
+      ]
+    }
+  },
+  {
+    "day": 41,
+    "unit": "Unit III: Stack & Queue",
+    "question2": {
+      "name": "Task Scheduler",
+      "link": "https://leetcode.com/problems/task-scheduler/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Queue",
+      "Linked List Implementation"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Task Scheduler Explanation",
+          "link": "https://www.youtube.com/watch?v=rYh-Kkbzsnw"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Brute-force simulation approach:\n\nAt each time unit, select the available task with the highest remaining frequency. If no task is available, the CPU stays idle. Cooldown time is maintained for each task and reduced after every time unit. The process continues until all tasks are completed.",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\nint allDone(int freq[]) {\n    for (int i = 0; i < 26; i++) {\n        if (freq[i] > 0)\n            return 0;\n    }\n    return 1;\n}\n\nint leastInterval(char* tasks, int tasksSize, int n) {\n    int freq[26] = {0};\n    int cooldown[26] = {0};\n\n    for (int i = 0; i < tasksSize; i++) {\n        freq[tasks[i] - 'A']++;\n    }\n\n    int time = 0;\n\n    while (!allDone(freq)) {\n        int taskIndex = -1;\n        int maxFreq = 0;\n\n        for (int i = 0; i < 26; i++) {\n            if (freq[i] > 0 && cooldown[i] == 0 && freq[i] > maxFreq) {\n                maxFreq = freq[i];\n                taskIndex = i;\n            }\n        }\n\n        if (taskIndex != -1) {\n            freq[taskIndex]--;\n            cooldown[taskIndex] = n + 1;\n        }\n\n        for (int i = 0; i < 26; i++) {\n            if (cooldown[i] > 0)\n                cooldown[i]--;\n        }\n\n        time++;\n    }\n\n    return time;\n}",
+          "timeComplexity": "O(T × 26)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 42,
+    "unit": "Unit III: Stack & Queue",
+    "question2": {
+      "name": "Find Median from Data Stream",
+      "link": "https://leetcode.com/problems/find-median-from-data-stream/",
+      "difficulty": "Hard"
+    },
+    "topics": [
+      "Queue",
+      "Stack",
+      "Reversal"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Find Median from Data Stream Explanation",
+          "link": "https://www.youtube.com/watch?v=itmhHWaHupI"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "The median is maintained using two heaps. A max heap stores the smaller half of the numbers and a min heap stores the larger half. New numbers are inserted into the appropriate heap and the heaps are balanced so that their size difference is at most one. The median is either the top of the max heap or the average of both heap tops.",
+          "code": "#include &lt;stdlib.h&gt;\n\n/* Heap structure */\ntypedef struct {\n    int* arr;\n    int size;\n    int capacity;\n    int isMinHeap;\n} Heap;\n\n/* MedianFinder */\ntypedef struct {\n    Heap* left;\n    Heap* right;\n} MedianFinder;\n\nvoid swap(int* a, int* b) {\n    int t = *a;\n    *a = *b;\n    *b = t;\n}\n\nHeap* createHeap(int capacity, int isMinHeap) {\n    Heap* h = (Heap*)malloc(sizeof(Heap));\n    h->capacity = capacity;\n    h->size = 0;\n    h->isMinHeap = isMinHeap;\n    h->arr = (int*)malloc(sizeof(int) * capacity);\n    return h;\n}\n\nvoid ensureCapacity(Heap* h) {\n    if (h->size < h->capacity) return;\n    h->capacity *= 2;\n    h->arr = (int*)realloc(h->arr, sizeof(int) * h->capacity);\n}\n\nint compare(Heap* h, int a, int b) {\n    return h->isMinHeap ? a < b : a > b;\n}\n\nvoid heapifyUp(Heap* h, int i) {\n    while (i > 0) {\n        int p = (i - 1) / 2;\n        if (compare(h, h->arr[i], h->arr[p])) {\n            swap(&h->arr[i], &h->arr[p]);\n            i = p;\n        } else break;\n    }\n}\n\nvoid heapifyDown(Heap* h, int i) {\n    while (1) {\n        int l = 2*i + 1, r = 2*i + 2, best = i;\n        if (l < h->size && compare(h, h->arr[l], h->arr[best])) best = l;\n        if (r < h->size && compare(h, h->arr[r], h->arr[best])) best = r;\n        if (best != i) {\n            swap(&h->arr[i], &h->arr[best]);\n            i = best;\n        } else break;\n    }\n}\n\nvoid heapPush(Heap* h, int val) {\n    ensureCapacity(h);\n    h->arr[h->size] = val;\n    heapifyUp(h, h->size);\n    h->size++;\n}\n\nint heapPop(Heap* h) {\n    int top = h->arr[0];\n    h->arr[0] = h->arr[h->size - 1];\n    h->size--;\n    heapifyDown(h, 0);\n    return top;\n}\n\nint heapTop(Heap* h) {\n    return h->arr[0];\n}\n\nMedianFinder* medianFinderCreate() {\n    MedianFinder* obj = (MedianFinder*)malloc(sizeof(MedianFinder));\n    obj->left = createHeap(16, 0);\n    obj->right = createHeap(16, 1);\n    return obj;\n}\n\nvoid medianFinderAddNum(MedianFinder* obj, int num) {\n    if (obj->left->size == 0 || num <= heapTop(obj->left))\n        heapPush(obj->left, num);\n    else\n        heapPush(obj->right, num);\n\n    if (obj->left->size > obj->right->size + 1)\n        heapPush(obj->right, heapPop(obj->left));\n    else if (obj->right->size > obj->left->size)\n        heapPush(obj->left, heapPop(obj->right));\n}\n\ndouble medianFinderFindMedian(MedianFinder* obj) {\n    if (obj->left->size > obj->right->size)\n        return heapTop(obj->left);\n    return (heapTop(obj->left) + heapTop(obj->right)) / 2.0;\n}\n\nvoid medianFinderFree(MedianFinder* obj) {\n    free(obj->left->arr);\n    free(obj->right->arr);\n    free(obj->left);\n    free(obj->right);\n    free(obj);\n}",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 43,
+    "unit": "Unit III: Stack & Queue",
+    "question2": {
+      "name": "Binary Tree Inorder Traversal",
+      "link": "https://leetcode.com/problems/binary-tree-inorder-traversal/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Binary Tree",
+      "Construction",
+      "Traversal"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Binary Tree Inorder Traversal",
+          "link": "https://www.youtube.com/watch?v=NQjAvtyLFM0"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "In inorder traversal, nodes are visited in the order: left subtree, root, and right subtree. A recursive approach is used to traverse the tree and store node values in the result array.",
+          "code": "int inorder(int* arr, struct TreeNode* root, int index) {\n    if (root != NULL) {\n        index = inorder(arr, root->left, index);\n        arr[index++] = root->val;\n        index = inorder(arr, root->right, index);\n    }\n    return index;\n}\n\nint* inorderTraversal(struct TreeNode* root, int* returnSize) {\n    int* arr = (int*)malloc(100 * sizeof(int));\n    *returnSize = inorder(arr, root, 0);\n    return arr;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 44,
+    "unit": "Unit III: Stack & Queue",
+    "question2": {
+      "name": "Binary Tree Preorder Traversal",
+      "link": "https://leetcode.com/problems/binary-tree-preorder-traversal/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Tree Traversal"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Binary Tree Inorder & Preorder Traversal",
+          "link": "https://www.youtube.com/watch?v=NQjAvtyLFM0"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Preorder traversal visits nodes in the order Root → Left → Right. A recursive helper function stores node values in an array while traversing the tree.",
+          "code": "int preorder(int* arr, struct TreeNode* root, int index) {\n    if (root != NULL) {\n        arr[index++] = root->val;\n        index = preorder(arr, root->left, index);\n        index = preorder(arr, root->right, index);\n    }\n    return index;\n}\n\nint* preorderTraversal(struct TreeNode* root, int* returnSize) {\n    int* arr = (int*)malloc(100 * sizeof(int));\n    *returnSize = preorder(arr, root, 0);\n    return arr;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 45,
+    "unit": "Unit III: Stack & Queue",
+    "question2": {
+      "name": "Maximum Depth of Binary Tree",
+      "link": "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Binary Tree",
+      "Recursion"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Maximum Depth of Binary Tree Explanation",
+          "link": "https://www.youtube.com/watch?v=o2LEC2NEVuk"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "The maximum depth of a binary tree is found using recursion. For each node, compute the depth of its left and right subtrees and return the larger value plus one. If the node is NULL, the depth is zero.",
+          "code": "int maxDepth(struct TreeNode* root) {\n    if (root == NULL)\n        return 0;\n\n    int leftDepth = maxDepth(root->left);\n    int rightDepth = maxDepth(root->right);\n\n    return (leftDepth > rightDepth ? leftDepth : rightDepth) + 1;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(h)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 46,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Binary Tree Level Order Traversal",
+      "link": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Tree"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Binary Tree Level Order Traversal Video",
+          "link": "https://www.youtube.com/results?search_query=Binary+Tree+Level+Order+Traversal+leetcode"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Solution for Binary Tree Level Order Traversal",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\n// Binary Tree Level Order Traversal solution in C",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 47,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Maximum Depth of Binary Tree",
+      "link": "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Tree"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Maximum Depth of Binary Tree Video",
+          "link": "https://www.youtube.com/results?search_query=Maximum+Depth+of+Binary+Tree+leetcode"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Solution for Maximum Depth of Binary Tree",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\n// Maximum Depth of Binary Tree solution in C",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 48,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Sum of Left Leaves",
+      "link": "https://leetcode.com/problems/sum-of-left-leaves/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Tree"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Sum of Left Leaves Video",
+          "link": "https://www.youtube.com/results?search_query=Sum+of+Left+Leaves+leetcode"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Solution for Sum of Left Leaves",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\n// Sum of Left Leaves solution in C",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 49,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Insert into BST",
+      "link": "https://leetcode.com/problems/insert-into-a-binary-search-tree/description/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Tree"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Insert into BST Video",
+          "link": "https://www.youtube.com/results?search_query=Insert+into+BST+leetcode"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Solution for Insert into BST",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\n// Insert into BST solution in C",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 50,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Search in BST",
+      "link": "https://leetcode.com/problems/search-in-a-binary-search-tree/description/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Tree"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Search in BST Video",
+          "link": "https://www.youtube.com/results?search_query=Search+in+BST+leetcode"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Solution for Search in BST",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\n// Search in BST solution in C",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 51,
+    "unit": "Unit IV: Trees",
+    "question2": {
+      "name": "Lowest Common Ancestor of a BST",
+      "link": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "BST",
+      "LCA"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Lowest Common Ancestor of a BST - Explanation",
+          "link": "https://www.youtube.com/watch?v=cX_kPV_foZc"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Use BST ordering to move left or right until split point is found.",
+          "code": "struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p, struct TreeNode* q) {\n    while(root != NULL) {\n        if(p-&gt;val &lt; root-&gt;val &amp;&amp; q-&gt;val &lt; root-&gt;val)\n            root = root-&gt;left;\n        else if(p-&gt;val &gt; root-&gt;val &amp;&amp; q-&gt;val &gt; root-&gt;val)\n            root = root-&gt;right;\n        else\n            return root;\n    }\n    return NULL;\n}",
+          "timeComplexity": "O(h)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 52,
+    "unit": "Unit IV: Trees",
+    "question2": {
+      "name": "Lowest Common Ancestor of a Binary Tree",
+      "link": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Binary Tree",
+      "LCA"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Lowest Common Ancestor of a Binary Tree - Explanation",
+          "link": "https://www.youtube.com/watch?v=_-QHfMDde90"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Recursively search both subtrees. Split point becomes the answer.",
+          "code": "struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p, struct TreeNode* q) {\n    if(root == NULL || root == p || root == q)\n        return root;\n\n    struct TreeNode* left = lowestCommonAncestor(root-&gt;left, p, q);\n    struct TreeNode* right = lowestCommonAncestor(root-&gt;right, p, q);\n\n    if(left != NULL &amp;&amp; right != NULL)\n        return root;\n\n    if(left != NULL)\n        return left;\n\n    return right;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(h)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 53,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Binary Tree Level Order Traversal",
+      "link": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Tree Traversal",
+      "BFS"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Binary Tree Level Order Traversal - BFS",
+          "link": "https://www.youtube.com/watch?v=EoAsWbO7sqg"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Use queue to visit nodes level by level from left to right.",
+          "code": "int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes) {\n    *returnSize = 0;\n    if(root == NULL) {\n        *returnColumnSizes = NULL;\n        return NULL;\n    }\n\n    int** ans = (int**)malloc(1000 * sizeof(int*));\n    *returnColumnSizes = (int*)malloc(1000 * sizeof(int));\n\n    struct TreeNode* q[1000];\n    int front = 0, rear = 0;\n    q[rear++] = root;\n\n    while(front &lt; rear) {\n        int size = rear - front;\n        ans[*returnSize] = (int*)malloc(size * sizeof(int));\n        (*returnColumnSizes)[*returnSize] = size;\n\n        for(int i = 0; i &lt; size; i++) {\n            struct TreeNode* node = q[front++];\n            ans[*returnSize][i] = node-&gt;val;\n\n            if(node-&gt;left) q[rear++] = node-&gt;left;\n            if(node-&gt;right) q[rear++] = node-&gt;right;\n        }\n\n        (*returnSize)++;\n    }\n\n    return ans;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 54,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Binary Tree Zigzag Level Order Traversal",
+      "link": "https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Tree Traversal",
+      "Zigzag"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Binary Tree Zigzag Level Order Traversal - Explanation",
+          "link": "https://www.youtube.com/watch?v=3OXWEdlIGl4"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Use level order traversal and reverse filling logic for alternate levels.",
+          "code": "int** zigzagLevelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes) {\n    *returnSize = 0;\n    if(root == NULL) {\n        *returnColumnSizes = NULL;\n        return NULL;\n    }\n\n    int** ans = (int**)malloc(1000 * sizeof(int*));\n    *returnColumnSizes = (int*)malloc(1000 * sizeof(int));\n\n    struct TreeNode* q[1000];\n    int front = 0, rear = 0;\n    q[rear++] = root;\n    int leftToRight = 1;\n\n    while(front &lt; rear) {\n        int size = rear - front;\n        ans[*returnSize] = (int*)malloc(size * sizeof(int));\n        (*returnColumnSizes)[*returnSize] = size;\n\n        for(int i = 0; i &lt; size; i++) {\n            struct TreeNode* node = q[front++];\n            int index;\n\n            if(leftToRight)\n                index = i;\n            else\n                index = size - i - 1;\n\n            ans[*returnSize][index] = node-&gt;val;\n\n            if(node-&gt;left) q[rear++] = node-&gt;left;\n            if(node-&gt;right) q[rear++] = node-&gt;right;\n        }\n\n        leftToRight = !leftToRight;\n        (*returnSize)++;\n    }\n\n    return ans;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 55,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Binary Tree Right Side View",
+      "link": "https://leetcode.com/problems/binary-tree-right-side-view/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Tree View Problems"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Binary Tree Right Side View - Explanation",
+          "link": "https://www.youtube.com/watch?v=d4zLyf32e3I"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Use level order traversal and store the last node of each level.",
+          "code": "int* rightSideView(struct TreeNode* root, int* returnSize) {\n    *returnSize = 0;\n    if(root == NULL) return NULL;\n\n    int* ans = (int*)malloc(1000 * sizeof(int));\n    struct TreeNode* q[1000];\n    int front = 0, rear = 0;\n    q[rear++] = root;\n\n    while(front &lt; rear) {\n        int size = rear - front;\n\n        for(int i = 0; i &lt; size; i++) {\n            struct TreeNode* node = q[front++];\n\n            if(i == size - 1)\n                ans[(*returnSize)++] = node-&gt;val;\n\n            if(node-&gt;left) q[rear++] = node-&gt;left;\n            if(node-&gt;right) q[rear++] = node-&gt;right;\n        }\n    }\n\n    return ans;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 56,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Symmetric Tree",
+      "link": "https://leetcode.com/problems/symmetric-tree/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Symmetry",
+      "Binary Tree"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Symmetric Tree - Explanation",
+          "link": "https://www.youtube.com/watch?v=nKggNAiEpBE"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Check whether left and right subtree are mirror images of each other.",
+          "code": "bool isMirror(struct TreeNode* left, struct TreeNode* right) {\n    if(left == NULL &amp;&amp; right == NULL)\n        return true;\n\n    if(left == NULL || right == NULL)\n        return false;\n\n    if(left-&gt;val != right-&gt;val)\n        return false;\n\n    return isMirror(left-&gt;left, right-&gt;right) &amp;&amp; isMirror(left-&gt;right, right-&gt;left);\n}\n\nbool isSymmetric(struct TreeNode* root) {\n    if(root == NULL)\n        return true;\n    return isMirror(root-&gt;left, root-&gt;right);\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(h)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 57,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Flatten Binary Tree to Linked List",
+      "link": "https://leetcode.com/problems/flatten-binary-tree-to-linked-list/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Binary Tree",
+      "Linked List"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Flatten Binary Tree to Linked List - Explanation",
+          "link": "https://www.youtube.com/watch?v=sWf7k1x9XR4"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Flatten tree into linked list in preorder form.\n\nApproach:\n1. Recursively flatten left subtree\n2. Recursively flatten right subtree\n3. Move flattened left subtree to right\n4. Attach old right subtree at the end\n\nKey Points:\n- Final linked list uses right pointers only\n- Left pointers become NULL",
+          "code": "void flatten(struct TreeNode* root) {\n    if(root == NULL)\n        return;\n\n    flatten(root-&gt;left);\n    flatten(root-&gt;right);\n\n    struct TreeNode* left = root-&gt;left;\n    struct TreeNode* right = root-&gt;right;\n\n    root-&gt;left = NULL;\n    root-&gt;right = left;\n\n    struct TreeNode* curr = root;\n    while(curr-&gt;right != NULL)\n        curr = curr-&gt;right;\n\n    curr-&gt;right = right;\n}",
+          "timeComplexity": "O(n^2)",
+          "spaceComplexity": "O(h)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 58,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Construct Binary Tree from Preorder and Inorder Traversal",
+      "link": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Tree Construction"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Construct Binary Tree from Preorder and Inorder - Explanation",
+          "link": "https://youtu.be/aZNaLrVebKQ?si=0-YLkSskeqFXUczS"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Build recursively using preorder root and inorder partition.",
+          "code": "struct TreeNode* build(int preorder[], int inorder[], int inStart, int inEnd, int* preIndex) {\n    if(inStart &gt; inEnd)\n        return NULL;\n\n    int val = preorder[*preIndex];\n    (*preIndex)++;\n\n    struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));\n    root-&gt;val = val;\n    root-&gt;left = NULL;\n    root-&gt;right = NULL;\n\n    if(inStart == inEnd)\n        return root;\n\n    int index;\n    for(index = inStart; index &lt;= inEnd; index++) {\n        if(inorder[index] == val)\n            break;\n    }\n\n    root-&gt;left = build(preorder, inorder, inStart, index - 1, preIndex);\n    root-&gt;right = build(preorder, inorder, index + 1, inEnd, preIndex);\n\n    return root;\n}",
+          "timeComplexity": "O(n^2)",
+          "spaceComplexity": "O(h)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 59,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Construct Binary Tree from Inorder and Postorder Traversal",
+      "link": "https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Binary Tree",
+      "Construction"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Construct Binary Tree from Inorder and Postorder - Explanation",
+          "link": "https://youtu.be/LgLRTaEMRVc?si=4xl2YZ5sLRsrley_"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Use postorder from end and inorder partition to build the tree recursively.",
+          "code": "struct TreeNode* build(int inorder[], int postorder[], int inStart, int inEnd, int* postIndex) {\n    if(inStart &gt; inEnd)\n        return NULL;\n\n    int val = postorder[*postIndex];\n    (*postIndex)--;\n\n    struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));\n    root-&gt;val = val;\n    root-&gt;left = NULL;\n    root-&gt;right = NULL;\n\n    if(inStart == inEnd)\n        return root;\n\n    int index;\n    for(index = inStart; index &lt;= inEnd; index++) {\n        if(inorder[index] == val)\n            break;\n    }\n\n    root-&gt;right = build(inorder, postorder, index + 1, inEnd, postIndex);\n    root-&gt;left = build(inorder, postorder, inStart, index - 1, postIndex);\n\n    return root;\n}",
+          "timeComplexity": "O(n^2)",
+          "spaceComplexity": "O(h)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 60,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Binary Tree Cameras",
+      "link": "https://leetcode.com/problems/binary-tree-cameras/",
+      "difficulty": "Hard"
+    },
+    "topics": [
+      "Heap",
+      "Tree"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Binary Tree Cameras - Explanation",
+          "link": "https://youtu.be/VBxiavZYfoA?si=LFSz2Ltx6qM0yPTh"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Use 3 states for each node.\n\nStates:\n1. Node has camera\n2. Node is covered\n3. Node needs camera\n\nApproach:\n- If any child needs camera, place camera at current node\n- If any child has camera, current node is covered\n- Otherwise current node needs camera",
+          "code": "int cameras;\n\nint dfs(struct TreeNode* root) {\n    if(root == NULL)\n        return 1;\n\n    int left = dfs(root-&gt;left);\n    int right = dfs(root-&gt;right);\n\n    if(left == 2 || right == 2) {\n        cameras++;\n        return 0;\n    }\n\n    if(left == 0 || right == 0)\n        return 1;\n\n    return 2;\n}\n\nint minCameraCover(struct TreeNode* root) {\n    cameras = 0;\n    if(dfs(root) == 2)\n        cameras++;\n    return cameras;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(h)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 61,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Number of Provinces",
+      "link": "https://leetcode.com/problems/number-of-provinces/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Graph Basics",
+      "Adjacency Matrix"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Number of Provinces - Video Solution",
+          "link": "https://www.youtube.com/watch?v=acZcT-sS2_8"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "We treat the matrix 'isConnected' as an adjacency matrix. To find the number of provinces (connected components), we iterate through each city (node) from 0 to V-1. If a node has not been visited, we increment the province counter and perform a traversal (DFS or BFS) starting from that node to mark all connected cities as visited.",
+          "code": "#include &lt;iostream&gt;\n#include &lt;vector&gt;\nusing namespace std;\n\nclass Solution {\nprivate:\n    void dfs(int node, vector&lt;int&gt; adjLs[], int vis[]) {\n        vis[node] = 1;\n        for(auto it: adjLs[node]) {\n            if(!vis[it]) {\n                dfs(it, adjLs, vis);\n            }\n        }\n    }\npublic:\n    int findCircleNum(vector&lt;vector&lt;int&gt;&gt;&amp; isConnected) {\n        int V = isConnected.size();\n        vector&lt;int&gt; adjLs[V];\n        // Convert matrix to adjacency list\n        for(int i = 0; i &lt; V; i++) {\n            for(int j = 0; j &lt; V; j++) {\n                if(isConnected[i][j] == 1 &amp;&amp; i != j) {\n                    adjLs[i].push_back(j);\n                    adjLs[j].push_back(i);\n                }\n            }\n        }\n        int vis[V];\n        for(int i=0;i&lt;V;i++) vis[i] = 0;\n        int cnt = 0;\n        for(int i = 0; i &lt; V; i++) {\n            if(!vis[i]) {\n                cnt++;\n                dfs(i, adjLs, vis);\n            }\n        }\n        return cnt;\n    }\n};",
+          "timeComplexity": "O(N^2) for adjacency matrix, O(V+E) for traversal",
+          "spaceComplexity": "O(V) for visited array"
+        }
+      ]
+    }
+  },
+  {
+    "day": 62,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Keys and Rooms",
+      "link": "https://leetcode.com/problems/keys-and-rooms/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Graph Representation",
+      "Adjacency List"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Keys and Rooms - Video Solution",
+          "link": "https://www.youtube.com/watch?v=RZOe2uBq_qI"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "We model the rooms and keys as a directed graph where an edge exists from room A to room B if room A contains the key to room B. Starting from room 0, we use BFS or DFS to traverse all reachable rooms. We maintain a 'visited' array to track unlocked rooms. Finally, we check if the count of visited rooms equals the total number of rooms.",
+          "code": "#include &lt;iostream&gt;\n#include &lt;vector&gt;\n#include &lt;stack&gt;\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canVisitAllRooms(vector&lt;vector&lt;int&gt;&gt;&amp; rooms) {\n        int n = rooms.size();\n        vector&lt;bool&gt; visited(n, false);\n        visited[0] = true;\n        vector&lt;int&gt; stack;\n        stack.push_back(0);\n        \n        while(!stack.empty()){\n            int current = stack.back();\n            stack.pop_back();\n            \n            for(int key : rooms[current]){\n                if(!visited[key]){\n                    visited[key] = true;\n                    stack.push_back(key);\n                }\n            }\n        }\n        \n        for(bool v : visited){\n            if(!v) return false;\n        }\n        return true;\n    }\n};",
+          "timeComplexity": "O(N + E)",
+          "spaceComplexity": "O(N)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 63,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Flood Fill",
+      "link": "https://leetcode.com/problems/flood-fill/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "DFS",
+      "Graph Traversal"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Flood Fill - Video Solution",
+          "link": "https://www.youtube.com/watch?v=f2W2H4bfQfQ"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "We perform a standard traversal (DFS or BFS) starting from the source pixel (sr, sc). We verify if the starting pixel's color matches the initial color. If it does, we change its color to the new color and recursively visit its 4-directionally adjacent neighbors (up, down, left, right) that share the same initial color, avoiding pixels that have already been colored to the new color.",
+          "code": "#include &lt;iostream&gt;\n#include &lt;vector&gt;\nusing namespace std;\n\nclass Solution {\nprivate:\n    void dfs(int row, int col, vector&lt;vector&lt;int&gt;&gt;&amp; image, vector&lt;vector&lt;int&gt;&gt;&amp; ans, int iniColor, int newColor, int delRow[], int delCol[]) {\n        ans[row][col] = newColor;\n        int n = image.size();\n        int m = image[0].size();\n        for(int i = 0; i &lt; 4; i++) {\n            int nrow = row + delRow[i];\n            int ncol = col + delCol[i];\n            if(nrow &gt;= 0 &amp;&amp; nrow &lt; n &amp;&amp; ncol &gt;= 0 &amp;&amp; ncol &lt; m &amp;&amp; \n               image[nrow][ncol] == iniColor &amp;&amp; ans[nrow][ncol] != newColor) {\n                dfs(nrow, ncol, image, ans, iniColor, newColor, delRow, delCol);\n            }\n        }\n    }\npublic:\n    vector&lt;vector&lt;int&gt;&gt; floodFill(vector&lt;vector&lt;int&gt;&gt;&amp; image, int sr, int sc, int color) {\n        int iniColor = image[sr][sc];\n        vector&lt;vector&lt;int&gt;&gt; ans = image;\n        int delRow[] = {-1, 0, +1, 0};\n        int delCol[] = {0, +1, 0, -1};\n        dfs(sr, sc, image, ans, iniColor, color, delRow, delCol);\n        return ans;\n    }\n};",
+          "timeComplexity": "O(N*M)",
+          "spaceComplexity": "O(N*M)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 64,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Rotting Oranges",
+      "link": "https://leetcode.com/problems/rotting-oranges/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "BFS",
+      "Graph Traversal"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Rotting Oranges - Video Solution",
+          "link": "https://www.youtube.com/watch?v=yf3oUhV9xpM"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Since rotten oranges rot their neighbors simultaneously level by level, this is a distinct Multi-Source BFS problem. We first add all initially rotten oranges to a queue and count fresh oranges. In each step of the BFS, we rot adjacent fresh oranges, decrement the fresh count, and add them to the queue. We track the 'time' (levels) taken. If fresh oranges remain after the queue is empty, we return -1.",
+          "code": "#include &lt;iostream&gt;\n#include &lt;vector&gt;\n#include &lt;queue&gt;\nusing namespace std;\n\nclass Solution {\npublic:\n    int orangesRotting(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {\n        if(grid.empty()) return 0;\n        int m = grid.size(), n = grid[0].size(), days = 0, tot = 0, cnt = 0;\n        queue&lt;pair&lt;int, int&gt;&gt; q;\n        for(int i = 0; i &lt; m; ++i){\n            for(int j = 0; j &lt; n; ++j){\n                if(grid[i][j] != 0) tot++;\n                if(grid[i][j] == 2) q.push({i, j});\n            }\n        }\n        \n        int dx[4] = {0, 0, 1, -1};\n        int dy[4] = {1, -1, 0, 0};\n        \n        while(!q.empty()){\n            int k = q.size();\n            cnt += k;\n            while(k--){\n                int x = q.front().first, y = q.front().second;\n                q.pop();\n                for(int i = 0; i &lt; 4; ++i){\n                    int nx = x + dx[i], ny = y + dy[i];\n                    if(nx &lt; 0 || ny &lt; 0 || nx &gt;= m || ny &gt;= n || grid[nx][ny] != 1) continue;\n                    grid[nx][ny] = 2;\n                    q.push({nx, ny});\n                }\n            }\n            if(!q.empty()) days++;\n        }\n        return tot == cnt ? days : -1;\n    }\n};",
+          "timeComplexity": "O(N*M)",
+          "spaceComplexity": "O(N*M)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 65,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Graph Cycle Detection",
+      "link": "https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Cycle Detection",
+      "DFS"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Graph Cycle Detection - Video Solution",
+          "link": "https://www.youtube.com/watch?v=BfS2NEsXbL8"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Verify if the graph contains a cycle using DFS. We maintain a 'visited' array to track visited nodes. During DFS, for every visited neighbor, if the neighbor is not the parent of the current node, it implies we have found a back-edge to an already visited node, confirming a cycle.",
+          "code": "#include &lt;iostream&gt;\n#include &lt;vector&gt;\nusing namespace std;\n\nbool dfs(int node, int parent, vector&lt;int&gt; adj[], vector&lt;int&gt;&amp; vis) {\n    vis[node] = 1;\n    for (auto it : adj[node]) {\n        if (!vis[it]) {\n            if (dfs(it, node, adj, vis)) return true;\n        } else if (it != parent) {\n            return true;\n        }\n    }\n    return false;\n}",
+          "timeComplexity": "O(V + E)",
+          "spaceComplexity": "O(V)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 66,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Course Schedule",
+      "link": "https://leetcode.com/problems/course-schedule/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Directed Graph",
+      "Cycle Detection"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Course Schedule - Video Solution",
+          "link": "https://www.youtube.com/watch?v=WAOfKpxYHR8"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "This problem models course dependencies as a directed graph. We need to detect if there is a cycle. We can use DFS with a 'recursion stack' (pathVisited array). If we encounter a node that is currently in the recursion stack, a cycle exists. Alternatively, we can use Kahn's Algorithm (BFS); if the topological sort contains fewer nodes than the total courses, a cycle exists.",
+          "code": "#include &lt;iostream&gt;\n#include &lt;vector&gt;\n#include &lt;queue&gt;\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canFinish(int numCourses, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites) {\n        vector&lt;int&gt; adj[numCourses];\n        for(auto it : prerequisites) {\n            adj[it[1]].push_back(it[0]);\n        }\n        vector&lt;int&gt; indegree(numCourses, 0);\n        for(int i = 0; i &lt; numCourses; i++) {\n            for(auto it : adj[i]) {\n                indegree[it]++;\n            }\n        }\n        queue&lt;int&gt; q;\n        for(int i = 0; i &lt; numCourses; i++) {\n            if(indegree[i] == 0) {\n                q.push(i);\n            }\n        }\n        int cnt = 0;\n        while(!q.empty()) {\n            int node = q.front();\n            q.pop();\n            cnt++;\n            for(auto it : adj[node]) {\n                indegree[it]--;\n                if(indegree[it] == 0) q.push(it);\n            }\n        }\n        return cnt == numCourses;\n    }\n};",
+          "timeComplexity": "O(V + E)",
+          "spaceComplexity": "O(V + E)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 67,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Course Schedule II",
+      "link": "https://leetcode.com/problems/course-schedule-ii/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Topological Sort",
+      "DFS"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Course Schedule II - Video Solution",
+          "link": "https://www.youtube.com/watch?v=k_C5_LzX_gI"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "We represent the courses and prerequisites as a directed graph. We need to return a valid ordering, which is a Topological Sort. Using Kahn's Algorithm (BFS), we calculate in-degrees for all nodes. Nodes with 0 in-degree are added to a queue. As we process nodes, we reduce the in-degree of their neighbors. The order in which nodes are popped from the queue is the topological sort.",
+          "code": "#include &lt;iostream&gt;\n#include &lt;vector&gt;\n#include &lt;queue&gt;\nusing namespace std;\n\nclass Solution {\npublic:\n    vector&lt;int&gt; findOrder(int numCourses, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites) {\n        vector&lt;int&gt; adj[numCourses];\n        for(auto it : prerequisites) {\n            adj[it[1]].push_back(it[0]);\n        }\n        vector&lt;int&gt; indegree(numCourses, 0);\n        for(int i = 0; i &lt; numCourses; i++) {\n            for(auto it : adj[i]) {\n                indegree[it]++;\n            }\n        }\n        queue&lt;int&gt; q;\n        for(int i = 0; i &lt; numCourses; i++) {\n            if(indegree[i] == 0) {\n                q.push(i);\n            }\n        }\n        vector&lt;int&gt; topo;\n        while(!q.empty()) {\n            int node = q.front();\n            q.pop();\n            topo.push_back(node);\n            for(auto it : adj[node]) {\n                indegree[it]--;\n                if(indegree[it] == 0) q.push(it);\n            }\n        }\n        if(topo.size() == numCourses) return topo;\n        return {};\n    }\n};",
+          "timeComplexity": "O(V + E)",
+          "spaceComplexity": "O(V + E)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 68,
+    "unit": "Unit IV: Tree",
+    "question2": {
+      "name": "Alien Dictionary",
+      "link": "https://practice.geeksforgeeks.org/problems/alien-dictionary/1",
+      "difficulty": "Hard"
+    },
+    "topics": [
+      "Topological Sort",
+      "Kahn's Algorithm"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Alien Dictionary - Video Solution",
+          "link": "https://www.youtube.com/watch?v=vD41jJlg7YA"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "The sorted alien dictionary implies a precedence rule between characters (e.g., 'a' comes before 'b'). We compare adjacent words to find the first differing character, creating a directed edge. This builds a DAG of characters. We then perform a Topological Sort (using BFS/Kahn's or DFS) on this graph to find the correct order of characters.",
+          "code": "#include &lt;iostream&gt;\n#include &lt;vector&gt;\n#include &lt;queue&gt;\nusing namespace std;\n\nclass Solution {\nprivate:\n    vector&lt;int&gt; topoSort(int V, vector&lt;int&gt; adj[]) {\n        int indegree[V] = {0};\n        for (int i = 0; i &lt; V; i++) {\n            for (auto it : adj[i]) {\n                indegree[it]++;\n            }\n        }\n        queue&lt;int&gt; q;\n        for (int i = 0; i &lt; V; i++) {\n            if (indegree[i] == 0) {\n                q.push(i);\n            }\n        }\n        vector&lt;int&gt; topo;\n        while (!q.empty()) {\n            int node = q.front();\n            q.pop();\n            topo.push_back(node);\n            for (auto it : adj[node]) {\n                indegree[it]--;\n                if (indegree[it] == 0) q.push(it);\n            }\n        }\n        return topo;\n    }\npublic:\n    string findOrder(string dict[], int N, int K) {\n        vector&lt;int&gt; adj[K];\n        for (int i = 0; i &lt; N - 1; i++) {\n            string s1 = dict[i];\n            string s2 = dict[i + 1];\n            int len = min(s1.size(), s2.size());\n            for (int ptr = 0; ptr &lt; len; ptr++) {\n                if (s1[ptr] != s2[ptr]) {\n                    adj[s1[ptr] - 'a'].push_back(s2[ptr] - 'a');\n                    break;\n                }\n            }\n        }\n        vector&lt;int&gt; topo = topoSort(K, adj);\n        string ans = \"\";\n        for (auto it : topo) {\n            ans = ans + char(it + 'a');\n        }\n        return ans;\n    }\n};",
+          "timeComplexity": "O(N * len + K + V)",
+          "spaceComplexity": "O(K)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 69,
+    "unit": "Unit V: Hash Table & Graph",
+    "question2": {
+      "name": "Network Delay Time",
+      "link": "https://leetcode.com/problems/network-delay-time/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Dijkstra",
+      "Shortest Path"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Network Delay Time - Video Solution",
+          "link": "https://www.youtube.com/watch?v=k5yGvt_QoT0"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "We model the network as a weighted directed graph where edge weights represent time. Since we want the minimum time to reach all nodes from a source 'k', this is a Shortest Path problem. We use Dijkstra's Algorithm with a Priority Queue to find the minimum time (distance) to reach every node. The answer is the maximum of these shortest times.",
+          "code": "#include &lt;iostream&gt;\n#include &lt;vector&gt;\n#include &lt;queue&gt;\nusing namespace std;\n\nclass Solution {\npublic:\n    int networkDelayTime(vector&lt;vector&lt;int&gt;&gt;&amp; times, int n, int k) {\n        vector&lt;pair&lt;int,int&gt;&gt; adj[n+1];\n        for(auto it: times) {\n            adj[it[0]].push_back({it[1], it[2]});\n        }\n        priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;\n        vector&lt;int&gt; dist(n+1, 1e9);\n        \n        dist[k] = 0;\n        pq.push({0, k});\n        \n        while(!pq.empty()) {\n            int d = pq.top().first;\n            int node = pq.top().second;\n            pq.pop();\n            \n            for(auto it : adj[node]) {\n                int adjNode = it.first;\n                int weight = it.second;\n                if(d + weight &lt; dist[adjNode]) {\n                    dist[adjNode] = d + weight;\n                    pq.push({dist[adjNode], adjNode});\n                }\n            }\n        }\n        int mx = -1;\n        for(int i = 1; i &lt;= n; i++) {\n            if(dist[i] == 1e9) return -1;\n            mx = max(mx, dist[i]);\n        }\n        return mx;\n    }\n};",
+          "timeComplexity": "O(E log V)",
+          "spaceComplexity": "O(V + E)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 70,
+    "unit": "Unit V: Hash Table & Graph",
+    "question2": {
+      "name": "Cheapest Flights Within K Stops",
+      "link": "https://leetcode.com/problems/cheapest-flights-within-k-stops/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Bellman-Ford",
+      "Shortest Path"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Cheapest Flights Within K Stops - Video Solution",
+          "link": "https://www.youtube.com/watch?v=9Xy-pMazOnE"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "This is a Shortest Path problem with a constraint on the number of edges (stops). Standard Dijkstra or Bellman-Ford doesn't strictly adhere to 'at most K stops'. We use a Modified BFS (or Dijkstra) where the queue stores tuple {stops, {node, cost}}. We ignore paths exceeding K stops. We relax edges only if we find a cheaper cost within the allowed stops.",
+          "code": "#include &lt;iostream&gt;\n#include &lt;vector&gt;\n#include &lt;queue&gt;\nusing namespace std;\n\nclass Solution {\npublic:\n    int findCheapestPrice(int n, vector&lt;vector&lt;int&gt;&gt;&amp; flights, int src, int dst, int k) {\n        vector&lt;pair&lt;int,int&gt;&gt; adj[n];\n        for(auto it : flights) {\n            adj[it[0]].push_back({it[1], it[2]});\n        }\n        queue&lt;pair&lt;int, pair&lt;int,int&gt;&gt;&gt; q;\n        q.push({0, {src, 0}});\n        vector&lt;int&gt; dist(n, 1e9);\n        dist[src] = 0;\n        \n        while(!q.empty()) {\n            auto it = q.front();\n            q.pop();\n            int stops = it.first;\n            int node = it.second.first;\n            int cost = it.second.second;\n            \n            if(stops &gt; k) continue;\n            for(auto iter : adj[node]) {\n                int adjNode = iter.first;\n                int edW = iter.second;\n                \n                if(cost + edW &lt; dist[adjNode] &amp;&amp; stops &lt;= k) {\n                    dist[adjNode] = cost + edW;\n                    q.push({stops + 1, {adjNode, cost + edW}});\n                }\n            }\n        }\n        if(dist[dst] == 1e9) return -1;\n        return dist[dst];\n    }\n};",
+          "timeComplexity": "O(E * K)",
+          "spaceComplexity": "O(V + E)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 71,
+    "unit": "Unit V: Hash Table & Graph",
+    "question2": {
+      "name": "Min Cost to Connect All Points",
+      "link": "https://leetcode.com/problems/min-cost-to-connect-all-points/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Hashing",
+      "Quadratic Probing"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Min Cost to Connect All Points - Prim's Algorithm Explanation",
+          "link": "https://www.youtube.com/watch?v=f7JOBJIC-NA"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "This problem is solved using Minimum Spanning Tree (Prim’s Algorithm).\n\nApproach:\n1. Treat each point as graph node\n2. Edge weight = Manhattan Distance\n3. Pick nearest unvisited node\n4. Continue until all nodes are connected\n\nKey Points:\n- Greedy algorithm\n- Ensures minimum connection cost\n- Efficient for dense graphs",
+          "code": "int manhattan(int* p1, int* p2) {\n    return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1]);\n}\n\nint minCostConnectPoints(int** points, int pointsSize, int* pointsColSize) {\n    int n = pointsSize;\n\n    int* key = (int*)malloc(n * sizeof(int));\n    int* mstSet = (int*)calloc(n, sizeof(int));\n\n    for(int i = 0; i &lt; n; i++) {\n        key[i] = INT_MAX;\n    }\n\n    key[0] = 0;\n    int totalCost = 0;\n\n    for(int count = 0; count &lt; n; count++) {\n\n        int u = -1;\n        for(int i = 0; i &lt; n; i++) {\n            if(!mstSet[i] &amp;&amp; (u == -1 || key[i] &lt; key[u])) {\n                u = i;\n            }\n        }\n\n        mstSet[u] = 1;\n        totalCost += key[u];\n\n        for(int v = 0; v &lt; n; v++) {\n            if(!mstSet[v]) {\n                int dist = manhattan(points[u], points[v]);\n                if(dist &lt; key[v]) {\n                    key[v] = dist;\n                }\n            }\n        }\n    }\n\n    free(key);\n    free(mstSet);\n\n    return totalCost;\n}",
+          "timeComplexity": "O(n^2)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 72,
+    "unit": "Unit V: Hash Table & Graph",
+    "question2": {
+      "name": "Travelling Salesman Problem",
+      "link": "https://www.geeksforgeeks.org/problems/travelling-salesman-problem2732/1",
+      "difficulty": "Hard"
+    },
+    "topics": [
+      "Adjacency Matrix",
+      "Graph Representation"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Travelling Salesman Problem DP + Bitmask Explanation",
+          "link": "https://www.youtube.com/watch?v=JE0JE8ce1V0"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Travelling Salesman Problem solved using DP + Bitmask.\n\nApproach:\n1. Use bitmask to track visited cities\n2. Use DP[mask][pos]\n3. Recursively compute minimum cost\n4. Return minimum Hamiltonian cycle cost\n\nKey Points:\n- Classic NP Hard problem\n- Efficient for small constraints\n- Uses memoization",
+          "code": "#include &lt;limits.h&gt;\n#include &lt;string.h&gt;\n\nint dp[15][1 &lt;&lt; 15];\n\nint min(int a, int b) {\n    return a &lt; b ? a : b;\n}\n\nint solve(int mask, int pos, int n, int cost[][20]) {\n\n    if(mask == (1 &lt;&lt; n) - 1)\n        return cost[pos][0];\n\n    if(dp[pos][mask] != -1)\n        return dp[pos][mask];\n\n    int ans = INT_MAX;\n\n    for(int city = 0; city &lt; n; city++) {\n        if((mask &amp; (1 &lt;&lt; city)) == 0) {\n\n            int newAns = cost[pos][city] +\n                         solve(mask | (1 &lt;&lt; city), city, n, cost);\n\n            ans = min(ans, newAns);\n        }\n    }\n\n    return dp[pos][mask] = ans;\n}\n\n/* GFG Expected Function */\nint total_cost(int cost[][20], int n) {\n    memset(dp, -1, sizeof(dp));\n    return solve(1, 0, n, cost);\n}",
+          "timeComplexity": "O(n * 2^n)",
+          "spaceComplexity": "O(n * 2^n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 73,
+    "unit": "Unit V: Hash Table & Graph",
+    "question2": {
+      "name": "Redundant Connection",
+      "link": "https://leetcode.com/problems/redundant-connection/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Adjacency List",
+      "Graph Representation"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Redundant Connection - DSU Explanation",
+          "link": "https://www.youtube.com/watch?v=FXWRE67PLL0"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "This problem is solved using Disjoint Set Union (Union-Find).\n\nApproach:\n1. Initially every node is in its own set\n2. For each edge, find parent of both nodes\n3. If both have same parent, that edge is redundant\n4. Otherwise union the sets\n\nKey Points:\n- Efficient cycle detection in undirected graph\n- Path compression improves performance\n- Union-Find is ideal here",
+          "code": "int parent[1005];\n\nint find(int x) {\n    if(parent[x] != x)\n        parent[x] = find(parent[x]);\n    return parent[x];\n}\n\nvoid unionSet(int a, int b) {\n    int pa = find(a);\n    int pb = find(b);\n    if(pa != pb)\n        parent[pa] = pb;\n}\n\nint* findRedundantConnection(int** edges, int edgesSize, int* edgesColSize, int* returnSize) {\n    static int ans[2];\n    *returnSize = 2;\n\n    for(int i = 1; i &lt;= edgesSize; i++)\n        parent[i] = i;\n\n    for(int i = 0; i &lt; edgesSize; i++) {\n        int u = edges[i][0];\n        int v = edges[i][1];\n\n        if(find(u) == find(v)) {\n            ans[0] = u;\n            ans[1] = v;\n            return ans;\n        }\n\n        unionSet(u, v);\n    }\n\n    return ans;\n}",
+          "timeComplexity": "O(n * alpha(n))",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 74,
+    "unit": "Unit V: Hash Table & Graph",
+    "question2": {
+      "name": "Number of Connected Components in an Undirected Graph",
+      "link": "https://leetcode.com/problems/number-of-provinces/description/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "DFS",
+      "Graph Traversal"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Number of Connected Components in an Undirected Graph - Explanation",
+          "link": "https://www.youtube.com/watch?v=8f1XPm4WOUc"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Count connected components using DFS.\n\nApproach:\n1. Build adjacency list\n2. Maintain visited array\n3. For every unvisited node, run DFS\n4. Increment component count after each DFS start\n\nKey Points:\n- Each DFS covers one full component\n- Number of DFS calls from unvisited nodes gives answer",
+          "code": "struct Node {\n    int vertex;\n    struct Node* next;\n};\n\nvoid dfs(int node, struct Node* adj[], int visited[]) {\n    visited[node] = 1;\n    struct Node* temp = adj[node];\n\n    while(temp != NULL) {\n        if(!visited[temp-&gt;vertex])\n            dfs(temp-&gt;vertex, adj, visited);\n        temp = temp-&gt;next;\n    }\n}\n\nint countComponents(int n, int** edges, int edgesSize, int* edgesColSize) {\n    struct Node* adj[2005] = {NULL};\n    int visited[2005] = {0};\n\n    for(int i = 0; i &lt; edgesSize; i++) {\n        int u = edges[i][0];\n        int v = edges[i][1];\n    }\n\n    int count = 0;\n    for(int i = 0; i &lt; n; i++) {\n        if(!visited[i]) {\n            dfs(i, adj, visited);\n            count++;\n        }\n    }\n\n    return count;\n}",
+          "timeComplexity": "O(V + E)",
+          "spaceComplexity": "O(V + E)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 75,
+    "unit": "Unit V: Hash Table & Graph",
+    "question2": {
+      "name": "Is Graph Bipartite?",
+      "link": "https://leetcode.com/problems/is-graph-bipartite/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "BFS",
+      "Graph Traversal"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Is Graph Bipartite? - BFS Coloring Explanation",
+          "link": "https://www.youtube.com/watch?v=KG5YFfR0j8A"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Use BFS coloring to check whether graph can be split into two sets.\n\nApproach:\n1. Maintain color array initialized to -1\n2. Start BFS from each unvisited node\n3. Assign alternate colors to adjacent nodes\n4. If adjacent nodes get same color, graph is not bipartite",
+          "code": "bool isBipartite(int** graph, int graphSize, int* graphColSize) {\n    int color[105];\n    for(int i = 0; i &lt; graphSize; i++)\n        color[i] = -1;\n\n    int queue[1000];\n\n    for(int i = 0; i &lt; graphSize; i++) {\n        if(color[i] != -1)\n            continue;\n\n        int front = 0, rear = 0;\n        queue[rear++] = i;\n        color[i] = 0;\n\n        while(front &lt; rear) {\n            int node = queue[front++];\n\n            for(int j = 0; j &lt; graphColSize[node]; j++) {\n                int next = graph[node][j];\n\n                if(color[next] == -1) {\n                    color[next] = 1 - color[node];\n                    queue[rear++] = next;\n                }\n                else if(color[next] == color[node]) {\n                    return false;\n                }\n            }\n        }\n    }\n\n    return true;\n}",
+          "timeComplexity": "O(V + E)",
+          "spaceComplexity": "O(V)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 76,
+    "unit": "Unit V: Hash Table & Graph",
+    "question2": {
+      "name": "Clone Graph",
+      "link": "https://leetcode.com/problems/clone-graph/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Connected Components",
+      "DFS/BFS"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Clone Graph - DFS Explanation",
+          "link": "https://www.youtube.com/watch?v=mQeF6bN8hMk"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Clone each node and its neighbors using DFS.\n\nApproach:\n1. Use array/map to store already cloned nodes\n2. If node already cloned, return it\n3. Otherwise create clone\n4. Recursively clone all neighbors\n5. Attach cloned neighbors to current cloned node",
+          "code": "struct Node* visited[105];\n\nstruct Node* clone(struct Node* node) {\n    if(node == NULL)\n        return NULL;\n\n    if(visited[node-&gt;val] != NULL)\n        return visited[node-&gt;val];\n\n    struct Node* newNode = malloc(sizeof(struct Node));\n    newNode-&gt;val = node-&gt;val;\n    newNode-&gt;numNeighbors = node-&gt;numNeighbors;\n    newNode-&gt;neighbors = malloc(node-&gt;numNeighbors * sizeof(struct Node*));\n\n    visited[node-&gt;val] = newNode;\n\n    for(int i = 0; i &lt; node-&gt;numNeighbors; i++) {\n        newNode-&gt;neighbors[i] = clone(node-&gt;neighbors[i]);\n    }\n\n    return newNode;\n}\n\nstruct Node *cloneGraph(struct Node *s) {\n    for(int i = 0; i &lt; 105; i++)\n        visited[i] = NULL;\n    return clone(s);\n}",
+          "timeComplexity": "O(V + E)",
+          "spaceComplexity": "O(V)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 77,
+    "unit": "Unit V: Hash Table & Graph",
+    "question2": {
+      "name": "Critical Connections in a Network",
+      "link": "https://leetcode.com/problems/critical-connections-in-a-network/",
+      "difficulty": "Hard"
+    },
+    "topics": [
+      "Graph Connectivity",
+      "DFS"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Critical Connections in a Network - Tarjan Algorithm Explanation",
+          "link": "https://www.youtube.com/watch?v=qrAub5z8FeA"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Critical connections are bridges in an undirected graph.\n\nApproach:\n1. Build adjacency list from given edges\n2. Run DFS and store discovery time of each node\n3. Maintain low array to track earliest reachable ancestor\n4. If low[child] &gt; disc[parent], then that edge is a bridge\n5. Store all such bridge edges in answer array\n\nKey Points:\n- Uses Tarjan's bridge-finding algorithm\n- DFS tree and back edges are the main idea\n- Very efficient for finding critical network edges",
+          "code": "/**\n * Return an array of arrays of size *returnSize.\n * The sizes of the arrays are returned as *returnColumnSizes array.\n * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().\n */\n\ntypedef struct Node {\n    int v;\n    struct Node* next;\n} Node;\n\nint timer;\n\nNode* addEdge(Node* head, int v) {\n    Node* newNode = (Node*)malloc(sizeof(Node));\n    newNode-&gt;v = v;\n    newNode-&gt;next = head;\n    return newNode;\n}\n\nvoid dfs(int node, int parent, Node** adj, int* visited, int* disc, int* low,\n         int** ans, int* count, int** returnColumnSizes) {\n    visited[node] = 1;\n    disc[node] = low[node] = timer++;\n\n    Node* temp = adj[node];\n    while(temp != NULL) {\n        int next = temp-&gt;v;\n\n        if(next == parent) {\n            temp = temp-&gt;next;\n            continue;\n        }\n\n        if(!visited[next]) {\n            dfs(next, node, adj, visited, disc, low, ans, count, returnColumnSizes);\n\n            if(low[next] &lt; low[node])\n                low[node] = low[next];\n\n            if(low[next] &gt; disc[node]) {\n                ans[*count] = (int*)malloc(2 * sizeof(int));\n                ans[*count][0] = node;\n                ans[*count][1] = next;\n                (*returnColumnSizes)[*count] = 2;\n                (*count)++;\n            }\n        }\n        else {\n            if(disc[next] &lt; low[node])\n                low[node] = disc[next];\n        }\n\n        temp = temp-&gt;next;\n    }\n}\n\nint** criticalConnections(int n, int** connections, int connectionsSize, int* connectionsColSize, int* returnSize, int** returnColumnSizes) {\n    Node** adj = (Node**)malloc(n * sizeof(Node*));\n    for(int i = 0; i &lt; n; i++) {\n        adj[i] = NULL;\n    }\n\n    for(int i = 0; i &lt; connectionsSize; i++) {\n        int u = connections[i][0];\n        int v = connections[i][1];\n        adj[u] = addEdge(adj[u], v);\n        adj[v] = addEdge(adj[v], u);\n    }\n\n    int* visited = (int*)calloc(n, sizeof(int));\n    int* disc = (int*)malloc(n * sizeof(int));\n    int* low = (int*)malloc(n * sizeof(int));\n\n    int** ans = (int**)malloc(connectionsSize * sizeof(int*));\n    *returnColumnSizes = (int*)malloc(connectionsSize * sizeof(int));\n    *returnSize = 0;\n    timer = 0;\n\n    for(int i = 0; i &lt; n; i++) {\n        if(!visited[i]) {\n            dfs(i, -1, adj, visited, disc, low, ans, returnSize, returnColumnSizes);\n        }\n    }\n\n    free(visited);\n    free(disc);\n    free(low);\n\n    for(int i = 0; i &lt; n; i++) {\n        Node* temp = adj[i];\n        while(temp != NULL) {\n            Node* next = temp-&gt;next;\n            free(temp);\n            temp = next;\n        }\n    }\n    free(adj);\n\n    return ans;\n}",
+          "timeComplexity": "O(V + E)",
+          "spaceComplexity": "O(V + E)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 78,
+    "unit": "Unit V: Hash Table & Graph",
+    "question2": {
+      "name": "Articulation Points (GFG)",
+      "link": "https://practice.geeksforgeeks.org/problems/articulation-point-1/1",
+      "difficulty": "Hard"
+    },
+    "topics": [
+      "MST",
+      "Prim’s Algorithm"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Articulation Points - Tarjan Explanation",
+          "link": "https://www.youtube.com/watch?v=j1QDfU21iZk"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "An articulation point is a vertex whose removal increases the number of connected components.\n\nApproach:\n1. Run DFS and maintain discovery time and low time\n2. Root is articulation point if it has more than one DFS child\n3. Non-root is articulation point if low[child] &gt;= disc[node]\n\nKey Points:\n- Uses DFS tree properties\n- Important concept in network reliability",
+          "code": "int timer;\n\nvoid dfsAP(int node, int parent, int visited[], int disc[], int low[], int mark[], int adj[105][105], int n) {\n    visited[node] = 1;\n    disc[node] = low[node] = timer++;\n    int child = 0;\n\n    for(int v = 0; v &lt; n; v++) {\n        if(adj[node][v] == 0)\n            continue;\n\n        if(v == parent)\n            continue;\n\n        if(!visited[v]) {\n            dfsAP(v, node, visited, disc, low, mark, adj, n);\n            if(low[v] &lt; low[node])\n                low[node] = low[v];\n\n            if(low[v] &gt;= disc[node] &amp;&amp; parent != -1)\n                mark[node] = 1;\n\n            child++;\n        }\n        else {\n            if(disc[v] &lt; low[node])\n                low[node] = disc[v];\n        }\n    }\n\n    if(parent == -1 &amp;&amp; child &gt; 1)\n        mark[node] = 1;\n}",
+          "timeComplexity": "O(V^2)",
+          "spaceComplexity": "O(V)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 79,
+    "unit": "Unit V: Hash Table & Graph",
+    "question2": {
+      "name": "Strongly Connected Components",
+      "link": "https://practice.geeksforgeeks.org/problems/strongly-connected-components-kosarajus-algo/1",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Dijkstra",
+      "Shortest Path"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Strongly Connected Components - Kosaraju Algorithm Explanation",
+          "link": "https://www.youtube.com/watch?v=R6uoSjZ2imo"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Kosaraju’s algorithm finds strongly connected components in a directed graph.\n\nApproach:\n1. Run DFS and store vertices in finishing order\n2. Reverse all graph edges\n3. Process vertices in reverse finishing order\n4. Each DFS in reversed graph gives one SCC\n\nKey Points:\n- Requires two DFS passes\n- Works on directed graphs",
+          "code": "void dfs1(int node, int visited[], int graph[105][105], int n, int stack[], int* top) {\n    visited[node] = 1;\n    for(int i = 0; i &lt; n; i++) {\n        if(graph[node][i] &amp;&amp; !visited[i])\n            dfs1(i, visited, graph, n, stack, top);\n    }\n    stack[(*top)++] = node;\n}\n\nvoid dfs2(int node, int visited[], int rev[105][105], int n) {\n    visited[node] = 1;\n    for(int i = 0; i &lt; n; i++) {\n        if(rev[node][i] &amp;&amp; !visited[i])\n            dfs2(i, visited, rev, n);\n    }\n}",
+          "timeComplexity": "O(V^2)",
+          "spaceComplexity": "O(V)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 80,
+    "unit": "Unit V: Hash Table & Graph",
+    "question2": {
+      "name": "Find the City With the Smallest Number of Neighbors",
+      "link": "https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "All-Pairs Shortest Path",
+      "DP"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Find the City With the Smallest Number of Neighbors - Floyd Warshall Explanation",
+          "link": "https://www.youtube.com/watch?v=PwMVNSJ5SLI"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Use Floyd-Warshall to compute shortest distance between all pairs, then count how many cities are reachable within the threshold.\n\nApproach:\n1. Build initial distance matrix\n2. Run Floyd-Warshall\n3. For each city, count cities with distance &lt;= threshold\n4. Return city with minimum count, and in tie choose greater index",
+          "code": "int findTheCity(int n, int** edges, int edgesSize, int* edgesColSize, int distanceThreshold) {\n    int dist[105][105];\n    int INF = 1000000000;\n\n    for(int i = 0; i &lt; n; i++) {\n        for(int j = 0; j &lt; n; j++) {\n            if(i == j)\n                dist[i][j] = 0;\n            else\n                dist[i][j] = INF;\n        }\n    }\n\n    for(int i = 0; i &lt; edgesSize; i++) {\n        int u = edges[i][0], v = edges[i][1], w = edges[i][2];\n        dist[u][v] = w;\n        dist[v][u] = w;\n    }\n\n    for(int k = 0; k &lt; n; k++) {\n        for(int i = 0; i &lt; n; i++) {\n            for(int j = 0; j &lt; n; j++) {\n                if(dist[i][k] + dist[k][j] &lt; dist[i][j])\n                    dist[i][j] = dist[i][k] + dist[k][j];\n            }\n        }\n    }\n\n    int city = -1, minCount = INF;\n    for(int i = 0; i &lt; n; i++) {\n        int count = 0;\n        for(int j = 0; j &lt; n; j++) {\n            if(dist[i][j] &lt;= distanceThreshold)\n                count++;\n        }\n\n        if(count &lt;= minCount) {\n            minCount = count;\n            city = i;\n        }\n    }\n\n    return city;\n}",
+          "timeComplexity": "O(n^3)",
+          "spaceComplexity": "O(n^2)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 81,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Binary Search",
+      "link": "https://leetcode.com/problems/binary-search/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Binary Search",
+      "Searching"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Binary Search - Simple and Clear Explanation",
+          "link": "https://www.youtube.com/watch?v=QFa9x96kaic&t=1s"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Binary Search finds a target value in a sorted array by repeatedly halving the search space.\n\nApproach:\n1. Set low = 0, high = n - 1\n2. Find mid = low + (high - low) / 2\n3. If nums[mid] == target, return mid\n4. If nums[mid] < target, search right half\n5. If nums[mid] > target, search left half\n6. If not found, return -1\n\nKey Points:\n- Array must be sorted\n- Logarithmic time complexity\n- Use low + (high - low) / 2 to avoid integer overflow",
+          "code": "int search(int* nums, int numsSize, int target) {\n    int low = 0, high = numsSize - 1;\n\n    while(low &lt;= high) {\n        int mid = low + (high - low) / 2;\n\n        if(nums[mid] == target)\n            return mid;\n        else if(nums[mid] &lt; target)\n            low = mid + 1;\n        else\n            high = mid - 1;\n    }\n\n    return -1;\n}",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 82,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Search Insert Position",
+      "link": "https://leetcode.com/problems/search-insert-position/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Binary Search",
+      "Bounds"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Search Insert Position - Binary Search Explanation",
+          "link": "https://www.youtube.com/watch?v=K-RYzDZkzCI"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "This is essentially finding the lower bound of the target.\n\nApproach:\n1. Use binary search\n2. If target found, return index\n3. If not found, return the index where it would be inserted\n4. This is the first position where arr[mid] >= target\n\nKey Points:\n- Identical to lower bound implementation\n- Returns insertion index if element not present\n- Clean binary search application",
+          "code": "int searchInsert(int* nums, int numsSize, int target) {\n    int low = 0, high = numsSize - 1;\n    int ans = numsSize;\n\n    while(low &lt;= high) {\n        int mid = low + (high - low) / 2;\n\n        if(nums[mid] &gt;= target) {\n            ans = mid;\n            high = mid - 1;\n        } else {\n            low = mid + 1;\n        }\n    }\n\n    return ans;\n}",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 83,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Search in Rotated Sorted Array",
+      "link": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Binary Search",
+      "Rotation"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Search in Rotated Sorted Array - Binary Search Explanation",
+          "link": "https://www.youtube.com/watch?v=U8XENwh8Oy8"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Modified binary search that identifies which half is sorted.\n\nApproach:\n1. Find mid element\n2. Determine which half (left or right) is sorted\n3. If target lies in the sorted half, search there\n4. Otherwise search the other half\n5. Continue until target is found or search space is exhausted\n\nKey Points:\n- At least one half is always sorted after rotation\n- Key insight: check which half is sorted first\n- Then check if target falls in that sorted range\n- O(log n) even on rotated array",
+          "code": "int search(int* nums, int numsSize, int target) {\n    int low = 0, high = numsSize - 1;\n\n    while(low &lt;= high) {\n        int mid = low + (high - low) / 2;\n\n        if(nums[mid] == target)\n            return mid;\n\n        /* Left half is sorted */\n        if(nums[low] &lt;= nums[mid]) {\n            if(target &gt;= nums[low] &amp;&amp; target &lt; nums[mid])\n                high = mid - 1;\n            else\n                low = mid + 1;\n        }\n        /* Right half is sorted */\n        else {\n            if(target &gt; nums[mid] &amp;&amp; target &lt;= nums[high])\n                low = mid + 1;\n            else\n                high = mid - 1;\n        }\n    }\n\n    return -1;\n}",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 84,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Find Peak Element",
+      "link": "https://leetcode.com/problems/find-peak-element/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Binary Search on Answer"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Find Peak Element - Binary Search Approach",
+          "link": "https://www.youtube.com/watch?v=cXxmbemS6XM"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Binary Search on the array to find any peak element.\n\nApproach:\n1. Compare mid with its neighbors\n2. If nums[mid] > nums[mid+1] and nums[mid] > nums[mid-1], mid is a peak\n3. If nums[mid] < nums[mid+1], a peak exists on the right\n4. Otherwise, a peak exists on the left\n\nKey Points:\n- A peak is guaranteed to exist (nums[-1] = nums[n] = -infinity)\n- We move toward the ascending side\n- Multiple peaks may exist, any one is a valid answer\n- Classic binary search on answer pattern",
+          "code": "int findPeakElement(int* nums, int numsSize) {\n    int low = 0, high = numsSize - 1;\n\n    while(low &lt; high) {\n        int mid = low + (high - low) / 2;\n\n        if(nums[mid] &gt; nums[mid + 1])\n            high = mid;\n        else\n            low = mid + 1;\n    }\n\n    return low;\n}",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 85,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Find Minimum in Rotated Sorted Array",
+      "link": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Binary Search",
+      "Rotation"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Find Minimum in Rotated Sorted Array - Binary Search",
+          "link": "https://www.youtube.com/watch?v=Jin6vO0MdzY"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Binary Search to find the minimum element in a rotated sorted array.\n\nApproach:\n1. If array is not rotated (nums[low] <= nums[high]), return nums[low]\n2. Find mid\n3. If nums[mid] > nums[high], minimum is in the right half\n4. Otherwise, minimum is in the left half (including mid)\n5. When low == high, that is the minimum\n\nKey Points:\n- The minimum element is the pivot of rotation\n- Compare mid with high to decide direction\n- No duplicates in the array (given constraint)\n- Classic rotated array binary search pattern",
+          "code": "int findMin(int* nums, int numsSize) {\n    int low = 0, high = numsSize - 1;\n\n    while(low &lt; high) {\n        int mid = low + (high - low) / 2;\n\n        if(nums[mid] &gt; nums[high])\n            low = mid + 1;\n        else\n            high = mid;\n    }\n\n    return nums[low];\n}",
+          "timeComplexity": "O(log n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 86,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Sqrt(x)",
+      "link": "https://leetcode.com/problems/sqrtx/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Binary Search",
+      "Math"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Sqrt(x) - Binary Search Approach Explained",
+          "link": "https://www.youtube.com/watch?v=zdMhGxRWutQ"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Same approach as question 1 — binary search on the answer space.\n\nApproach:\n1. Binary search in range [0, x]\n2. For each mid, check if mid * mid <= x\n3. If yes, move right to find a larger valid answer\n4. If no, move left\n5. Return the largest mid where mid * mid <= x\n\nKey Points:\n- Identical logic to integer square root\n- Use long long for mid * mid to prevent overflow\n- Edge case: x = 0 returns 0, x = 1 returns 1",
+          "code": "int mySqrt(int x) {\n    if(x == 0) return 0;\n\n    int low = 1, high = x;\n    int ans = 0;\n\n    while(low &lt;= high) {\n        long long mid = low + (high - low) / 2;\n\n        if(mid * mid &lt;= (long long)x) {\n            ans = (int)mid;\n            low = (int)mid + 1;\n        } else {\n            high = (int)mid - 1;\n        }\n    }\n\n    return ans;\n}",
+          "timeComplexity": "O(log x)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 87,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Koko Eating Bananas",
+      "link": "https://leetcode.com/problems/koko-eating-bananas/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Binary Search on Answer"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Koko Eating Bananas - Binary Search on Answer",
+          "link": "https://www.youtube.com/watch?v=U2SozAs9RzA"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Binary Search on the eating speed to find the minimum speed at which Koko can finish all bananas within h hours.\n\nApproach:\n1. Binary search on speed k in range [1, max(piles)]\n2. For each speed k, calculate total hours needed\n3. Each pile takes ceil(pile[i] / k) hours\n4. If total hours <= h, try a smaller speed (search left)\n5. Otherwise, increase the speed (search right)\n\nKey Points:\n- Classic binary search on answer\n- Search space is [1, max pile size]\n- Ceiling division: (pile + k - 1) / k\n- Greedy check function validates feasibility",
+          "code": "#include &lt;limits.h&gt;\n\nlong long computeHours(int* piles, int n, int speed) {\n    long long hours = 0;\n    for(int i = 0; i &lt; n; i++) {\n        hours += (piles[i] + speed - 1) / speed;\n    }\n    return hours;\n}\n\nint minEatingSpeed(int* piles, int pilesSize, int h) {\n    int low = 1, high = 0;\n\n    for(int i = 0; i &lt; pilesSize; i++) {\n        if(piles[i] &gt; high)\n            high = piles[i];\n    }\n\n    int ans = high;\n\n    while(low &lt;= high) {\n        int mid = low + (high - low) / 2;\n\n        long long totalHours = computeHours(piles, pilesSize, mid);\n\n        if(totalHours &lt;= (long long)h) {\n            ans = mid;\n            high = mid - 1;\n        } else {\n            low = mid + 1;\n        }\n    }\n\n    return ans;\n}",
+          "timeComplexity": "O(n * log(max(piles)))",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 88,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Magnetic Force Between Two Balls",
+      "link": "https://leetcode.com/problems/magnetic-force-between-two-balls/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Binary Search",
+      "Distance Optimization"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Magnetic Force Between Two Balls - Binary Search Explanation",
+          "link": "https://www.youtube.com/watch?v=MXnZPSPqkBM"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Same pattern as Aggressive Cows — binary search on minimum distance.\n\nApproach:\n1. Sort the positions\n2. Binary search on force (distance) in range [1, max_pos - min_pos]\n3. Greedy placement: place first ball at position[0]\n4. Place next ball at first position with gap >= mid\n5. If all m balls placed, try larger distance\n6. Otherwise, reduce distance\n\nKey Points:\n- Identical to Aggressive Cows problem\n- Sort + Binary Search on Answer + Greedy Check\n- Magnetic force is inversely proportional to distance\n- Maximizing minimum distance maximizes minimum force",
+          "code": "int compare(const void* a, const void* b) {\n    return (*(int*)a - *(int*)b);\n}\n\nint canPlace(int* pos, int n, int m, int minDist) {\n    int count = 1;\n    int lastPos = pos[0];\n\n    for(int i = 1; i &lt; n; i++) {\n        if(pos[i] - lastPos &gt;= minDist) {\n            count++;\n            lastPos = pos[i];\n        }\n\n        if(count &gt;= m)\n            return 1;\n    }\n\n    return 0;\n}\n\nint maxDistance(int* position, int positionSize, int m) {\n    qsort(position, positionSize, sizeof(int), compare);\n\n    int low = 1;\n    int high = position[positionSize - 1] - position[0];\n    int ans = 0;\n\n    while(low &lt;= high) {\n        int mid = low + (high - low) / 2;\n\n        if(canPlace(position, positionSize, m, mid)) {\n            ans = mid;\n            low = mid + 1;\n        } else {\n            high = mid - 1;\n        }\n    }\n\n    return ans;\n}",
+          "timeComplexity": "O(n log n + n log(max_dist))",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 89,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Capacity To Ship Packages Within D Days",
+      "link": "https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Binary Search",
+      "Load Balancing"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Capacity To Ship Packages - Binary Search Explanation",
+          "link": "https://www.youtube.com/watch?v=MG-Ac4TAvTY"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Binary Search on the ship capacity — same pattern as Allocate Minimum Pages.\n\nApproach:\n1. Search range: [max(weights), sum(weights)]\n2. For each candidate capacity (mid), simulate shipping\n3. Greedily load packages until adding next exceeds capacity\n4. Count days needed\n5. If days <= d, try smaller capacity (search left)\n6. Otherwise, increase capacity (search right)\n\nKey Points:\n- Identical pattern to book allocation\n- Packages must be shipped in order (contiguous)\n- Minimizing the maximum load across days\n- Greedy simulation for feasibility check",
+          "code": "void findMaxNSum(int* weights, int size, int* low, int* high) {\n    for (int i = 0; i &lt; size; i++) {\n        if (*low &gt; weights[i]) *low = weights[i];\n        *high += weights[i];\n    }\n}\n\nbool findMinWeights(int* weights, int size, int days, int minWeight) {\n    int temp = minWeight;\n    int i = 0;\n    while (i &lt; size &amp;&amp; days &gt; 0) {\n        if (temp &lt; weights[i]) {\n            days--;\n            temp = minWeight;\n        } else {\n            temp -= weights[i];\n            i++;\n        }\n    }\n    return i == size;\n}\n\nint shipWithinDays(int* weights, int weightsSize, int days) {\n    int low = 0, high = 0, ans = 0;\n    findMaxNSum(weights, weightsSize, &amp;low, &amp;high);\n    while (low &lt;= high) {\n        int mid = (low + high) / 2;\n        if (findMinWeights(weights, weightsSize, days, mid)) {\n            ans = mid;\n            high = mid - 1;\n        } else {\n            low = mid + 1;\n        }\n    }\n    return ans;\n}",
+          "timeComplexity": "O(n * log(sum - max))",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 90,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Split Array Largest Sum",
+      "link": "https://leetcode.com/problems/split-array-largest-sum/",
+      "difficulty": "Hard"
+    },
+    "topics": [
+      "Binary Search on Answer"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Split Array Largest Sum - Binary Search Approach",
+          "link": "https://www.youtube.com/watch?v=thUd_WJn6wk"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Binary Search on the largest subarray sum — same template as Painter Partition.\n\nApproach:\n1. Search range: [max(nums), sum(nums)]\n2. For each candidate largest sum (mid), check if array can be split into <= k subarrays\n3. Greedily accumulate elements until adding next exceeds mid\n4. If subarrays needed <= k, try smaller sum (search left)\n5. Otherwise, increase sum (search right)\n\nKey Points:\n- Generalized version of book allocation / painter partition\n- Split into exactly k contiguous subarrays\n- Minimize the maximum subarray sum\n- Same binary search + greedy check pattern",
+          "code": "int canSplit(int* nums, int n, int k, int maxSum) {\n    int parts = 1;\n    int currentSum = 0;\n\n    for(int i = 0; i &lt; n; i++) {\n        if(currentSum + nums[i] &gt; maxSum) {\n            parts++;\n            currentSum = nums[i];\n\n            if(parts &gt; k)\n                return 0;\n        } else {\n            currentSum += nums[i];\n        }\n    }\n\n    return 1;\n}\n\nint splitArray(int* nums, int numsSize, int k) {\n    int low = 0, high = 0;\n\n    for(int i = 0; i &lt; numsSize; i++) {\n        if(nums[i] &gt; low)\n            low = nums[i];\n        high += nums[i];\n    }\n\n    int ans = high;\n\n    while(low &lt;= high) {\n        int mid = low + (high - low) / 2;\n\n        if(canSplit(nums, numsSize, k, mid)) {\n            ans = mid;\n            high = mid - 1;\n        } else {\n            low = mid + 1;\n        }\n    }\n\n    return ans;\n}",
+          "timeComplexity": "O(n * log(sum - max))",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 91,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Sort Colors",
+      "link": "https://leetcode.com/problems/sort-colors/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Sorting",
+      "Merge Sort"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Sort Colors",
+          "link": "https://youtu.be/sEQk8xgjx64?si=rI32lid9xWbv4aBC"
+        },
+        {
+          "type": "tutorial",
+          "explanation": "Two-pass approach: First move all 0s to the front, then move all 1s after them. Remaining elements become 2s.",
+          "code": "#include &lt;stdio.h&gt;\n\nvoid sortColors(int* nums, int numsSize) {\n    int i = 0, j = 0;\n\n    while (i < numsSize) {\n        if (nums[i] == 0) {\n            int temp = nums[i];\n            nums[i] = nums[j];\n            nums[j] = temp;\n            j++;\n        }\n        i++;\n    }\n\n    i = j;\n    while (i < numsSize) {\n        if (nums[i] == 1) {\n            int temp = nums[i];\n            nums[i] = nums[j];\n            nums[j] = temp;\n            j++;\n        }\n        i++;\n    }\n}\n\nint main() {\n    int arr[] = {2, 0, 2, 1, 1, 0};\n    int n = sizeof(arr) / sizeof(arr[0]);\n\n    sortColors(arr, n);\n\n    for (int i = 0; i < n; i++)\n        printf(\"%d \", arr[i]);\n\n    return 0;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 92,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Kth Largest Element in an Array",
+      "link": "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Sorting",
+      "Quick Sort",
+      "Quickselect",
+      "Partitioning"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Kth Largest element",
+          "link": "https://youtu.be/nS9AcCpk4l8?si=V07Pb8sjvy1u1oEf"
+        },
+        {
+          "type": "tutorial",
+          "title": "Quickselect (Your Partition Version)",
+          "explanation": "This solution finds the Kth largest element using Quickselect.\n\nSteps:\n1. Use partition logic similar to Quick Sort.\n2. Pivot is chosen as the first element.\n3. After partition, if pivot index equals target index (n-k), return it.\n4. Otherwise recurse into the correct half.",
+          "code": "#include &lt;stdio.h&gt;\n\nvoid swap(int* nums, int i, int j) {\n    int temp = nums[i];\n    nums[i] = nums[j];\n    nums[j] = temp;\n}\n\nint partition(int* nums, int low, int high) {\n    int pivot = nums[low];\n    int j = low;\n\n    for (int i = low + 1; i <= high; i++) {\n        if (nums[i] < pivot) {\n            j++;\n            swap(nums, i, j);\n        }\n    }\n    swap(nums, low, j);\n    return j;\n}\n\nint QSelect(int* nums, int low, int high, int k) {\n    if (low <= high) {\n        int p = partition(nums, low, high);\n\n        if (p == k) return nums[p];\n        if (p < k) return QSelect(nums, p + 1, high, k);\n        else return QSelect(nums, low, p - 1, k);\n    }\n    return nums[low];\n}\n\nint findKthLargest(int* nums, int numsSize, int k) {\n    return QSelect(nums, 0, numsSize - 1, numsSize - k);\n}",
+          "timeComplexity": "Average: O(n), Worst: O(n^2)",
+          "spaceComplexity": "O(1) (excluding recursion stack)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 93,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Insertion Sort List",
+      "link": "https://leetcode.com/problems/insertion-sort-list/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Sorting",
+      "Insertion Sort",
+      "Linked List Sorting"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Insertion Sort on Linked List ",
+          "link": "https://youtu.be/gAkRfdtDOaA?si=MjpAYbPYQOLkH31G"
+        },
+        {
+          "type": "tutorial",
+          "title": "Insertion Sort on Linked List ",
+          "explanation": "This solution sorts a linked list using insertion sort by maintaining a sorted portion and inserting each node into its correct position.\n\nIt avoids rebuilding the list from scratch and only relocates nodes that are out of order.",
+          "code": "struct ListNode* insertionSortList(struct ListNode* head) {\n    if (!head || !head->next) {\n        return head;\n    }\n\n    struct ListNode* dummy = malloc(sizeof(struct ListNode));\n    dummy->next = head;\n\n    struct ListNode* prev = head;\n    struct ListNode* cur = head->next;\n\n    while (cur) {\n        if (prev->val <= cur->val) {\n            prev = cur;\n            cur = cur->next;\n        } else {\n            struct ListNode* temp = dummy;\n\n            while (cur->val > temp->next->val)\n                temp = temp->next;\n\n            prev->next = cur->next;\n            cur->next = temp->next;\n            temp->next = cur;\n\n            cur = prev->next;\n        }\n    }\n    return dummy->next;\n}",
+          "timeComplexity": "O(n^2)",
+          "spaceComplexity": "O(1)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 94,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Relative Sort Array",
+      "link": "https://leetcode.com/problems/relative-sort-array/",
+      "difficulty": "Easy"
+    },
+    "topics": [
+      "Counting Sort",
+      "Relative Ordering",
+      "Custom Sorting"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Relative Sort Array",
+          "link": "https://youtu.be/jJYfQVMhzas?si=p8LhOpRGQUv39Jzo"
+        },
+        {
+          "type": "tutorial",
+          "title": "Relative Sort Array",
+          "explanation": "This solution places elements of arr1 in the order given by arr2, then sorts the remaining elements.\n\nSteps:\n1. Traverse arr2 and collect matching elements from arr1.\n2. Add remaining elements not present in arr2.\n3. Sort only the remaining portion of the result array.",
+          "code": "int* relativeSortArray(int* arr1,int arr1Size,int* arr2,int arr2Size,int* returnSize){\n    int* result=(int*)malloc(sizeof(int)*arr1Size);\n    int idx=0;\n\n    for(int i=0;i<arr2Size;i++){\n        int x=arr2[i];\n        for(int j=0;j<arr1Size;j++){\n            if(arr1[j]==x){\n                result[idx++]=x;\n            }\n        }\n    }\n\n    int start=idx;\n\n    for(int i=0;i<arr1Size;i++){\n        int found=0;\n        for(int j=0;j<arr2Size;j++){\n            if(arr1[i]==arr2[j]){\n                found=1;\n                break;\n            }\n        }\n        if(!found){\n            result[idx++]=arr1[i];\n        }\n    }\n\n    for(int i=start;i<arr1Size;i++){\n        for(int j=i+1;j<arr1Size;j++){\n            if(result[i]>result[j]){\n                int tmp=result[i];\n                result[i]=result[j];\n                result[j]=tmp;\n            }\n        }\n    }\n\n    *returnSize=arr1Size;\n    return result;\n}",
+          "timeComplexity": "O(n^2)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 95,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Maximum Gap",
+      "link": "https://leetcode.com/problems/maximum-gap/",
+      "difficulty": "Hard"
+    },
+    "topics": [
+      "Bucket Sort",
+      "Pigeonhole Principle",
+      "Linear Time Sorting"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Maximum Gap",
+          "link": "https://youtu.be/sK-ON4570TI?si=Nw57_KyMf-tDEtAB"
+        },
+        {
+          "type": "tutorial",
+          "title": "Maximum Gap ",
+          "explanation": "We use bucket logic to achieve linear time.\n\nIdea:\n1. Find min and max values.\n2. Minimum possible maximum gap is ceil((max-min)/(n-1)).\n3. Create buckets storing min and max of each bucket.\n4. The maximum gap will be between buckets, not inside a bucket.",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n#include &lt;limits.h&gt;\n\nint maximumGap(int* nums, int numsSize) {\n    if (numsSize < 2) return 0;\n\n    int minVal = INT_MAX, maxVal = INT_MIN;\n    for (int i = 0; i < numsSize; i++) {\n        if (nums[i] < minVal) minVal = nums[i];\n        if (nums[i] > maxVal) maxVal = nums[i];\n    }\n\n    int gap = (maxVal - minVal + numsSize - 2) / (numsSize - 1);\n    int bucketCount = numsSize - 1;\n\n    int* bucketMin = (int*)malloc(bucketCount * sizeof(int));\n    int* bucketMax = (int*)malloc(bucketCount * sizeof(int));\n\n    for (int i = 0; i < bucketCount; i++) {\n        bucketMin[i] = INT_MAX;\n        bucketMax[i] = INT_MIN;\n    }\n\n    for (int i = 0; i < numsSize; i++) {\n        if (nums[i] == minVal || nums[i] == maxVal) continue;\n        int idx = (nums[i] - minVal) / gap;\n        if (nums[i] < bucketMin[idx]) bucketMin[idx] = nums[i];\n        if (nums[i] > bucketMax[idx]) bucketMax[idx] = nums[i];\n    }\n\n    int maxGap = 0;\n    int prev = minVal;\n    for (int i = 0; i < bucketCount; i++) {\n        if (bucketMin[i] == INT_MAX) continue;\n        if (bucketMin[i] - prev > maxGap) maxGap = bucketMin[i] - prev;\n        prev = bucketMax[i];\n    }\n\n    if (maxVal - prev > maxGap) maxGap = maxVal - prev;\n\n    free(bucketMin);\n    free(bucketMax);\n\n    return maxGap;\n}",
+          "timeComplexity": "O(n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 96,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Reverse Pairs",
+      "link": "https://leetcode.com/problems/reverse-pairs/",
+      "difficulty": "Hard"
+    },
+    "topics": [
+      "Inversions",
+      "Merge Sort",
+      "Divide and Conquer"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Reverse Pairs",
+          "link": "https://youtu.be/0e4bZaP3MDI?si=jG7McxTZFOn4RDCA"
+        },
+        {
+          "type": "tutorial",
+          "title": "Reverse Pairs",
+          "explanation": "A reverse pair is when i < j and nums[i] > 2 * nums[j].\n\nWe adapt merge sort:\n1. Count reverse pairs before merging.\n2. Use two pointers: for each element in left half, find how many in right satisfy condition.\n3. Then perform normal merge.",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\nint countWhileMerge(int* nums, int left, int mid, int right) {\n    int count = 0;\n    int j = mid + 1;\n    for (int i = left; i <= mid; i++) {\n        while (j <= right && (long long)nums[i] > 2LL * nums[j]) j++;\n        count += (j - (mid + 1));\n    }\n    return count;\n}\n\nvoid merge(int* nums, int left, int mid, int right) {\n    int n = right - left + 1;\n    int* temp = (int*)malloc(n * sizeof(int));\n    int i = left, j = mid + 1, k = 0;\n\n    while (i <= mid && j <= right) {\n        if (nums[i] <= nums[j]) temp[k++] = nums[i++];\n        else temp[k++] = nums[j++];\n    }\n    while (i <= mid) temp[k++] = nums[i++];\n    while (j <= right) temp[k++] = nums[j++];\n\n    for (i = 0; i < n; i++) nums[left + i] = temp[i];\n    free(temp);\n}\n\nint mergeSort(int* nums, int left, int right) {\n    if (left >= right) return 0;\n    int mid = left + (right - left) / 2;\n\n    int count = mergeSort(nums, left, mid);\n    count += mergeSort(nums, mid + 1, right);\n    count += countWhileMerge(nums, left, mid, right);\n\n    merge(nums, left, mid, right);\n    return count;\n}",
+          "timeComplexity": "O(n log n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 97,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Meeting Rooms II",
+      "link": "https://www.geeksforgeeks.org/problems/attend-all-meetings-ii/1",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Intervals",
+      "Priority Queue",
+      "Greedy"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Meeting Rooms II",
+          "link": "https://www.youtube.com/watch?v=bgZmJiPfkYE"
+        },
+        {
+          "type": "tutorial",
+          "title": "Meeting Rooms II ",
+          "explanation": "This is the same problem as question1 but framed on LeetCode.\n\nAlternative approach without heap:\n1. Separate start[] and end[] arrays.\n2. Sort both arrays.\n3. Use two pointers to count overlaps.",
+          "code": "int minMeetingRooms(int** intervals, int intervalsSize) {\n    if (intervalsSize == 0) return 0;\n\n    int* start = (int*)malloc(intervalsSize * sizeof(int));\n    int* end = (int*)malloc(intervalsSize * sizeof(int));\n\n    for (int i = 0; i < intervalsSize; i++) {\n        start[i] = intervals[i][0];\n        end[i] = intervals[i][1];\n    }\n\n    qsort(start, intervalsSize, sizeof(int), (__compar_fn_t)strcmp);\n    qsort(end, intervalsSize, sizeof(int), (__compar_fn_t)strcmp);\n\n    int rooms = 0, endPtr = 0;\n    for (int i = 0; i < intervalsSize; i++) {\n        if (start[i] < end[endPtr]) rooms++;\n        else endPtr++;\n    }\n\n    free(start);\n    free(end);\n    return rooms;\n}",
+          "timeComplexity": "O(n log n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 98,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Merge Intervals",
+      "link": "https://leetcode.com/problems/merge-intervals/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Intervals",
+      "Sorting",
+      "Greedy"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Merge Intervals",
+          "link": "https://youtu.be/IexN60k62jo?si=70Vx2o3jZLgXx5rL"
+        },
+        {
+          "type": "tutorial",
+          "title": "Merge Intervals (Conceptual Same Problem)",
+          "explanation": "This is the same core logic as question1. Sorting ensures overlapping intervals come together, allowing greedy merging in one pass.",
+          "code": "int** merge(int** intervals, int intervalsSize, int* returnSize, int** returnColumnSizes);\n/* Use the same implementation as above since the problem is identical in logic */",
+          "timeComplexity": "O(n log n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 99,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Car Fleet",
+      "link": "https://leetcode.com/problems/car-fleet/",
+      "difficulty": "Medium"
+    },
+    "topics": [
+      "Greedy",
+      "Sorting",
+      "Monotonic Stack Pattern"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Car Fleet",
+          "link": "https://youtu.be/-KsJrT77MJk?si=pdbQ6U7-632oBw13"
+        },
+        {
+          "type": "tutorial",
+          "title": "Car Fleet ",
+          "explanation": "Same logic as question1. The key idea is that slower cars ahead can block faster cars behind, forming fleets based on arrival times.",
+          "code": "int carFleet(int target, int* position, int positionSize, int* speed, int speedSize); /* Same implementation as above */",
+          "timeComplexity": "O(n log n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  },
+  {
+    "day": 100,
+    "unit": "Unit VI: Sorting & Searching",
+    "question2": {
+      "name": "Count of Smaller Numbers After Self",
+      "link": "https://leetcode.com/problems/count-of-smaller-numbers-after-self/",
+      "difficulty": "Hard"
+    },
+    "topics": [
+      "Fenwick Tree",
+      "Merge Sort",
+      "Inversion Counting"
+    ],
+    "solutions": {
+      "question2": [
+        {
+          "type": "video",
+          "label": "Count Smaller Numbers After Self (Fenwick Tree)",
+          "link": "https://youtu.be/WpttRpfw28U?si=RJZvwn84zk_VLIfa"
+        },
+        {
+          "type": "tutorial",
+          "title": "Count Smaller Numbers After Self (Fenwick Tree)",
+          "explanation": "We process numbers from right to left.\nUse coordinate compression + Fenwick Tree to count how many numbers smaller than current have appeared so far.\n\nFenwick Tree supports prefix sum queries and updates in O(log n).",
+          "code": "#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n\nint* BIT;\nint size;\n\nvoid update(int i) {\n    while (i <= size) {\n        BIT[i] += 1;\n        i += (i & -i);\n    }\n}\n\nint query(int i) {\n    int sum = 0;\n    while (i > 0) {\n        sum += BIT[i];\n        i -= (i & -i);\n    }\n    return sum;\n}\n\nint compare(const void* a, const void* b) {\n    return (*(int*)a - *(int*)b);\n}\n\nint* countSmaller(int* nums, int numsSize, int* returnSize) {\n    int* sorted = (int*)malloc(numsSize * sizeof(int));\n    for (int i = 0; i < numsSize; i++) sorted[i] = nums[i];\n    qsort(sorted, numsSize, sizeof(int), compare);\n\n    BIT = (int*)calloc(numsSize + 1, sizeof(int));\n    size = numsSize;\n\n    int* result = (int*)malloc(numsSize * sizeof(int));\n\n    for (int i = numsSize - 1; i >= 0; i--) {\n        int rank = 1;\n        while (rank <= numsSize && sorted[rank - 1] != nums[i]) rank++;\n        result[i] = query(rank - 1);\n        update(rank);\n    }\n\n    *returnSize = numsSize;\n    return result;\n}",
+          "timeComplexity": "O(n log n)",
+          "spaceComplexity": "O(n)"
+        }
+      ]
+    }
+  }
+]
