@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="A focused 100-day coding challenge with one new problem every day." />
   <meta name="theme-color" content="#123c3a" />
-  <title>codeKaro — Grow through one focused challenge at a time</title>
+  <title>code4you — Grow through one focused challenge at a time</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,14 +14,17 @@
 <body>
   <div class="noise" aria-hidden="true"></div>
   <header class="nav shell">
-    <a class="brand" href="#top" aria-label="codeKaro home">
-      <span class="brand-mark">K</span><span data-platform-name>codeKaro</span>
+    <a class="brand" href="#top" aria-label="code4you home">
+      <span class="brand-mark">4</span><span data-platform-name>code4you</span>
     </a>
     <div class="nav-actions">
-      <button class="icon-button" id="themeToggle" aria-label="Toggle color theme">
+      <button class="menu-button" id="menuToggle" aria-label="Open resources, recordings, attendance and timetable" aria-controls="resourcesDialog" aria-expanded="false" title="Resources, recordings, attendance and timetable">
+        <span aria-hidden="true">•</span><span aria-hidden="true">•</span><span aria-hidden="true">•</span>
+      </button>
+      <span class="resource-hint" aria-hidden="true">Resources &amp; timetable</span>
+      <button class="icon-button" id="themeToggle" aria-label="Toggle color theme" title="Toggle color theme">
         <span class="sun">☼</span><span class="moon">☾</span>
       </button>
-      <a class="button button-small" href="#challenges">View challenges <span>↘</span></a>
     </div>
   </header>
 
@@ -29,9 +32,10 @@
     <section class="hero shell">
       <div class="eyebrow"><span class="pulse"></span> One calm step, every day</div>
       <h1>Grow through practice.<br><em>One day at a time.</em></h1>
-      <p class="hero-copy">codeKaro turns 100 coding challenges into a clear daily ritual. Focus on one idea, learn by doing, and let small wins compound.</p>
+      <p class="hero-copy">code4you turns 100 coding challenges into a clear daily ritual. Focus on one idea, learn by doing, and let small wins compound.</p>
       <div class="hero-actions">
         <button class="button button-primary" id="continueButton">Continue challenge <span>→</span></button>
+        <a class="button button-ghost" href="#challenges">View previous challenges <span>↘</span></a>
         <span class="next-unlock" id="nextUnlock">Your journey begins today</span>
       </div>
       <section class="track-switcher" aria-label="Choose your learning track">
@@ -40,10 +44,10 @@
           <strong id="trackHeading">Advanced track</strong>
         </div>
         <div class="track-options" role="group" aria-label="Learning tracks">
-          <button class="track-option" data-track="beginner" type="button">
+          <button class="track-option" data-track="beginner" type="button" aria-pressed="false">
             <span>Beginner</span><small>Build the basics</small>
           </button>
-          <button class="track-option active" data-track="advanced" type="button">
+          <button class="track-option active" data-track="advanced" type="button" aria-pressed="true">
             <span>Advanced</span><small>Level up your problem solving</small>
           </button>
         </div>
@@ -79,7 +83,7 @@
 
     <section class="manifesto">
       <div class="shell manifesto-grid">
-        <p class="section-index">01 — The codeKaro way</p>
+        <p class="section-index">01 — The code4you way</p>
         <div>
           <h2>Small steps.<br>Lasting growth.</h2>
           <div class="method-grid">
@@ -103,7 +107,7 @@
 
   <footer>
     <div class="shell footer-inner">
-      <div><a class="brand" href="#top"><span class="brand-mark">K</span><span data-platform-name>codeKaro</span></a><p>Focus. Practice. Grow.</p></div>
+      <div><a class="brand" href="#top"><span class="brand-mark">4</span><span data-platform-name>code4you</span></a><p>Focus. Practice. Grow.</p></div>
       <p>100 days · 100 challenges · a stronger you</p>
     </div>
   </footer>
@@ -124,6 +128,16 @@
         <div class="solution-content" id="solutionContent"></div>
       </div>
       <div class="dialog-nav"><button id="prevChallenge">← Previous</button><button id="nextChallenge">Next →</button></div>
+    </div>
+  </dialog>
+
+  <dialog id="resourcesDialog" class="resources-dialog" aria-labelledby="resourcesTitle">
+    <div class="resources-shell">
+      <button class="dialog-close" id="closeResources" aria-label="Close resources menu">×</button>
+      <p class="section-index">Quick access</p>
+      <h2 id="resourcesTitle">Resources</h2>
+      <p class="resources-intro">Keep your videos, PDFs, documentation, and study material in one focused place.</p>
+      <div class="resource-list" id="resourceList"></div>
     </div>
   </dialog>
 

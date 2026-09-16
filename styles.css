@@ -25,6 +25,10 @@ a { color: inherit; text-decoration: none; }
 .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.03em; }
 .brand-mark { width: 31px; height: 31px; display: grid; place-items: center; background: linear-gradient(135deg, var(--accent) 45%, var(--magenta) 46% 72%, var(--orange) 73%); color: #fff; border-radius: 9px 9px 9px 2px; font-family: "DM Mono"; font-size: 14px; }
 .nav-actions { display: flex; gap: 10px; align-items: center; }
+.menu-button { width: 34px; height: 42px; display: flex; align-items: center; justify-content: center; gap: 1px; padding: 0; border: 0; background: transparent; color: var(--ink); cursor: pointer; font: 22px/1 "DM Mono"; }
+.menu-button span { display: block; }
+.menu-button:hover { color: var(--accent); }
+.resource-hint { color: var(--muted); font: 11px "DM Mono"; letter-spacing: .04em; }
 .icon-button, .button { border: 1px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; }
 .icon-button { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; }
 .moon { display: none; }
@@ -152,6 +156,26 @@ dialog h2 { font-size: clamp(32px, 5vw, 52px); line-height: 1.05; letter-spacing
 .dialog-nav { display: flex; justify-content: space-between; margin-top: 24px; }
 .dialog-nav button { border: 0; background: none; color: var(--muted); cursor: pointer; padding: 0; }
 .dialog-nav button:disabled { opacity: .25; cursor: default; }
+.resources-dialog { width: min(620px, calc(100% - 24px)); }
+.resources-shell { position: relative; padding: clamp(28px, 6vw, 52px); }
+.resources-shell h2 { margin: 10px 0 10px; font-size: clamp(40px, 7vw, 66px); letter-spacing: -.06em; line-height: 1; }
+.resources-intro { max-width: 430px; color: var(--muted); line-height: 1.65; }
+.resource-list { display: grid; gap: 10px; margin-top: 30px; }
+.resource-subject { display: grid; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
+.resource-subject h3 { margin: 0; color: var(--ink); font-size: 18px; }
+.resource-category { display: grid; gap: 10px; }
+.resource-category h4 { margin: 4px 0 0; color: var(--accent); font: 12px "DM Mono"; letter-spacing: .08em; text-transform: uppercase; }
+.resource-set { display: grid; gap: 8px; }
+.resource-set h5 { margin: 0; color: var(--muted); font: 11px "DM Mono"; letter-spacing: .06em; text-transform: uppercase; }
+.resource-set-links { display: grid; gap: 8px; }
+.resource-item { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; padding: 15px; border: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 88%, var(--accent)); transition: transform .2s, border-color .2s; }
+.resource-item:hover { transform: translateX(4px); border-color: var(--accent); }
+.resource-type { min-width: 54px; padding: 5px 7px; background: var(--lime); color: var(--dark); font: 10px "DM Mono"; text-align: center; text-transform: uppercase; }
+.resource-copy { display: grid; gap: 3px; }
+.resource-copy strong { font-size: 14px; }
+.resource-copy small { color: var(--muted); font-size: 12px; }
+.resource-arrow { color: var(--accent); font-size: 20px; }
+.resource-empty { padding: 20px; border: 1px dashed var(--line); color: var(--muted); font-size: 14px; }
 .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 140%); background: var(--ink); color: var(--bg); padding: 12px 18px; z-index: 20; font-size: 13px; transition: transform .3s; }
 .toast.show { transform: translate(-50%, 0); }
 

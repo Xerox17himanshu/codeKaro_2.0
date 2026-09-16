@@ -9,7 +9,7 @@ const TRACKS = {
   beginner: { label: 'Beginner track', description: 'Build the basics', data: 'data/beginner-challenges.json', storage: 'code100.completed.beginner', started: 'code100.started.beginner' },
   advanced: { label: 'Advanced track', description: 'Level up your problem solving', data: 'data/challenges.json', storage: 'code100.completed.advanced', started: 'code100.started.advanced' }
 };
-const state = { track: 'advanced', challenges: [], completed: new Set(), unlocked: 1, activeDay: 1 };
+const state = { track: 'advanced', challenges: [], completed: new Set(), unlocked: 1, activeDay: 1, unlockTimer: null };
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 
@@ -35,15 +35,16 @@ function startDate() {
 }
 function calculateUnlocked() {
   const elapsed = Math.max(0, Date.now() - startDate().getTime());
-  return Math.min(100, Math.floor(elapsed / DAY_MS) + 1);
+  return Math.min(state.challenges.length, Math.floor(elapsed / DAY_MS) + 1);
 }
 function difficultyClass(value = '') { return value.toLowerCase().replace(/\s+/g, '-'); }
 
 async function init() {
   const theme = safeGet(STORAGE.theme) || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   document.body.classList.toggle('dark', theme === 'dark');
-  const name = window.CODE100_CONFIG?.platformName || 'codeKaro';
+  const name = window.CODE100_CONFIG?.platformName || 'code4you';
   $$('[data-platform-name]').forEach(el => { el.textContent = name; });
+  renderResources();
 
   bindEvents();
   await loadTrack('advanced');
@@ -53,6 +54,15 @@ function bindEvents() {
   $('#themeToggle').addEventListener('click', () => {
     document.body.classList.toggle('dark');
     safeSet(STORAGE.theme, document.body.classList.contains('dark') ? 'dark' : 'light');
+  });
+  $('#menuToggle').addEventListener('click', () => {
+    $('#resourcesDialog').showModal();
+    $('#menuToggle').setAttribute('aria-expanded', 'true');
+  });
+  $('#closeResources').addEventListener('click', closeResources);
+  $('#resourcesDialog').addEventListener('close', () => $('#menuToggle').setAttribute('aria-expanded', 'false'));
+  $('#resourcesDialog').addEventListener('click', event => {
+    if (event.target === $('#resourcesDialog')) closeResources();
   });
   $('#continueButton').addEventListener('click', () => openChallenge(firstIncompleteUnlocked()));
   $('#openToday').addEventListener('click', () => openChallenge(firstIncompleteUnlocked()));
@@ -70,6 +80,45 @@ function bindEvents() {
   });
 }
 
+function closeResources() {
+  $('#resourcesDialog').close();
+  $('#menuToggle').setAttribute('aria-expanded', 'false');
+}
+
+function renderResources() {
+  const resources = window.CODE100_CONFIG?.resources || [];
+  const available = resources.filter(resource => resource.url);
+  const subjects = available.reduce((result, resource) => {
+    const group = resource.group || 'General resources';
+    const [subject, set = 'General'] = group.split(' - ');
+    const category = group === 'Attendance & Timetable' ? 'Planning' : resource.type === 'Video' ? 'Recordings' : 'Notes';
+    (result[subject] ||= {});
+    (result[subject][category] ||= {});
+    (result[subject][category][set] ||= []).push(resource);
+    return result;
+  }, {});
+  $('#resourceList').innerHTML = available.length ? Object.entries(subjects).map(([subject, sets]) => `
+    <section class="resource-subject">
+      <h3>${escapeHTML(subject)}</h3>
+      ${Object.entries(sets).map(([category, setGroups]) => `
+        <div class="resource-category">
+          <h4>${escapeHTML(category)}</h4>
+          ${Object.entries(setGroups).map(([set, items]) => `
+            <div class="resource-set">
+              <h5>${escapeHTML(set)}</h5>
+              <div class="resource-set-links">
+                ${items.map(resource => `
+                  <a class="resource-item" href="${escapeHTML(resource.url)}" target="_blank" rel="noopener noreferrer">
+                    <span class="resource-type">${escapeHTML(resource.type || 'Resource')}</span>
+                    <span class="resource-copy"><strong>${escapeHTML(resource.title || 'Open resource')}</strong><small>${escapeHTML(resource.description || '')}</small></span>
+                    <span class="resource-arrow">↗</span>
+                  </a>`).join('')}
+              </div>
+            </div>`).join('')}
+        </div>`).join('')}
+    </section>`).join('') : '<p class="resource-empty">Resources will appear here when links are added in config.js.</p>';
+}
+
 async function loadTrack(trackName) {
   const track = TRACKS[trackName];
   if (!track || trackName === state.track && state.challenges.length) return;
@@ -82,9 +131,14 @@ async function loadTrack(trackName) {
   state.challenges = (await response.json()).sort((a, b) => a.day - b.day);
   const savedProgress = safeGet(track.storage, trackName === 'advanced' ? safeGet(STORAGE.completed, '[]') : '[]');
   state.completed = new Set(JSON.parse(savedProgress).map(Number));
-  state.unlocked = Math.min(state.challenges.length, calculateUnlocked());
+  state.unlocked = calculateUnlocked();
+  state.activeDay = firstIncompleteUnlocked();
   $('#trackHeading').textContent = track.label;
-  $$('.track-option').forEach(button => button.classList.toggle('active', button.dataset.track === trackName));
+  $$('.track-option').forEach(button => {
+    const active = button.dataset.track === trackName;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+  });
   render();
 }
 
@@ -110,7 +164,8 @@ function currentStreak() {
   return streak;
 }
 function renderStats() {
-  const count = [...state.completed].filter(day => day <= 100).length;
+  const total = state.challenges.length;
+  const count = [...state.completed].filter(day => day <= total).length;
   const level = Math.floor(count / 5) + 1;
   const levelStart = (level - 1) * 5;
   const levelProgress = ((count - levelStart) / 5) * 100;
@@ -119,19 +174,22 @@ function renderStats() {
   $('#streakStat').textContent = currentStreak();
   $('#unlockedStat').textContent = state.unlocked;
   $('#levelNumber').textContent = String(level).padStart(2, '0');
-  $('#levelTitle').textContent = level === 1 ? 'Rookie solver' : level < 5 ? 'Pattern hunter' : level < 10 ? 'Logic builder' : 'codeKaro legend';
+  $('#levelTitle').textContent = level === 1 ? 'Rookie solver' : level < 5 ? 'Pattern hunter' : level < 10 ? 'Logic builder' : 'code4you legend';
   $('#xpValue').textContent = `${count * 100} XP`;
-  $('#xpNext').textContent = count >= 100 ? 'Max level reached' : `${xpToNext} XP to Level ${level + 1}`;
-  $('#xpBar').style.width = `${count >= 100 ? 100 : levelProgress}%`;
+  $('#xpNext').textContent = count >= total ? 'Track complete' : `${xpToNext} XP to Level ${level + 1}`;
+  $('#xpBar').style.width = `${count >= total ? 100 : levelProgress}%`;
   $('#badgeFirst').classList.toggle('earned', count >= 1);
   $('#badgeStreak').classList.toggle('earned', currentStreak() >= 7);
   $('#badgeHalf').classList.toggle('earned', count >= 50);
-  $('#progressText').textContent = `${count}%`;
-  $('#progressBar').style.width = `${count}%`;
-  $('#journeySummary').textContent = `${state.unlocked} unlocked · ${count} completed · ${100 - count} still ahead.`;
+  const percent = total ? Math.round((count / total) * 100) : 0;
+  $('#progressText').textContent = `${percent}%`;
+  $('#progressBar').style.width = `${percent}%`;
+  $('#journeySummary').textContent = `${state.unlocked} unlocked · ${count} completed · ${total - count} still ahead.`;
 }
 function renderUnlockMessage() {
-  if (state.unlocked >= 100) { $('#nextUnlock').textContent = 'Every challenge is unlocked'; return; }
+  clearInterval(state.unlockTimer);
+  state.unlockTimer = null;
+  if (state.unlocked >= state.challenges.length) { $('#nextUnlock').textContent = 'Every challenge is unlocked'; return; }
   const next = new Date(startDate().getTime() + state.unlocked * DAY_MS);
   const update = () => {
     const ms = Math.max(0, next - Date.now());
@@ -139,7 +197,7 @@ function renderUnlockMessage() {
     const minutes = Math.floor((ms % 3_600_000) / 60_000);
     $('#nextUnlock').textContent = `Day ${state.unlocked + 1} unlocks in ${hours}h ${minutes}m`;
   };
-  update(); setInterval(update, 60_000);
+  update(); state.unlockTimer = setInterval(update, 60_000);
 }
 function renderGrid() {
   const visible = state.challenges.filter(item => item.day < state.unlocked);

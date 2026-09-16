@@ -1,4 +1,4 @@
-# codeKaro
+# code4you
 
 A zero-dependency, Vercel-ready 100-day coding challenge platform. It uses the supplied challenge dataset and unlocks one problem per day.
 
@@ -26,7 +26,7 @@ Edit `config.js`:
 ```js
 window.CODE100_CONFIG = {
   cohortStartDate: '2026-10-01',
-  platformName: 'codeKaro',
+  platformName: 'code4you',
   communityUrl: ''
 };
 ```
