@@ -240,7 +240,10 @@ function openChallenge(day) {
   if (!dialog.open) dialog.showModal();
 }
 function renderSolutions(solutions) {
-  if (!solutions.length) { $('#solutionContent').innerHTML = '<p class="solution-explanation">No solution resources are available for this challenge yet.</p>'; return; }
+  if (!solutions.length) {
+    $('#solutionContent').innerHTML = '<p class="solution-explanation">No solution resources are available for this challenge yet.</p>';
+    return;
+  }
   $('#solutionContent').innerHTML = solutions.map(solution => {
     if (solution.link) return `<div class="solution-resource"><span>${escapeHTML(solution.label || solution.type || 'Resource')}</span><a href="${escapeHTML(solution.link)}" target="_blank" rel="noopener noreferrer">Open ↗</a></div>`;
     const code = solution.code ? `<pre><code>${escapeHTML(decodeHTML(solution.code))}</code></pre>` : '';
