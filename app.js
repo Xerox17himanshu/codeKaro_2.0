@@ -74,6 +74,11 @@ function bindEvents() {
     closeMenu();
     window.open(attendance.url, '_blank', 'noopener,noreferrer');
   });
+  $('#helpNote').addEventListener('click', () => $('#helpDialog').showModal());
+  $('#closeHelp').addEventListener('click', () => $('#helpDialog').close());
+  $('#helpDialog').addEventListener('click', event => {
+    if (event.target === $('#helpDialog')) $('#helpDialog').close();
+  });
   $('#resourceSearch').addEventListener('input', event => {
     resourceState.query = event.target.value.trim().toLowerCase();
     renderResources();
