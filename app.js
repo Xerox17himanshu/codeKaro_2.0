@@ -10,6 +10,7 @@ const TRACKS = {
   advanced: { label: 'Advanced track', description: 'Level up your problem solving', data: 'data/challenges.json', storage: 'code100.completed.advanced', started: 'code100.started.advanced' }
 };
 const state = { track: 'advanced', challenges: [], completed: new Set(), unlocked: 1, activeDay: 1, unlockTimer: null };
+const resourceState = { query: '', subject: 'All subjects', type: 'All types' };
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 
@@ -56,13 +57,46 @@ function bindEvents() {
     safeSet(STORAGE.theme, document.body.classList.contains('dark') ? 'dark' : 'light');
   });
   $('#menuToggle').addEventListener('click', () => {
+    const menu = $('#menuPopover');
+    menu.hidden = !menu.hidden;
+    $('#menuToggle').setAttribute('aria-expanded', String(!menu.hidden));
+  });
+  $('#openResources').addEventListener('click', () => {
+    closeMenu();
     $('#resourcesDialog').showModal();
-    $('#menuToggle').setAttribute('aria-expanded', 'true');
+  });
+  $('#openAttendance').addEventListener('click', () => {
+    const attendance = (window.CODE100_CONFIG?.resources || []).find(resource => resource.group === 'Attendance & Timetable');
+    if (!attendance?.url) {
+      showToast('Attendance and timetable link is not available yet');
+      return;
+    }
+    closeMenu();
+    window.open(attendance.url, '_blank', 'noopener,noreferrer');
+  });
+  $('#resourceSearch').addEventListener('input', event => {
+    resourceState.query = event.target.value.trim().toLowerCase();
+    renderResources();
+  });
+  $('#resourceSubjects').addEventListener('click', event => {
+    const button = event.target.closest('[data-resource-subject]');
+    if (!button) return;
+    resourceState.subject = button.dataset.resourceSubject;
+    renderResources();
+  });
+  $('#resourceTypes').addEventListener('click', event => {
+    const button = event.target.closest('[data-resource-type]');
+    if (!button) return;
+    resourceState.type = button.dataset.resourceType;
+    renderResources();
   });
   $('#closeResources').addEventListener('click', closeResources);
-  $('#resourcesDialog').addEventListener('close', () => $('#menuToggle').setAttribute('aria-expanded', 'false'));
+  $('#resourcesDialog').addEventListener('close', closeResources);
   $('#resourcesDialog').addEventListener('click', event => {
     if (event.target === $('#resourcesDialog')) closeResources();
+  });
+  document.addEventListener('click', event => {
+    if (!$('#menuPopover').hidden && !event.target.closest('.nav-actions')) closeMenu();
   });
   $('#continueButton').addEventListener('click', () => openChallenge(state.unlocked));
   $('#openToday').addEventListener('click', () => openChallenge(firstIncompleteUnlocked()));
@@ -81,42 +115,58 @@ function bindEvents() {
 }
 
 function closeResources() {
-  $('#resourcesDialog').close();
+  if ($('#resourcesDialog').open) $('#resourcesDialog').close();
+}
+function closeMenu() {
+  $('#menuPopover').hidden = true;
   $('#menuToggle').setAttribute('aria-expanded', 'false');
 }
 
 function renderResources() {
   const resources = window.CODE100_CONFIG?.resources || [];
-  const available = resources.filter(resource => resource.url);
-  const subjects = available.reduce((result, resource) => {
-    const group = resource.group || 'General resources';
-    const [subject, set = 'General'] = group.split(' - ');
-    const category = group === 'Attendance & Timetable' ? 'Planning' : resource.type === 'Video' ? 'Recordings' : 'Notes';
+  const available = resources.filter(resource => resource.url && resource.group !== 'Attendance & Timetable');
+  const subjectFor = resource => {
+    const subject = (resource.group || 'General resources').split(' - ')[0];
+    return subject === 'Networks' ? 'Computer Networks' : subject;
+  };
+  const categoryFor = resource => {
+    if (resource.type === 'Video') return 'Videos';
+    if (resource.type === 'PDF') return 'Notes';
+    return 'Documentation';
+  };
+  const subjects = ['All subjects', ...new Set(available.map(subjectFor))];
+  const types = ['All types', ...new Set(available.map(resource => resource.type || 'Resource'))];
+  const matches = available.filter(resource => {
+    const haystack = `${resource.group} ${resource.title} ${resource.description}`.toLowerCase();
+    return (!resourceState.query || haystack.includes(resourceState.query))
+      && (resourceState.subject === 'All subjects' || subjectFor(resource) === resourceState.subject)
+      && (resourceState.type === 'All types' || (resource.type || 'Resource') === resourceState.type);
+  });
+  const grouped = matches.reduce((result, resource) => {
+    const subject = subjectFor(resource);
+    const category = categoryFor(resource);
     (result[subject] ||= {});
-    (result[subject][category] ||= {});
-    (result[subject][category][set] ||= []).push(resource);
+    (result[subject][category] ||= []).push(resource);
     return result;
   }, {});
-  $('#resourceList').innerHTML = available.length ? Object.entries(subjects).map(([subject, sets]) => `
+  $('#resourceSubjects').innerHTML = subjects.map(subject => `<button class="resource-filter ${resourceState.subject === subject ? 'active' : ''}" data-resource-subject="${escapeHTML(subject)}" type="button">${escapeHTML(subject)}</button>`).join('');
+  $('#resourceTypes').innerHTML = types.map(type => `<button class="resource-filter ${resourceState.type === type ? 'active' : ''}" data-resource-type="${escapeHTML(type)}" type="button">${escapeHTML(type)}</button>`).join('');
+  $('#resourceList').innerHTML = matches.length ? Object.entries(grouped).map(([subject, categories]) => `
     <section class="resource-subject">
       <h3>${escapeHTML(subject)}</h3>
-      ${Object.entries(sets).map(([category, setGroups]) => `
+      ${Object.entries(categories).map(([category, items]) => `
         <div class="resource-category">
           <h4>${escapeHTML(category)}</h4>
-          ${Object.entries(setGroups).map(([set, items]) => `
-            <div class="resource-set">
-              <h5>${escapeHTML(set)}</h5>
-              <div class="resource-set-links">
-                ${items.map(resource => `
-                  <a class="resource-item" href="${escapeHTML(resource.url)}" target="_blank" rel="noopener noreferrer">
-                    <span class="resource-type">${escapeHTML(resource.type || 'Resource')}</span>
-                    <span class="resource-copy"><strong>${escapeHTML(resource.title || 'Open resource')}</strong><small>${escapeHTML(resource.description || '')}</small></span>
-                    <span class="resource-arrow">↗</span>
-                  </a>`).join('')}
-              </div>
-            </div>`).join('')}
+          <div class="resource-set-links">
+            ${items.map(resource => `
+              <a class="resource-item" href="${escapeHTML(resource.url)}" target="_blank" rel="noopener noreferrer">
+                <span class="resource-type resource-type-${escapeHTML((resource.type || 'resource').toLowerCase())}">${escapeHTML(resource.type || 'Resource')}</span>
+                <span class="resource-copy"><strong>${escapeHTML(resource.title || 'Open resource')}</strong><small>${escapeHTML(resource.description || '')}</small></span>
+                <span class="resource-arrow">↗</span>
+              </a>`).join('')}
+          </div>
         </div>`).join('')}
-    </section>`).join('') : '<p class="resource-empty">Resources will appear here when links are added in config.js.</p>';
+    </section>`).join('') : '<p class="resource-empty">No resources match your filters.</p>';
 }
 
 async function loadTrack(trackName) {
